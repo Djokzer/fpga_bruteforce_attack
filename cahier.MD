@@ -16,7 +16,7 @@ Bcrypt :
 
 Blowfish :
 - https://en.wikipedia.org/wiki/Blowfish_(cipher)
-- ??
+- https://www.geeksforgeeks.org/blowfish-algorithm-with-examples/
 
 ### Other
 
