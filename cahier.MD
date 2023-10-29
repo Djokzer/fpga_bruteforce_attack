@@ -118,7 +118,7 @@ Function ExpandKey
 
 ## Blowfish algorithm
 
-```C
+```c
 uint32_t P[18];
 uint32_t S[4][256];
 
