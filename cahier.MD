@@ -23,6 +23,11 @@ Blowfish :
 VHDL code :
 - https://github.com/rub-hgi/high-speed_bcrypt
 
+## Existing VHDL Code simulation
+
+### Install GHDL
+https://sourceforge.net/projects/ghdl-updates/files/Builds/ghdl-0.33/
+
 ## Bcrypt algorithm
 
 Pseudo-code example :
