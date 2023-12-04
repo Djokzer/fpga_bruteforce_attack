@@ -50,7 +50,7 @@ architecture Behavioral of bcrypt_tb is
     x"082EFA98_EC4E6C89_452821E6_38D01377_BE5466CF_34E90C6C" &
     x"C0AC29B7_C97C50DD_3F84D5B5_B5470917_9216D5D9_8979FB1B";
     constant SALT : std_logic_vector(SALT_LENGTH - 1 downto 0) := 
-    x"7e949a0_7e88186c6_49bbeb0a_9740c5e0";
+    x"7e949a07e88186c649bbeb0a9740c5e0";
     constant PASSWORD : std_logic_vector(575 downto 0) := 
     x"6200620062006200620062006200620062006200620062006200" &
     x"6200620062006200620062006200620062006200620062006200" &
@@ -276,35 +276,34 @@ begin
         wait until mem_init = '0';
         pipeline_full <= '1';
         
-        wait until sbox_addr_cnt_dout > "011111111";
+        --wait until sbox_addr_cnt_dout > "011111111";
+        wait until sbox_addr_cnt_dout > "100000000";
         start_expand_key <= '1';
-        wait for 2*CLK_PERIOD;
         -- --------------------------------------------------------------------- --
         -- Test:    check hash output
         -- --------------------------------------------------------------------- --
         wait until dout_valid = '1';
         debug <= '1';
+        wait for CLK_PERIOD;
         report "finished hashing, check output" severity note;
         report "First chunk: " & to_hstring(dout);
         report "First real : " & to_hstring(HASH(191 downto 128));
         assert dout = HASH(191 downto 128) report "Hash incorrect" severity note;
-        wait for 2*CLK_PERIOD;
         debug <= '0';
         wait until dout_valid = '1';
         debug <= '1';
+        wait for CLK_PERIOD;
         report "Second chunk: " & to_hstring(dout);
         report "Second real : " & to_hstring(HASH(127 downto 64));
         assert dout = HASH(127 downto 64) report "Hash incorrect" severity note;
-        wait for 2*CLK_PERIOD;
         debug <= '0';
         wait until dout_valid = '1';
         debug <= '1';
+        wait for CLK_PERIOD;
         report "Third chunk: " & to_hstring(dout);
         report "Third real : " & to_hstring(HASH(63 downto 0));
         assert dout = HASH(63 downto 0) report "Hash incorrect" severity note;
-        wait for 2*CLK_PERIOD;
         debug <= '0';
-        wait until state = 17;
         finish;
     end process stim_proc;
 

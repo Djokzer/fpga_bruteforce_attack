@@ -170,6 +170,7 @@ architecture Behavioral of bcrypt is
 	signal bf_dout_d        : std_logic_vector(63 downto 0);
 	signal bf_dout_dd       : std_logic_vector(63 downto 0);
 
+    signal s_dout_valid     : std_logic;
 begin
     -- ------------------------------------------------------------------------
     -- Instantiation    working registers/memories
@@ -431,6 +432,9 @@ begin
                 current_state <= RESET;
             else
                 current_state <= next_state;
+                -- output generation
+                dout_valid <= s_dout_valid;
+	            dout <= bf_dout;
             end if; -- rst
         end if; -- clk
     end process fsm_state;
@@ -507,7 +511,7 @@ begin
 		memory_init <= '0';
 
 		-- output flag
-		dout_valid <= '0';
+		s_dout_valid <= '0';
 
 		-- state
 		next_state <= current_state;
@@ -877,7 +881,7 @@ begin
 					if loopendcnt(6) = '1' then
 --					if unsigned(loopcnt) = 63 then
 						-- mark output as valid block
-						dout_valid <= '1';
+						s_dout_valid <= '1';
 
 						-- continue with blowfish encryption
 						loopcnt_rst <= '1';
@@ -930,7 +934,7 @@ begin
 					if loopendcnt(6) = '1' then
 --					if unsigned(loopcnt) = 63 then
 						-- mark output as valid block
-						dout_valid <= '1';
+						s_dout_valid <= '1';
 
 						-- continue with blowfish encryption
 						loopcnt_rst <= '1';
@@ -984,7 +988,7 @@ begin
 					if loopendcnt(6) = '1' then
 --					if unsigned(loopcnt) = 63 then
 						-- mark output as valid block
-						dout_valid <= '1';
+						s_dout_valid <= '1';
 
 						next_state <= FINISH;
 					else
@@ -1001,6 +1005,6 @@ begin
 	end process;
 
 	-- output generation
-	dout <= bf_dout;
+	--dout <= bf_dout;
 
 end architecture Behavioral;
