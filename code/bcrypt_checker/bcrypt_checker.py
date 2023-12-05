@@ -37,9 +37,9 @@ hashed_pwd = bcrypt_base64_to_base64(hashed[-31:])
 hashed_pwd = hashed_pwd + b'='
 h = b64decode(hashed_pwd).hex()
 
-val_hex = "d14485763c99f8b88725385c91ce57d5937dbec181c0a2c5"
-val = b64encode(bytes.fromhex(val_hex[:-2]))
-val = base64_to_bcrypt_base64(val)
+#val_hex = "d14485763c99f8b88725385c91ce57d5937dbec181c0a2c5"
+#val = b64encode(bytes.fromhex(val_hex[:-2]))
+#val = base64_to_bcrypt_base64(val)
 
 print(f"Salt: {salt}")
 print(f"Hashed password: {hashed[-31:]}")

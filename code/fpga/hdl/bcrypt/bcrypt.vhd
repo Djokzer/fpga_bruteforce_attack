@@ -54,8 +54,7 @@ entity bcrypt is
         -- valid output data
         dout_valid      : out std_logic;
         -- output data
-        dout            : out std_logic_vector (63 downto 0);
-        debug           : out integer
+        dout            : out std_logic_vector (63 downto 0)
     );
 end bcrypt;
 
@@ -520,7 +519,6 @@ begin
 		case current_state is
 
 			when RESET =>
-                debug <= 0;
 				-- reset blowfish
 --				bf_sr <= '1';
 
@@ -538,7 +536,6 @@ begin
 				next_state <= WAIT_FOR_PIPELINE;
 
 			when WAIT_FOR_PIPELINE =>
-                debug <= 1;
 				-- reset blowfish
 --				bf_sr <= '1';
 
@@ -548,7 +545,6 @@ begin
 				end if;
 
 			when INIT_MEMORY =>
-			    debug <= 2;
 				-- reset blowfish
 --				bf_sr <= '1';
 				-- initialize sbox with init value
@@ -591,7 +587,6 @@ begin
 
 			-- wait until start_expand_key is set
 			when WAIT_FOR_MEM_ACCESS =>
-			    debug <= 3;
 				-- reset blowfish
 --				bf_sr <= '1';
 
@@ -607,7 +602,6 @@ begin
 
 			-- add the key to the subkeys
 			when EKEY_KEY_XOR =>
-                debug <= 4;
 				-- reset blowfish
 --				bf_sr <= '1';
 
@@ -641,7 +635,6 @@ begin
 
 			-- new version of ekey prepare
 			when EKEY_ENC_P_PREPARE =>
-			    debug <= 5;
 				-- encrypt either salt or nothing (?)
 				if firstExpand_flag = '1' then
 					if unsigned(loopcnt(3 downto 0)) = 0 then
@@ -682,7 +675,6 @@ begin
 
 			-- encrypt subkeys
 			when EKEY_ENC_P =>
-			    debug <= 6;
 				-- reset active sbox signal for next step
 				active_sbox_sr <= '1';
 
@@ -696,7 +688,6 @@ begin
 				end if;
 
 			when EKEY_ENC_UPDATE_SUBKEY =>
-                debug <= 7;
 				subkey_dinA <= bf_dout_d(63 downto 32);
 				subkey_dinB <= bf_dout_d(31 downto  0);
 
@@ -720,7 +711,6 @@ begin
 
 			-- prepare encryption of sbox
 			when EKEY_ENC_SBOX_PREPARE_START =>
-                debug <= 8;
 				-- toggle salt dword low flag
 				useSaltDwordLow_flag_ce <= '1';
 
@@ -751,7 +741,6 @@ begin
 
 			-- prepare encryption of sbox
 			when EKEY_ENC_SBOX_PREPARE_CONTINUE =>
-                debug <= 9;
 				-- edge detection on 8th bit of loopcount to switch sboxes
 				if (loopcnt(7) = '1' and loopcnt_d(7) = '0') or (loopcnt(7) = '0' and loopcnt_d(7) = '1') then
 					active_sbox_ce <= '1';
@@ -824,7 +813,6 @@ begin
 
 			-- encrypt sbox
 			when EKEY_ENC_SBOX =>
-			    debug <= 10;
 				-- use blowfish for sbox/subkey reset
 				sbox_rst <= bf_sbox_rst;
 				subkey_rstA <= bf_subkey_rstA;
@@ -839,7 +827,6 @@ begin
 				end if;
 
 			when PREPARE_ENC_MAGIC_HIGH =>
-			    debug <= 11;
 				-- TODO: delay loopendcnt_rst and check if signal is 1
 				if unsigned(loopendcnt) = 1 then
 					bf_din <= MAGIC_VALUE(191 downto 128);
@@ -866,7 +853,6 @@ begin
 
 			-- encrypt 64x magic word (high)
 			when ENC_MAGIC_HIGH =>
-			    debug <= 12;
 				-- use blowfish for sbox/subkey reset
 				sbox_rst <= bf_sbox_rst;
 				subkey_rstA <= bf_subkey_rstA;
@@ -892,7 +878,6 @@ begin
 					end if;
 				end if;
 			when PREPARE_ENC_MAGIC_MIDDLE =>
-			    debug <= 13;
 				-- TODO: delay loopendcnt_rst and check if signal is 1
 				if unsigned(loopendcnt) = 1 then
 					bf_din <= MAGIC_VALUE(127 downto 64);
@@ -919,7 +904,6 @@ begin
 
 			-- encrypt 64x magic word (middle)
 			when ENC_MAGIC_MIDDLE =>
-			    debug <= 14;
 				-- use blowfish for sbox/subkey reset
 				sbox_rst <= bf_sbox_rst;
 				subkey_rstA <= bf_subkey_rstA;
@@ -946,7 +930,6 @@ begin
 				end if;
 
 			when PREPARE_ENC_MAGIC_LOW =>
-				debug <= 15;
 				-- TODO: delay loopendcnt_rst and check if signal is 1
 				if unsigned(loopendcnt) = 1 then
 					bf_din <= MAGIC_VALUE(63 downto 0);
@@ -973,7 +956,6 @@ begin
 
 			-- encrypt 64x magic word (low)
 			when ENC_MAGIC_LOW =>
-			    debug <= 16;
 				-- use blowfish for sbox/subkey reset
 				sbox_rst <= bf_sbox_rst;
 				subkey_rstA <= bf_subkey_rstA;
@@ -998,7 +980,6 @@ begin
 
 			-- wait for reset from outside
 			when FINISH =>
-			    debug <= 17;
 				null;
 
 		end case;

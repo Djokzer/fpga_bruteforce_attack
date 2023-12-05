@@ -1,26 +1,17 @@
 -------------------------------------------------------------------------------
 -- Title      : bcrypt - Testbench
--- Project    : bcrypt bruteforce
+-- Project    : bcrypt Bruteforce
 -- ----------------------------------------------------------------------------
 -- File       : bcrypt_tb.vhd
--- Author     : Ralf Zimmermann  <ralf.zimmermann@rub.de>
---              Friedrich Wiemer <friedrich.wiemer@rub.de>
--- Company    : Ruhr-University Bochum
--- Created    : 2013-12-02
--- Last update: 2014-03-24
--- Platform   : Xilinx Toolchain
--- Standard   : VHDL'93/02
+-- Author     : Abivarman Kandiah
+-- Company    : 
+-- Created    : 28-11-2023
+-- Last update: 05-12-2023
+-- Platform   : Vivado 2023
+-- Standard   : VHDL 2008
 -- ----------------------------------------------------------------------------
--- Description: This module provides a testbench for the bcytp key derivation
---              module with a simulater, i.e., ISIM or ModelSim.
+-- Description: This module provides a testbench for the bcytp core.
 -- ----------------------------------------------------------------------------
--- Copyright (c) 2012-2014 Ruhr-University Bochum
--- ----------------------------------------------------------------------------
--- Revisions  :
--- Date        Version  Author  Description
--- 2013-12-02  1.0      rzi     Created
--- 2014-03-24  1.01     fwi     updated uut instantiation
--------------------------------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -55,8 +46,9 @@ architecture Behavioral of bcrypt_tb is
     x"6200620062006200620062006200620062006200620062006200" &
     x"6200620062006200620062006200620062006200620062006200" &
     x"6200620062006200620062006200620062006200";
-    constant HASH : std_logic_vector(HASH_LENGTH-1 downto 0) :=
-    x"5a82fa3c94cbf8d9fea26eb50f56c53b596191203ef2c94e";
+    constant HASH : std_logic_vector(HASH_IN_LENGTH-1 downto 0) :=
+    x"37d085c7d8b559b151ce4e6f9ce2e7b0a1678b26a2517d";
+    
     -- --------------------------------------------------------------------- --
     --                               Signals
     -- --------------------------------------------------------------------- --
@@ -75,10 +67,10 @@ architecture Behavioral of bcrypt_tb is
     signal dummy            : std_logic_vector (31 downto 0);
     signal key_done         : std_logic;
     signal debug            : std_logic;
-    signal state            : integer;
     -- subkey
     signal skinit_sr        : std_logic;
     signal skinit_ce        : std_logic;
+    signal pwd_addr         : std_logic_vector (4 downto 0);
     
     -- sbox init out signals
     signal sbox0_init_dout : std_logic_vector(31 downto 0);
@@ -91,6 +83,10 @@ architecture Behavioral of bcrypt_tb is
     signal sbox2_init_addr : std_logic_vector (8 downto 0);
     signal sbox3_init_addr : std_logic_vector (8 downto 0);
     signal sbox_addr_cnt_dout   : std_logic_vector ( 8 downto 0);
+    signal sbox_addr_cnt_pipe_dout : std_logic_vector ( 8 downto 0);
+    
+    signal enable_count : std_logic;
+    signal enable_shift : std_logic;
 begin
     
     -- --------------------------------------------------------------------- --
@@ -106,7 +102,7 @@ begin
       memory_init      => mem_init,
       pipeline_full    => pipeline_full,
       -- sbox init access
-      sbox_init_addr  => sbox_addr_cnt_dout,
+      sbox_init_addr  => sbox_addr_cnt_pipe_dout,
       sbox0_init_dout => sbox0_init_dout,
       sbox1_init_dout => sbox1_init_dout,
       sbox2_init_dout => sbox2_init_dout,
@@ -119,8 +115,7 @@ begin
       -- valid output data
       dout_valid => dout_valid,
       -- output data
-      dout => dout,
-      debug => state
+      dout => dout
     );
     
     -- --------------------------------------------------------------------- --
@@ -188,30 +183,32 @@ begin
     sbox2_init_addr <= '0' & sbox_addr_cnt_dout(7 downto 0);
     sbox3_init_addr <= '1' & sbox_addr_cnt_dout(7 downto 0);
     
---    pwd_mem : entity work.bram
---        generic map (
---            DATA_WIDTH       => 32,
---            ADDRESS_WIDTH    => 5,
---            RW_MODE          => "RW",
---            INIT_MEMORY      => true,
---            INIT_VECTOR      => PASSWORD
---        )
---        port map (
---            clkA  => clk,
---            weA   => '0',
---            rstA  => '0',
---            addrA => key_addr,
---            dinA  => (others => '0'),
---            doutA => key_dout,
---            clkB  => clk,
---            weB   => '0',
---            rstB  => '1',
---            addrB => key_addr,
---            dinB  => (others => '0'),
---            doutB => dummy
---        );
-    key_dout <= x"62006200";
-    
+    pwd_mem : entity work.bram
+        generic map (
+            DATA_WIDTH       => 32,
+            ADDRESS_WIDTH    => 5,
+            RW_MODE          => "RW",
+            INIT_MEMORY      => true,
+            INIT_VECTOR      => PASSWORD,
+            INIT_REVERSED    => false
+        )
+        port map (
+            clkA  => clk,
+            weA   => '0',
+            rstA  => '0',
+            addrA => pwd_addr,
+            dinA  => (others => '0'),
+            doutA => key_dout,
+            clkB  => clk,
+            weB   => '0',
+            rstB  => '1',
+            addrB => pwd_addr,
+            dinB  => (others => '0'),
+            doutB => dummy
+        );
+    -- BRAM PWD IS STORED FROM THE MIDDLE TO THE LAST ADDRESS (31 Last address - 17 Last address(from 0) = 14 offset)
+    pwd_addr <= std_logic_vector(unsigned(key_addr) + 14);
+
     -- subkey initialization shiftreg
     subkey_init_reg : entity work.nxmBitShiftReg
         generic map (
@@ -230,7 +227,7 @@ begin
             dout_f => open
         );
     skinit_sr <= mem_init;
-    skinit_ce <= '1';
+    skinit_ce <= enable_shift;
 	
 	-- --------------------------------------------------------------------- --
     -- Instantiation    SBox Address Counter
@@ -242,12 +239,29 @@ begin
         )
         port map (
             clk         => clk,
-            ce          => '1',
+            ce          => enable_count,
             sr          => mem_init,
             srinit      => const_slv(0, 9),
             count_up    => '1',
             dout        => sbox_addr_cnt_dout
         );
+    
+    sbox_add_cnt_pipeline : entity work.nxmBitShiftReg
+        generic map (
+            ASYNC => false,
+            N     => 1,
+            M     => 9
+        )
+        port map (
+            clk    => clk,
+            sr     => mem_init,
+            srinit => const_slv(0, 9),
+            ce     => enable_count,
+            opmode => "01", -- [Rot?, Left?] -- [shift,right]
+            din    => sbox_addr_cnt_dout,
+            dout   => sbox_addr_cnt_pipe_dout,
+            dout_f => open
+        );  
 	
     -- --------------------------------------------------------------------- --
     -- Testbench Processes
@@ -268,13 +282,19 @@ begin
         report "reset core" severity note;
         rst <= '1';
         pipeline_full <= '0';
+        enable_count <= '0';
         start_expand_key <= '0';
         debug <= '0';
+        enable_shift <= '0';
         wait for 10 * CLK_PERIOD;
         report "begin tests" severity note;
         rst <= '0';
         wait until mem_init = '0';
+        wait for 1000 * CLK_PERIOD;
         pipeline_full <= '1';
+        wait for CLK_PERIOD;
+        enable_shift <= '1';
+        enable_count <= '1';
         
         --wait until sbox_addr_cnt_dout > "011111111";
         wait until sbox_addr_cnt_dout > "100000000";
@@ -287,23 +307,25 @@ begin
         wait for CLK_PERIOD;
         report "finished hashing, check output" severity note;
         report "First chunk: " & to_hstring(dout);
-        report "First real : " & to_hstring(HASH(191 downto 128));
-        assert dout = HASH(191 downto 128) report "Hash incorrect" severity note;
+        report "First real : " & to_hstring(HASH(HASH_IN_LENGTH-1 downto 120));
+        assert dout = HASH(HASH_IN_LENGTH-1 downto 120) report "Hash incorrect" severity failure;
         debug <= '0';
         wait until dout_valid = '1';
         debug <= '1';
         wait for CLK_PERIOD;
         report "Second chunk: " & to_hstring(dout);
-        report "Second real : " & to_hstring(HASH(127 downto 64));
-        assert dout = HASH(127 downto 64) report "Hash incorrect" severity note;
+        report "Second real : " & to_hstring(HASH(119 downto 56));
+        assert dout = HASH(119 downto 56) report "Hash incorrect" severity failure;
         debug <= '0';
         wait until dout_valid = '1';
         debug <= '1';
         wait for CLK_PERIOD;
         report "Third chunk: " & to_hstring(dout);
-        report "Third real : " & to_hstring(HASH(63 downto 0));
-        assert dout = HASH(63 downto 0) report "Hash incorrect" severity note;
+        report "Third real : " & to_hstring(HASH(55 downto 0));
+        assert dout(63 downto 8) = HASH(55 downto 0) report "Hash incorrect" severity failure;
         debug <= '0';
+        
+        report "---- TEST PASSED ----" severity note;
         finish;
     end process stim_proc;
 
