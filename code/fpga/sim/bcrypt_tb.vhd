@@ -87,6 +87,8 @@ architecture Behavioral of bcrypt_tb is
     
     signal enable_count : std_logic;
     signal enable_shift : std_logic;
+    
+    signal clock_count : integer := 0;
 begin
     
     -- --------------------------------------------------------------------- --
@@ -274,6 +276,9 @@ begin
         wait for 0.5 * CLK_PERIOD;
         clk <= '0';
         wait for 0.5 * CLK_PERIOD;
+        if rst = '0' then
+            clock_count <= clock_count + 1;
+        end if;
     end process clk_proc;
     
     -- stimulus
@@ -287,10 +292,10 @@ begin
         debug <= '0';
         enable_shift <= '0';
         wait for 10 * CLK_PERIOD;
+        
         report "begin tests" severity note;
         rst <= '0';
         wait until mem_init = '0';
-        wait for 1000 * CLK_PERIOD;
         pipeline_full <= '1';
         wait for CLK_PERIOD;
         enable_shift <= '1';
