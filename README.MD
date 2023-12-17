@@ -23,7 +23,9 @@ Blowfish :
 VHDL code :
 - https://github.com/rub-hgi/high-speed_bcrypt
 
-## Single Bcrypt Core General Measurement
+## Bcrypt Core
+
+![Alt text](assets/img/bcrypt_core.png)
 
 Single core clock cycle for a cost of 4 : 331529 
 
@@ -37,7 +39,7 @@ Frequency = 100 MHz
 
 Hashrate = 301.6 hash/s
 
-## Single Bcrypt Core on a Zedboard
+## Bcrypt Core on a Zedboard
 
 LUT used : 879 / 53'200 = 1.65%
 
@@ -45,7 +47,7 @@ Flip-Flop used : 311 / 106'400 = 0.29%
 
 Bram used : 3 / 140 = 2.14%
 
-## Single Bcrypt Core on a Nexys Video
+## Bcrypt Core on a Nexys Video
 
 LUT used : 879 / 134'600 = 0.65%
 
