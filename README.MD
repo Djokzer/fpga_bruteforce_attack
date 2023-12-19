@@ -27,6 +27,8 @@ VHDL code :
 
 ![Alt text](assets/img/bcrypt_core.png)
 
+![Alt text](assets/img/bcrypt_fsm.svg)
+
 Single core clock cycle for a cost of 4 : 331529 
 
 For 1 Sbox memory needed : 8192 bits = 8kb
