@@ -46,7 +46,7 @@ architecture Behavioral of bcrypt_tb is
     x"6200620062006200620062006200620062006200620062006200" &
     x"6200620062006200620062006200620062006200620062006200" &
     x"6200620062006200620062006200620062006200";
-    constant HASH : std_logic_vector(HASH_IN_LENGTH-1 downto 0) :=
+    constant HASH : std_logic_vector(HASH_LENGTH-1 downto 0) :=
     x"37d085c7d8b559b151ce4e6f9ce2e7b0a1678b26a2517d";
     
     -- --------------------------------------------------------------------- --
@@ -89,6 +89,10 @@ architecture Behavioral of bcrypt_tb is
     signal enable_shift : std_logic;
     
     signal clock_count : integer := 0;
+    
+    -- delayed output signals
+    signal dout_valid_d : std_logic;
+    signal dout_d : std_logic_vector (63 downto 0);
 begin
     
     -- --------------------------------------------------------------------- --
@@ -281,8 +285,17 @@ begin
         end if;
     end process clk_proc;
     
-    -- stimulus
-    stim_proc : process
+    --delay output
+    delay_output : process(clk)
+    begin
+        if rising_edge(clk) then
+            dout_valid_d <= dout_valid;
+            dout_d <= dout;
+        end if;
+    end process delay_output;
+    
+    -- stimulus & check
+    stim_check_proc : process
     begin
         report "reset core" severity note;
         rst <= '1';
@@ -307,31 +320,31 @@ begin
         -- --------------------------------------------------------------------- --
         -- Test:    check hash output
         -- --------------------------------------------------------------------- --
-        wait until dout_valid = '1';
+        wait until dout_valid_d = '1';
         debug <= '1';
         wait for CLK_PERIOD;
         report "finished hashing, check output" severity note;
-        report "First chunk: " & to_hstring(dout);
-        report "First real : " & to_hstring(HASH(HASH_IN_LENGTH-1 downto 120));
-        assert dout = HASH(HASH_IN_LENGTH-1 downto 120) report "Hash incorrect" severity failure;
+        report "First chunk: " & to_hstring(dout_d);
+        report "First real : " & to_hstring(HASH(HASH_LENGTH-1 downto 120));
+        assert dout_d = HASH(HASH_LENGTH-1 downto 120) report "Hash incorrect" severity failure;
         debug <= '0';
-        wait until dout_valid = '1';
+        wait until dout_valid_d = '1';
         debug <= '1';
         wait for CLK_PERIOD;
-        report "Second chunk: " & to_hstring(dout);
+        report "Second chunk: " & to_hstring(dout_d);
         report "Second real : " & to_hstring(HASH(119 downto 56));
-        assert dout = HASH(119 downto 56) report "Hash incorrect" severity failure;
+        assert dout_d = HASH(119 downto 56) report "Hash incorrect" severity failure;
         debug <= '0';
-        wait until dout_valid = '1';
+        wait until dout_valid_d = '1';
         debug <= '1';
         wait for CLK_PERIOD;
-        report "Third chunk: " & to_hstring(dout);
+        report "Third chunk: " & to_hstring(dout_d);
         report "Third real : " & to_hstring(HASH(55 downto 0));
-        assert dout(63 downto 8) = HASH(55 downto 0) report "Hash incorrect" severity failure;
+        assert dout_d(63 downto 8) = HASH(55 downto 0) report "Hash incorrect" severity failure;
         debug <= '0';
         
         report "---- TEST PASSED ----" severity note;
         finish;
-    end process stim_proc;
+    end process stim_check_proc;
 
 end Behavioral;

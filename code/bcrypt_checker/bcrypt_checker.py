@@ -26,6 +26,7 @@ def bcrypt_base64_to_base64(input_bytes):
 header = '$2a$04$'  # Cost factor 4
 passwd = "620062006200620062006200620062006200620062006200620062006200620062006200620062006200620062006200620062006200620062006200620062006200620062006200"
 passwd = bytes.fromhex(passwd)
+passwd = b'c'
 salt = "7e949a07e88186c649bbeb0a9740c5e0"
 salt = b64encode(bytes.fromhex(salt)).decode()[:22]
 salt = salt.encode('utf-8')
@@ -33,6 +34,7 @@ salt = base64_to_bcrypt_base64(salt)
 salt = header + salt.decode()
 salt = salt.encode('utf-8')
 hashed = bcrypt.hashpw(passwd, salt)
+print(hashed)
 hashed_pwd = bcrypt_base64_to_base64(hashed[-31:])
 hashed_pwd = hashed_pwd + b'='
 h = b64decode(hashed_pwd).hex()

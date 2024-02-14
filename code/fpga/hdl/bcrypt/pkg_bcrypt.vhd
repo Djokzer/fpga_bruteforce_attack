@@ -35,19 +35,20 @@ package pkg_bcrypt is
     -- Constants
     -- --------------------------------------------------------------------- --
     constant INIT_PIPELINE  : positive := 2;   -- needs to be bigger than 1
-    constant CORE_INSTANCES : positive := 10;
-    constant COST : integer := 0;
+    constant CORE_INSTANCES : positive := 1;
+    constant COST : integer := 4;
     constant COST_LENGTH : integer := 5;
-    constant  PWD_LENGTH : integer := 8;--18;   -- maximal length of pwd to bf
+    constant  PWD_LENGTH : integer := 18;   -- maximal length of pwd to bf
     constant  PWD_BITLEN : integer := getBitSize(PWD_LENGTH);
     constant CHARSET_LEN : integer := 63;   -- 26 (lower case) + null byte
     constant CHARSET_BIT : integer := getBitSize(CHARSET_LEN);
     -- bitsize for charset + overflow
     constant CHARSET_OF_BIT : integer := getBitSize(CHARSET_LEN+1);
 
-    constant SALT_LENGTH : integer := 128;  -- 16 bytes
-    constant HASH_LENGTH : integer := 192;  -- 24 bytes
-    constant  KEY_LENGTH : integer := 576;  -- 72 bytes
+    constant SALT_LENGTH : integer := 128;      -- 16 bytes
+    constant HASH_LENGTH : integer := 184;      -- 23 bytes
+    --constant HASH_IN_LENGTH : integer := 184;   -- 23 bytes
+    constant  KEY_LENGTH : integer := 576;      -- 72 bytes
     constant MAGIC_VALUE : std_logic_vector(191 downto 0) := x"4f727068_65616e42_65686f6c" &
                                                x"64657253_63727944_6f756274";
     -- --------------------------------------------------------------------- --
