@@ -169,7 +169,6 @@ architecture Behavioral of bcrypt is
 	signal bf_dout_d        : std_logic_vector(63 downto 0);
 	signal bf_dout_dd       : std_logic_vector(63 downto 0);
 
-    signal s_dout_valid     : std_logic;
 begin
     -- ------------------------------------------------------------------------
     -- Instantiation    working registers/memories
@@ -431,9 +430,6 @@ begin
                 current_state <= RESET;
             else
                 current_state <= next_state;
-                -- output generation
-                dout_valid <= s_dout_valid;
-	            dout <= bf_dout;
             end if; -- rst
         end if; -- clk
     end process fsm_state;
@@ -510,7 +506,7 @@ begin
 		memory_init <= '0';
 
 		-- output flag
-		s_dout_valid <= '0';
+		dout_valid <= '0';
 
 		-- state
 		next_state <= current_state;
@@ -519,6 +515,7 @@ begin
 		case current_state is
 
 			when RESET =>
+
 				-- reset blowfish
 --				bf_sr <= '1';
 
@@ -602,6 +599,7 @@ begin
 
 			-- add the key to the subkeys
 			when EKEY_KEY_XOR =>
+
 				-- reset blowfish
 --				bf_sr <= '1';
 
@@ -688,6 +686,7 @@ begin
 				end if;
 
 			when EKEY_ENC_UPDATE_SUBKEY =>
+
 				subkey_dinA <= bf_dout_d(63 downto 32);
 				subkey_dinB <= bf_dout_d(31 downto  0);
 
@@ -711,6 +710,7 @@ begin
 
 			-- prepare encryption of sbox
 			when EKEY_ENC_SBOX_PREPARE_START =>
+
 				-- toggle salt dword low flag
 				useSaltDwordLow_flag_ce <= '1';
 
@@ -741,6 +741,7 @@ begin
 
 			-- prepare encryption of sbox
 			when EKEY_ENC_SBOX_PREPARE_CONTINUE =>
+
 				-- edge detection on 8th bit of loopcount to switch sboxes
 				if (loopcnt(7) = '1' and loopcnt_d(7) = '0') or (loopcnt(7) = '0' and loopcnt_d(7) = '1') then
 					active_sbox_ce <= '1';
@@ -867,7 +868,7 @@ begin
 					if loopendcnt(6) = '1' then
 --					if unsigned(loopcnt) = 63 then
 						-- mark output as valid block
-						s_dout_valid <= '1';
+						dout_valid <= '1';
 
 						-- continue with blowfish encryption
 						loopcnt_rst <= '1';
@@ -877,6 +878,7 @@ begin
 						next_state <= PREPARE_ENC_MAGIC_HIGH;
 					end if;
 				end if;
+
 			when PREPARE_ENC_MAGIC_MIDDLE =>
 				-- TODO: delay loopendcnt_rst and check if signal is 1
 				if unsigned(loopendcnt) = 1 then
@@ -918,7 +920,7 @@ begin
 					if loopendcnt(6) = '1' then
 --					if unsigned(loopcnt) = 63 then
 						-- mark output as valid block
-						s_dout_valid <= '1';
+						dout_valid <= '1';
 
 						-- continue with blowfish encryption
 						loopcnt_rst <= '1';
@@ -970,7 +972,7 @@ begin
 					if loopendcnt(6) = '1' then
 --					if unsigned(loopcnt) = 63 then
 						-- mark output as valid block
-						s_dout_valid <= '1';
+						dout_valid <= '1';
 
 						next_state <= FINISH;
 					else
@@ -986,6 +988,6 @@ begin
 	end process;
 
 	-- output generation
-	--dout <= bf_dout;
+	dout <= bf_dout;
 
 end architecture Behavioral;
