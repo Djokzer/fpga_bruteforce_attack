@@ -292,6 +292,7 @@ begin
         -- ----------------------------------------------------------------- --
         bcrypt_quad_core : entity work.bcrypt_quad_core
             generic map (
+                OVERALL_NUMBER => NUMBER_OF_QUADCORES,
                 INDEX => i,
                 NUMBER_OF_CRACKS => 2**31-1--pass_to_crack(CHARSET_LEN)
             )

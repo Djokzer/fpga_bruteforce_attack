@@ -74,8 +74,35 @@ architecture behavioral of bcrypt_quad_core is
         const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
         const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
         const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
-        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT);
-    constant VEC_LENGTH : integer := 1;
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(1,CHARSET_OF_BIT) &
+        const_slv(1,CHARSET_OF_BIT) & const_slv(1,CHARSET_OF_BIT) &
+        const_slv(1,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT);
+    constant VEC_LENGTH : integer := 5;
 
     -- --------------------------------------------------------------------- --
     --                                 Types
@@ -488,7 +515,7 @@ begin
 
 				-- did a password match?
 				if success_int = '1' then
-                	mem_access_pwd_cnt  <= '1';
+                	--mem_access_pwd_cnt  <= '1';
 					next_state <= OUTPUT_PASSWORD;
 				else
 					-- no match found, check if we have passwords left
@@ -518,9 +545,12 @@ begin
                 pwd_addr_cnt_sr <= '0';
 
 				dout_we <= '1';
+				
+				-- Added
+				mem_access_pwd_cnt  <= '1';
 
-				-- output all
-				if pwd_addr_cnt_dout(2) = '1' then
+				-- output all (18 chunks)
+				if pwd_addr_cnt_dout = x"17" then
 					next_state <= TERMINATE;
 				end if;
 

@@ -48,8 +48,35 @@ architecture behavioral of pwd_gen_tb is
         const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
         const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
         const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
-        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT);
-    constant LENGTH : integer := 1;
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(1,CHARSET_OF_BIT) &
+        const_slv(1,CHARSET_OF_BIT) & const_slv(1,CHARSET_OF_BIT) &
+        const_slv(1,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT);
+    constant LENGTH : integer := 5;
     constant CLK_PERIOD : time := 10 ns;
 
     -- --------------------------------------------------------------------- --

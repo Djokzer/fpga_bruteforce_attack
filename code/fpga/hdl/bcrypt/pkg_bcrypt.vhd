@@ -38,7 +38,7 @@ package pkg_bcrypt is
     constant CORE_INSTANCES : positive := 1;
     constant COST : integer := 4;
     constant COST_LENGTH : integer := 5;
-    constant  PWD_LENGTH : integer := 18;   -- maximal length of pwd to bf
+    constant  PWD_LENGTH : integer := 72;   -- maximal length of pwd to bf
     constant  PWD_BITLEN : integer := getBitSize(PWD_LENGTH);
     constant CHARSET_LEN : integer := 63;   -- 26 (lower case) + null byte
     constant CHARSET_BIT : integer := getBitSize(CHARSET_LEN);
