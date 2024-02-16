@@ -41,14 +41,6 @@ Frequency = 100 MHz
 
 Hashrate = 301.6 hash/s
 
-## Bcrypt Core on a Zedboard
-
-LUT used : 879 / 53'200 = 1.65%
-
-Flip-Flop used : 311 / 106'400 = 0.29%
-
-Bram used : 3 / 140 = 2.14%
-
 ## Bcrypt Core on a Nexys Video
 
 LUT used : 879 / 134'600 = 0.65%
@@ -56,6 +48,22 @@ LUT used : 879 / 134'600 = 0.65%
 Flip-Flop used : 311 / 269'200 = 0.12%
 
 Bram used : 3 / 365 = 0.82%
+
+## Bcrypt cracker on a Nexys Video
+
+QuadCore used : 1
+Password used : "aaaab"
+Cost used : 4
+Init Password counter value : "aaaaa"
+
+Clock cycle took (sim) : 331792
+Time took at 100MHz (sim) : 3.32 ms
+
+LUT used : 3603 / 134'600 = 2.67%
+
+Flip-Flop used : 2868 / 269'200 = 1.06%
+
+Bram used : 13 / 365 = 3.56%
 
 ## Bcrypt algorithm
 

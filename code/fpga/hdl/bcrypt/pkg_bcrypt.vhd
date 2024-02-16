@@ -91,8 +91,8 @@ package pkg_bcrypt is
     return std_logic_vector;
     function reduce_slv32(ary : in slv32_ary_t; success : in std_logic_vector)
     return std_logic_vector;
-    function generate_init_vector(index : in integer) return std_logic_vector;
-    function generate_init_length(index : in integer) return integer;
+    impure function generate_init_vector(index : in integer) return std_logic_vector;
+    impure function generate_init_length(index : in integer) return integer;
     function pass_to_crack(c_len : integer) return integer;
 
 end package pkg_bcrypt;
@@ -140,7 +140,7 @@ package body pkg_bcrypt is
         return r_slv;
     end;
 
-    function generate_init_vector(index : in integer)
+    impure function generate_init_vector(index : in integer)
     return std_logic_vector is
         file     vectors_f  : text open read_mode is "init_vectors.txt";
         variable rLineIV    : line;
@@ -162,7 +162,7 @@ package body pkg_bcrypt is
         return rIV;
     end;
 
-    function generate_init_length(index : in integer)
+    impure function generate_init_length(index : in integer)
     return integer is
         file     lengths_f  : text open read_mode is "init_lengths.txt";
         variable rLineLen   : line;
