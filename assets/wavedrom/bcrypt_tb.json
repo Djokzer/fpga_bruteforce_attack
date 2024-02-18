@@ -1,0 +1,21 @@
+{ signal: [
+  ['Testbench',
+   {    name: 'clk',   wave: 'P............|......'},
+   {  	name: 'salt', wave: '3............|......', data: 'SALT[127:0]'},
+   {    name: 'rst',   wave: '10...........|......'},
+   {	name: 'pipeline_full', wave: '01x..........|......'},
+   {  	name: 'sbox_init_addr',  wave: 'x.333.3x.....|......', data: '0 1 .. 255'},
+   {  	name: 'sboxn_init_dout[31:0]', wave: 'x.444.4x.....|......', data: 'D0 D1 D.. D255'},
+   {  	name: 'skinit_dout[31:0]', wave: 'x.4444x......|......', data: 'D0 D1 D.. D17'},
+   {	name: 'start_expand_key',  wave: '0......1.....|......'},
+   {  	name: 'key_dout[31:0]', wave: 'x.......4444x|......', data: 'D0 D1 .. D17'},
+   {},
+  ],
+  ['Core',
+   {	name: 'mem_init',   wave: '10...........|......'},
+   {  	name: 'key_addr', wave: 'x......3333x.|......', data: '0 1 .. 17'},
+   {  	name: 'key_done', wave: '0.........10.|......'},
+   {  	name: 'dout[63:0]', wave: 'x............|4x4x4x', data: 'D0 D1 D2'},
+   {  	name: 'dout_valid', wave: '0............|101010'},
+  ]
+]}

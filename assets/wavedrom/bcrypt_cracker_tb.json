@@ -1,0 +1,15 @@
+{ signal: [
+  ['Testbench',
+   {    name: 'clk',   wave: 'P.|........'},
+   {  	name: 'salt', wave: '3.|........', data: 'SALT[127:0]'},
+   {  	name: 'hash', wave: '3.|........', data: 'HASH[183:0]'},
+   {    name: 'rst',   wave: '10|........'},
+   {},
+  ],
+  ['Cracker',
+   {	name: 'done',   wave: '0.|.......1'},
+   {  	name: 'success', wave: '0.|..1.....'},
+   {  	name: 'dout_we', wave: '0.|.1......'},
+   {  	name: 'dout[63:0]', wave: 'x.|...4444x', data: 'D0 D1 D2'},
+  ]
+]}
