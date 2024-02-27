@@ -47,7 +47,6 @@ architecture Behavioral of top_tb is
     signal start    : std_logic;
     signal found    : std_logic;
     signal done     : std_logic;
-    signal dout_we  : std_logic;
   
     signal count_cycle : integer := 0;
 begin
@@ -59,7 +58,6 @@ begin
         clk     => clk,       -- clock signal
         rst     => rst,     -- reset signal
         start  => start,
-        dout_we => dout_we,
         found  => found,
         done    => done
     );
