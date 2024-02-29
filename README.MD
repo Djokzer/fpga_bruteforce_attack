@@ -49,7 +49,7 @@ Flip-Flop used : 311 / 269'200 = 0.12%
 
 Bram used : 3 / 365 = 0.82%
 
-## Bcrypt cracker on a Nexys Video
+## Bcrypt cracker
 
 QuadCore used : 1
 Password used : "aaaab"
@@ -59,11 +59,13 @@ Init Password counter value : "aaaaa"
 Clock cycle took (sim) : 331792
 Time took at 100MHz (sim) : 3.32 ms
 
-LUT used : 3603 / 134'600 = 2.67%
+### Nexys video ressources usage
 
-Flip-Flop used : 2868 / 269'200 = 1.06%
+![](assets/img/screens/ressources_usages_cracker_nexys.png)
 
-Bram used : 13 / 365 = 3.56%
+### Ultrascale+ ressources usage
+
+![](assets/img/screens/ressources_usages_cracker_ultrascalep.png)
 
 ## Bcrypt algorithm
 
