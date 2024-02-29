@@ -43,10 +43,9 @@ architecture Behavioral of top is
     -- --------------------------------------------------------------------- --
     signal salt     : std_logic_vector (SALT_LENGTH-1 downto 0);
     signal hash     : std_logic_vector (HASH_LENGTH-1 downto 0);
-    signal done_s   : std_logic;
-    signal success  : std_logic;
-    signal dout_we  : std_logic;
     signal dout     : std_logic_vector (31 downto 0);
+    signal dout_we  : std_logic;
+    signal rst_s    : std_logic;
 
 begin
    
@@ -56,24 +55,25 @@ begin
     bcrypt_cracker : entity work.bcrypt_cracker
     port map (
         clk     => clk, 
-        rst     => rst,         
+        rst     => rst_s,         
         t_salt  => salt,
         t_hash  => hash,
-        done    => done_s,
-        success => success,
+        done    => done,
+        success => found,
         dout_we => dout_we,
         dout    => dout
     );
     salt <= x"7e949a07e88186c649bbeb0a9740c5e0";
-    hash <= x"d86d48abc6671334fd1fba805ee98b4841ce9ec37096d0";    -- aaaab cost 4
-
-    found <= success;
-    done <= done_s;
+    --hash <= x"d86d48abc6671334fd1fba805ee98b4841ce9ec37096d0";    -- aaaab cost 4
+    hash <= x"1982ade712f9ec3d3a57ce85adf7fc3e2b43d7d89f90d3";    -- a cost 4
 
     output : process(clk)
     begin
         if rising_edge(clk) then
-            start <= not rst;
+            rst_s <= rst;
         end if;
     end process output;
+    
+    start <= not rst;
+
 end Behavioral;

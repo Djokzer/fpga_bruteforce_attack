@@ -28,6 +28,7 @@ use ieee.numeric_std.all;
 library work;
 use work.pkg_bcrypt.all;
 use work.rzi_helper.all;
+use work.pkg_sbox_init.all;
 
 entity bcrypt_cracker is
     generic (
@@ -115,11 +116,11 @@ begin
             RW_MODE          => "RW",
             INIT_MEMORY      => true,
             INIT_FILL_ZEROES => true,
-            INIT_FROM_FILE   => true,
-            INIT_REVERSED    => true,
+            INIT_FROM_FILE   => false,
+            INIT_REVERSED    => false,
             INIT_FORMAT_HEX  => true,
-            INIT_FILE        => "sbox01_init.mif",
-            INIT_VECTOR      => "0"
+            --INIT_FILE        => "sbox01_init.mif",
+            INIT_VECTOR      => SBOX01_INIT_VEC
         )
         port map (
             clkA  => clk,
@@ -144,11 +145,11 @@ begin
             RW_MODE          => "RW",
             INIT_MEMORY      => true,
             INIT_FILL_ZEROES => true,
-            INIT_FROM_FILE   => true,
-            INIT_REVERSED    => true,
+            INIT_FROM_FILE   => false,
+            INIT_REVERSED    => false,
             INIT_FORMAT_HEX  => true,
-            INIT_FILE        => "sbox23_init.mif",
-            INIT_VECTOR      => "0"
+            --INIT_FILE        => "sbox23_init.mif",
+            INIT_VECTOR      => SBOX23_INIT_VEC
         )
         port map (
             clkA  => clk,
@@ -292,9 +293,8 @@ begin
         -- ----------------------------------------------------------------- --
         bcrypt_quad_core : entity work.bcrypt_quad_core
             generic map (
-                OVERALL_NUMBER => NUMBER_OF_QUADCORES,
                 INDEX => i,
-                NUMBER_OF_CRACKS => 2**31-1--pass_to_crack(CHARSET_LEN)
+                NUMBER_OF_CRACKS => 1024
             )
             port map (
                 clk     => clk,
