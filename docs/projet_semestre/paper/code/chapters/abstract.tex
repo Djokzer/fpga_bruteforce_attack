@@ -1,0 +1,42 @@
+% !TeX spellcheck = fr_FR
+\thispagestyle{noheader}
+\chapter*{Résumé} % No (numbered) toc entry with *
+
+\tikz[remember picture,overlay] \node[shift={(4.165cm,-1.955cm)}]
+	at (current page.north west)
+	{\includegraphics[height=1.29cm]{template/images/title/hepia_logo}};
+	\tikz[remember picture,overlay] \node[shift={(-4.238cm,-1.97cm)}]
+	at (current page.north east)
+	{\includegraphics[height=1.29cm]{template/images/title/hes-so_geneve_logo}};
+
+\addcontentsline{toc}{chapter}{Résumé} % Adding toc entry
+\thispagestyle{noheader}
+
+\begin{spacing}{0.956}
+\vspace{0.5cm}
+
+	%% CONTENT STARTS HERE
+Lorsqu'un utilisateur doit s'authentifier auprès d'un service, il doit fournir un mot de passe préalablement défini. Pour des raisons de sécurité, le système stocke ce mot de passe en le passant par une fonction de hachage. Ainsi, lors de l'authentification, le système compare le hash du mot de passe entré par l'utilisateur avec le hash stocké pour vérifier son identité. Une fonction de hachage qui est souvent utilisé pour le stockage de mots de passe est le Bcrypt, qui a comme particularité d'être assez lente, rendant les mots de passe assez résistante aux attaques par bruteforce. Ce rapport a pour but de détailler la mise en oeuvre d'un système visant à attaquer les mots de passe protégés par l'algorithme bcrypt en utilisant un \gls{fpga}. L'objectif principal est de créer une solution extensible et plus performante que les approches traditionnelles basées sur \gls{gpu}. Le système repose sur plusieurs cœurs de calcul parallèles sur le \gls{fpga} pour générer les hashs bcrypt. La génération des mots de passe pour le bruteforce est directement réalisée sur le \gls{fpga} à l'aide d'un système de compteur pour distribuer les tâches aux cœurs de calcul. Après validation du fonctionnement, des mesures ont été effectuées pour évaluer les performances et les ressources utilisées sur le \gls{fpga}. Pour explorer la possibilité de déléguer la génération de mots de passe à un ordinateur, une interface \gls{pcie} a été établie entre la carte \gls{fpga} et un ordinateur. Bien que le projet soit fonctionnel, il reste à mettre en place une interface complète entre l'ordinateur et la carte \gls{fpga} pour qu'elle soit utilisable lors d'une véritable attaque.
+
+\vfill
+\begin{center}
+	{\includegraphics[]{template/images/abstract/image}}\\*
+\vfill
+%% CONTENT ENDS HERE
+
+{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% DO NOT MODIFY THE TABLE BELOW %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{tabular*}{16cm}{p{7.59cm} p{7.58cm}}
+		\small Candidat-e:					&	\small Professeur-e(s) responsable(s):\\*[10pt]
+		\small\textbf{\textsc{\Author}}		&	\small\textbf{\textsc{\Professor}}\\*[10pt]
+		\footnotesize  Filière d’études : ISC	&	\footnotesize  \textbf{En collaboration avec:} ELCA Security\\*[10pt]
+		\footnotesize  {} & \footnotesize  Travail de bachelor soumis à une convention de stage en entreprise: \Convention\\*[20pt]
+		\footnotesize  {} & \footnotesize  Travail soumis à un contrat de confidentialité: \Confidentiel\\*[10pt]
+	\end{tabular*}\\*[1.9cm]
+}
+	
+	%\textit{Attention : Tout l’énoncé doit tenir sur une seule page}
+\end{center}
+\end{spacing}

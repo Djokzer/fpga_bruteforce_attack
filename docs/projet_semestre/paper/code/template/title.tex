@@ -1,0 +1,64 @@
+% !TeX spellcheck = fr_FR
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                             %
+%% HEPIA BACHELOR THESIS FRONTPAGE LATEX TEMPLATE                              %
+%% version 0.9 - 2020/04/20                                                    %
+%%                                                                             %
+%% DO NOT MODIFIY THIS PAGE                                                    %
+%%                                                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+	\newgeometry{top=2cm,bottom=2cm,right=2cm,left=2cm}
+	%% HEADER IMAGES
+	\tikz[remember picture,overlay] \node[shift={(4.165cm,-1.955cm)}]
+	at (current page.north west)
+	{\includegraphics[height=1.29cm]{template/images/title/hepia_logo}};
+	\tikz[remember picture,overlay] \node[shift={(-4.238cm,-1.97cm)}]
+	at (current page.north east)
+	{\includegraphics[height=1.29cm]{template/images/title/hes-so_geneve_logo}};
+	
+	\begin{center}
+		%% CONTENT STARTS HERE
+		{\fontfamily{phv}\selectfont
+			\vspace*{51pt}
+			{
+				%% TITLE
+				\begin{spacing}{1.5}
+					{\fontsize{16pt}{20pt} \textbf{\Title}}\\[29pt]
+				\end{spacing}
+				
+				%% IMAGE IF ANY
+				{\color{white}
+					\includegraphics[height=8cm,width=8cm]{\TitleImage}\\[35pt]
+				}
+			
+				%% PROJET DE SEMESTRE
+				{\large Projet de semestre présenté par}\\[21pt]
+				
+				%% AUTHOR
+				{\fontsize{16pt}{20pt} \textbf{\Author}}\\[17pt]
+				
+				%% DEGREE
+				{\large 
+				 \fontsize{14pt}{20pt} \textbf{Informatique et systèmes de communication avec orientation\\ \Orientation }\\[32pt]
+				
+				%% DATE
+				\textbf{\Month, \Year}}\\[49pt]
+				
+				{
+					\begin{tabular*}{16cm}{>{\centering}m{7.59cm}>{\centering}m{7.58cm}}
+						%% SUPERVISOR
+						Professeur-e HES responsable\\[13pt]
+						\textbf{ \Professor }
+						&
+						%% CLIENT (IF ANY)
+						Mandant\\[12pt]
+						\textbf{ \Client }
+					\end{tabular*}
+				}
+			}
+			\vfill
+		}%\fontfamily
+	\end{center}
+\end{titlepage}
+\addtocounter{page}{1}

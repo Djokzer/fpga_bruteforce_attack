@@ -1,0 +1,21 @@
+% !TeX spellcheck = fr_FR
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction} % Adding toc entry
+
+% Mise en contexte
+
+Le projet présenté ici vise à explorer une approche peu commune pour attaquer les mots de passe protégés par l'algorithme bcrypt en utilisant un \gls{fpga}. Initié en collaboration avec l'entreprise ELCA Security, ce projet a pour but de leur fournir une solution extensible et performante qui puisse être utilisable lors de leurs attaques.
+
+L'intérêt technique et scientifique de ce projet réside dans la recherche de solutions plus performantes pour l'attaque de mots de passe, en tirant parti des capacités de traitement parallèle offertes par les FPGA.
+
+% Méthodologie de travail
+
+Après une recherche approfondie des implémentations existantes du bcrypt sur FPGA, le projet a débuté par une analyse du papier\footcite{wiemer_high-speed_2014} concernant une implémentation déjà existante. En parallèle, une page Wikipédia détaillant le fonctionnement de bcrypt\footcite{noauthor_bcrypt_2024} a été utilisée comme ressource principale pour comprendre les spécificités de cet algorithme. De plus, un papier sur une attaque MD5\footcite{gillela_parallelization_2019} sur FPGA a été consulté pour enrichir la compréhension des techniques d'attaque sur des dispositifs matériels. Ces ressources documentaires ont été cruciales pour comprendre les différents concepts, orienter les choix de conception et résoudre les problèmes techniques rencontrés.
+
+Dans le cadre de ce projet, j'ai entrepris plusieurs actions significatives. Tout d'abord, j'ai repris le code de l'implémentation existante en VHDL d'un programme d'attaque par bruteforce de mot de passe bcrypt. Après avoir étudié le papier associé et constaté des incohérences dans les testbenches, j'ai refait ces derniers pour valider le programme. Par la suite, j'ai identifié et corrigé des erreurs dans le code afin d'obtenir un programme fonctionnel.
+
+En parallèle, j'ai pu brièvement étudier le fonctionnement du \gls{pcie} afin d'y mettre en place une simple interface entre une carte \gls{fpga} et un ordinateur.\\\
+
+% Annonce du plan
+
+Dans ce rapport, je vais commencer par vous présenter une analyse du projet, afin d'y décrire le projet de manière détaillé, expliquer le fonctionnement du Bcrypt et les recherches qui ont été faites afin de trouver une implémentation existante. Ensuite, je vais détailler la méthodologie de travail, en exposant les différentes étapes de mise en œuvre du projet, les simulations qui ont été faites et les différentes difficultés rencontrées. Enfin, je vais décrire les résultats obtenus lors des différents tests et mesures qui ont été faits.
