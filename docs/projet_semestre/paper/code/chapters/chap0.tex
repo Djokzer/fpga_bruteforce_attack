@@ -6,7 +6,9 @@ Ce chapitre a pour but d'introduire et expliquer les différents aspects techniq
 \section{FPGA}
 Un \gls{fpga} est un \gls{ic} dans laquelle on peut programmer et interconnecter des circuits logiques. Contrairement à un processeur, qui est limité par un certain nombre d'instructions et exécute les instructions de manière séquentielle, un FPGA permet d'exécuter de nombreux circuits logiques en parallèle.
 
-Pour programmer un \gls{fpga}, on utilise généralement des langages de description matériel tels que le \gls{vhdl} et le Verilog. Dans ce projet, j'ai personnellement travaillé avec le \gls{vhdl}. 
+Pour programmer un \gls{fpga}, on utilise généralement des langages de description matériel tels que le \gls{vhdl} et le Verilog. Dans ce projet, j'ai personnellement travaillé avec le \gls{vhdl}.
+
+Lorsque l'on souhaite tester un programme \gls{vhdl}, il est possible d'utiliser des outils de simulation afin de vérifier le fonctionnement souhaité. Il est aussi possible d'automatiser la phase de simulation à l'aide de fichier que l'on appelle testbench.
 
 \section{Fonction de hachage}
 
@@ -26,7 +28,7 @@ Une des propriétés fondamentales d'une fonction de hachage est qu'il n'existe 
 
 \subsection{Salt}
 
-Certaines fonctions de hachage tel que le bcrypt utilisent ce qu'on appelle un salt, qui est une valeur générée aléatoirement qu'on va donner avec notre mot de passe. Le salt va permettre d'avoir un hash différent, même si deux personnes utilisent le même mot de passe, ajoutant ainsi une couche supplémentaire de sécurité.
+Certaines fonctions de hachage tel que le bcrypt utilisent ce qu'on appelle un salt (sel en français), qui est une valeur générée aléatoirement qu'on va donner avec notre mot de passe. Le salt va permettre d'avoir un hash différent, même si deux personnes utilisent le même mot de passe, ajoutant ainsi une couche supplémentaire de sécurité.
 
 \begin{figure}[tbph!]
 	\centering
