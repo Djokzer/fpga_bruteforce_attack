@@ -8,9 +8,18 @@ Un \gls{fpga} est un \gls{ic} dans lequel on peut programmer et interconnecter d
 
 Pour programmer un \gls{fpga}, on utilise généralement des langages de description matériel tels que le \gls{vhdl} et le Verilog. Dans ce projet, j'ai personnellement travaillé avec le \gls{vhdl}.
 
+Le processus de programmation d'un \gls{fpga} est séparé en deux étapes : la synthèse et l'implémentation. 
+La synthèse consiste à traduire le code \gls{vhdl} en registres et portes logiques. 
+L'implémentation lui consiste à placer les différents composants logiques sur le \gls{fpga} et à les interconnecter.
+Ces différents processus vont prendre généralement beaucoup de temps.
+
 Lorsque l'on souhaite tester un programme \gls{vhdl}, il est possible d'utiliser des outils de simulation afin de vérifier le fonctionnement souhaité. Il est aussi possible d'automatiser la phase de simulation à l'aide de fichier que l'on appelle testbench.
+La simulation va permettre de valider une première fois le programme afin d'éviter de perdre du temps à reprogrammer le \gls{fpga}.
 
 Durant ce travail, j'ai utilisé Vivado qui est le logiciel qui m'a permis la simulation et la programmation des \gls{fpga} qui ont été utilisés. 
+
+
+
 \section{Fonction de hachage}
 
 Une fonction de hachage est une fonction qui va prendre en entrée une donnée a taille variable et va ressortir une donnée de taille fixe. 
