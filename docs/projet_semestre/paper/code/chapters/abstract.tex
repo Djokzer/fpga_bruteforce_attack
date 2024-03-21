@@ -16,11 +16,21 @@
 \vspace{0.5cm}
 
 	%% CONTENT STARTS HERE
-Lorsqu'un utilisateur doit s'authentifier auprès d'un service, il doit fournir un mot de passe préalablement défini. Pour des raisons de sécurité, le système stocke ce mot de passe en le passant par une fonction de hachage. Ainsi, lors de l'authentification, le système compare le hash du mot de passe entré par l'utilisateur avec le hash stocké pour vérifier son identité. Une fonction de hachage qui est souvent utilisé pour le stockage de mots de passe est le Bcrypt, qui a comme particularité d'être assez lente, rendant les mots de passe assez résistante aux attaques par bruteforce. Ce rapport a pour but de détailler la mise en oeuvre d'un système visant à attaquer les mots de passe protégés par l'algorithme bcrypt en utilisant un \gls{fpga}. L'objectif principal est de créer une solution extensible et plus performante que les approches traditionnelles basées sur \gls{gpu}. Le système repose sur plusieurs cœurs de calcul parallèles sur le \gls{fpga} pour générer les hashs bcrypt. La génération des mots de passe pour le bruteforce est directement réalisée sur le \gls{fpga} à l'aide d'un système de compteur pour distribuer les tâches aux cœurs de calcul. Après validation du fonctionnement, des mesures ont été effectuées pour évaluer les performances et les ressources utilisées sur le \gls{fpga}. Pour explorer la possibilité de déléguer la génération de mots de passe à un ordinateur, une interface \gls{pcie} a été établie entre la carte \gls{fpga} et un ordinateur. Bien que le projet soit fonctionnel, il reste à mettre en place une interface complète entre l'ordinateur et la carte \gls{fpga} pour qu'elle soit utilisable lors d'une véritable attaque.
+Lorsqu'un utilisateur doit s'authentifier auprès d'un service, il doit fournir un mot de passe préalablement défini. 
+Pour des raisons de sécurité, le système stocke ce mot de passe en le passant par une fonction de hachage. 
+Ainsi, lors de l'authentification, le système compare le hash du mot de passe entré par l'utilisateur avec le hash stocké pour vérifier son identité. 
+Une fonction de hachage qui est souvent utilisé pour le stockage de mots de passe est le Bcrypt, qui a comme particularité d'être assez lente, rendant les mots de passe assez résistante aux attaques par bruteforce. 
+Ce rapport a pour but de détailler la mise en oeuvre d'un système visant à attaquer les mots de passe protégés par l'algorithme bcrypt en utilisant un \gls{fpga}. 
+L'objectif principal est de créer une solution extensible et plus performante que les approches traditionnelles basées sur \gls{gpu}. 
+Le système repose sur plusieurs cœurs de calcul parallèles sur le \gls{fpga} pour générer les hashs bcrypt. 
+La génération des mots de passe pour le bruteforce est directement réalisée sur le \gls{fpga} à l'aide d'un système de compteur pour distribuer les tâches aux cœurs de calcul. 
+Après validation du fonctionnement, des mesures ont été effectuées pour évaluer les performances et les ressources utilisées sur le \gls{fpga}. 
+Pour explorer la possibilité de déléguer la génération de mots de passe à un ordinateur, une interface \gls{pcie} a été établie entre la carte \gls{fpga} et un ordinateur. 
+Bien que le projet soit fonctionnel, il reste à mettre en place une interface complète entre l'ordinateur et la carte \gls{fpga} pour qu'elle soit utilisable lors d'une véritable attaque.
 
 \vfill
 \begin{center}
-	{\includegraphics[]{template/images/abstract/image}}\\*
+	{\includegraphics[width=0.5\linewidth]{figures/fpga_cluster}}\\*
 \vfill
 %% CONTENT ENDS HERE
 

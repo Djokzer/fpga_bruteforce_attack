@@ -2,5 +2,40 @@
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion} % Adding toc entry
 
+% Fonction de rappel
 
-Votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte.
+L'objectif de ce projet de semestre est d'explorer la possibilité de mise en place d'une attaque de mot de passe bcrypt par bruteforce sur un \gls{fpga}.
+Le but étant de chercher une solution plus efficient que les solutions actuelles sur \gls{gpu}. 
+
+Pour ce faire, j'ai entamé le projet par une recherche sur le fonctionnement de la fonction de hachage bcrypt et les différentes implémentations existantes.
+J'ai choisi l'implémentation que j'ai trouvée la plus intéressante et je me suis lancé sur une première phase de simulation.
+En effet, j'ai commencé par analyser le fonctionnement des différents modules présents et tester à l'aide de la simulation le bon fonctionnement du système.
+J'ai aussi eu l'occasion de corriger certaines partie du code source afin de le faire fonctionner comme souhaité. 
+
+Après validation avec la simulation, j'ai entamé une phase de test sur une carte \gls{fpga} directement. 
+J'ai pu constater que l'implémentation ne fonctionnait pas sur le matériel et je suis donc passé par une phase de debug.
+Après l'identification du problème, j'ai pu la régler et valider le bon fonctionnement de l'implémentation sur le matériel.
+
+En parallèle, j'ai utilisé les ressources fournies par Vivado afin de mettre en place une interface \gls{pcie} sur une carte \gls{fpga}.
+Par la suite, j'ai pu valider le bon fonctionnement de la communication entre le \gls{pc} et la carte \gls{fpga}.\\\
+
+% Retour réflexif sur l’exercice 
+
+Ce projet m'a permis de mettre en pratique les connaissances acquises durant mes cours de \gls{fpga} et de \gls{vhdl}, notamment sur la partie simulation et l'intérêt de celle-ci.
+J'ai aussi pu me confronter à certaines difficultés, notamment lorsque j'ai repris un code source qui n'est pas forcément bien documenté et qui n'est pas de ma propre conception.
+Toutefois, ce travail m'a permis d'apprendre à lire et à comprendre du code source \gls{vhdl}, à le modifier et à le faire fonctionner comme souhaité.
+De ce fait, ma compréhension du fonctionnement d'un \gls{fpga} et de la programmation de celui-ci a été grandement amélioré.
+La partie de debug sur la carte \gls{fpga} a aussi été intéressante, car j'ai pu faire face à la différence entre la simulation et le matériel.
+Une partie qui m'a beaucoup plu est la mise en place de l'interface \gls{pcie}, car c'est une technologie qui m'a toujours intéressé et je n'avais jamais eu l'occasion de m'y frotter.
+
+\newpage
+
+% Fonction d’ouverture
+
+Ce projet a été une première étape, mais il y a encore beaucoup d'améliorations envisageables notamment pour le projet de bachelor.
+Une première voie possible serait simplement d'étudier la possibilité d'optimiser l'implémentation existante.
+Une autre possibilité serait de chercher à rendre la solution la plus extensible possible, afin de mettre en place par exemple un système de cluster de cartes \gls{fpga} pour augmenter la puissance de calcul.
+Il serait intéressant de creuser l'utilisation de l'interface \gls{pcie} pour le transfert de mots de passe à hacher et de résultats.
+Une solution que je trouve intéressante serait de mettre en place un système séparé en deux parties. 
+Une première partie qui va s'occuper d'attaquer avec des mots de passe généré directement sur la carte et l'autre avec des mots de passe transmise par l'interface \gls{pcie}, permettant plus de flexibilité sur la génération de mots de passe.
+Enfin, étudier la possibilité d'ajouter d'autres fonction de hachage au système actuel afin de créer une solution beaucoup plus polyvalente.

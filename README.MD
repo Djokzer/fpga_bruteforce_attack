@@ -1,28 +1,4 @@
 # FPGA BRUTEFORCE ATTACK
-
-## Docs
-### Articles
-Bcrypt :
-- https://hackaday.com/2020/05/15/all-your-passwords-are-belong-to-fpga/
-- https://ieeexplore.ieee.org/document/7032529
-
-HLS :
-- https://arodes.hes-so.ch/record/11719
-
-### Docs
-Bcrypt :
-- https://en.wikipedia.org/wiki/Bcrypt
-- ??
-
-Blowfish :
-- https://en.wikipedia.org/wiki/Blowfish_(cipher)
-- https://www.geeksforgeeks.org/blowfish-algorithm-with-examples/
-
-### Other
-
-VHDL code :
-- https://github.com/rub-hgi/high-speed_bcrypt
-
 ## Bcrypt Core
 
 Single core clock cycle for a cost of 4 : 331529 

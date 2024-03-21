@@ -4,6 +4,7 @@
 	url = {https://ieeexplore.ieee.org/document/7032529},
 	doi = {10.1109/ReConFig.2014.7032529},
 	abstract = {Using passwords for user authentication is still the most common method for many internet services and attacks on the password databases pose a severe threat. To reduce this risk, servers store password hashes, which were generated using special password-hashing functions, to slow down guessing attacks. The most frequently used functions of this type are PBKDF2, bcrypt and scrypt. In this paper, we present a novel, flexible, high-speed implementation of a bcrypt password search system on a low-power Xilinx Zynq 7020 FPGA. The design consists of 40 parallel bcrypt cores running at 100 MHz. Our implementation outperforms all currently available implementations and improves password attacks on the same platform by at least 42\%, computing 6,511 passwords per second for a cost parameter of 5.},
+	urldate = {2024-03-10},
 	booktitle = {2014 {International} {Conference} on {ReConFigurable} {Computing} and {FPGAs} ({ReConFig14})},
 	author = {Wiemer, Friedrich and Zimmermann, Ralf},
 	month = dec,
@@ -21,6 +22,7 @@
 	abstract = {bcrypt is a password-hashing function designed by Niels Provos and David Mazières, based on the Blowfish cipher and presented at USENIX in 1999. Besides incorporating a salt to protect against rainbow table attacks, bcrypt is an adaptive function: over time, the iteration count can be increased to make it slower, so it remains resistant to brute-force search attacks even with increasing computation power.
 The bcrypt function is the default password hash algorithm for OpenBSD, and was the default for some Linux distributions such as SUSE Linux.There are implementations of bcrypt in C, C++, C\#, Embarcadero Delphi, Elixir, Go, Java, JavaScript, Perl, PHP, Ruby, and other languages.},
 	language = {en},
+	urldate = {2024-03-10},
 	journal = {Wikipedia},
 	month = feb,
 	year = {2024},
@@ -33,6 +35,7 @@ The bcrypt function is the default password hash algorithm for OpenBSD, and was 
 	url = {https://ieeexplore.ieee.org/document/8710753},
 	doi = {10.1109/VLSID.2019.00034},
 	abstract = {FPGA implementation of MD5 hash algorithm is faster than its software counterpart, but a pre-image brute-force attack on MD5 hash still needs 2{\textasciicircum}(128) iterations theoretically. This work attempts to improve the speed of the brute-force attack on the MD5 algorithm using hardware implementation. A full 64-stage pipelining is done for MD5 hash generation and three architectures are presented for guess password generation. A 32/34/26-instance parallelization of MD5 hash generator and password generator pair is done to search for a password that was hashed using the MD5 algorithm. Total performance of about 6G trials/second has been achieved using a single Virtex-7 FPGA device.},
+	urldate = {2024-03-10},
 	booktitle = {2019 32nd {International} {Conference} on {VLSI} {Design} and 2019 18th {International} {Conference} on {Embedded} {Systems} ({VLSID})},
 	author = {Gillela, Maruthi and Prenosil, Vaclav and Ginjala, Venkat Reddy},
 	month = jan,
@@ -41,4 +44,96 @@ The bcrypt function is the default password hash algorithm for OpenBSD, and was 
 	keywords = {Field programmable gate arrays, Hardware, Computer architecture, Generators, GPU, Hardware design languages, HDL, IP core, LUT, Password, Pipeline processing},
 	pages = {88--93},
 	file = {IEEE Xplore Full Text PDF:C\:\\Users\\abiva\\Zotero\\storage\\TQRS4J77\\Gillela et al. - 2019 - Parallelization of Brute-Force Attack on MD5 Hash .pdf:application/pdf},
+}
+
+@misc{scatteredsecretscom_bcrypt_2020,
+	title = {Bcrypt password cracking extremely slow? {Not} if you are using hundreds of {FPGAs}!},
+	shorttitle = {Bcrypt password cracking extremely slow?},
+	url = {https://scatteredsecrets.medium.com/bcrypt-password-cracking-extremely-slow-not-if-you-are-using-hundreds-of-fpgas-7ae42e3272f6},
+	abstract = {Building custom FPGA-based hardware to crack bcrypt passwords.},
+	language = {en},
+	urldate = {2024-03-20},
+	journal = {Medium},
+	author = {ScatteredSecrets.com},
+	month = sep,
+	year = {2020},
+	file = {Snapshot:C\:\\Users\\abiva\\Zotero\\storage\\QPIR9U5N\\bcrypt-password-cracking-extremely-slow-not-if-you-are-using-hundreds-of-fpgas-7ae42e3272f6.html:text/html},
+}
+
+@misc{noauthor_attaque_2021,
+	title = {Attaque par dictionnaire},
+	copyright = {Creative Commons Attribution-ShareAlike License},
+	url = {https://fr.wikipedia.org/w/index.php?title=Attaque_par_dictionnaire&oldid=188231625},
+	abstract = {L'attaque par dictionnaire est une méthode utilisée en cryptanalyse pour trouver un mot de passe ou une clé. Elle consiste à tester une série de mots de passe potentiels, les uns à la suite des autres, en espérant que le mot de passe utilisé pour le chiffrement soit contenu dans le dictionnaire. Si ce n'est pas le cas, l'attaque échouera.
+Cette méthode repose sur le fait que de nombreuses personnes utilisent des mots de passe courants (par exemple : un prénom, une couleur ou le nom d'un animal). C'est pour cette raison qu'il est toujours conseillé de ne pas utiliser de mot de passe comprenant un mot ou un nom.
+L'attaque par dictionnaire est une méthode souvent utilisée en complément de l'attaque par force brute qui consiste à tester, de manière exhaustive, les différentes possibilités de mots de passe. Cette dernière est particulièrement efficace pour des mots de passe n'excédant pas 5 ou 6 caractères.},
+	language = {fr},
+	urldate = {2024-03-21},
+	journal = {Wikipédia},
+	month = nov,
+	year = {2021},
+	note = {Page Version ID: 188231625},
+	file = {Snapshot:C\:\\Users\\abiva\\Zotero\\storage\\HJ9YBYBW\\Attaque_par_dictionnaire.html:text/html},
+}
+
+@misc{noauthor_blowfish_2019,
+	title = {Blowfish {Algorithm} with {Examples}},
+	url = {https://www.geeksforgeeks.org/blowfish-algorithm-with-examples/},
+	abstract = {A Computer Science portal for geeks. It contains well written, well thought and well explained computer science and programming articles, quizzes and practice/competitive programming/company interview Questions.},
+	language = {en-US},
+	urldate = {2024-03-21},
+	journal = {GeeksforGeeks},
+	month = oct,
+	year = {2019},
+	note = {Section: Algorithms},
+	file = {Snapshot:C\:\\Users\\abiva\\Zotero\\storage\\PPJFRTEQ\\blowfish-algorithm-with-examples.html:text/html},
+}
+
+@techreport{josefsson_base16_2006,
+	type = {Request for {Comments}},
+	title = {The {Base16}, {Base32}, and {Base64} {Data} {Encodings}},
+	url = {https://datatracker.ietf.org/doc/rfc4648},
+	abstract = {This document describes the commonly used base 64, base 32, and base 16 encoding schemes. It also discusses the use of line-feeds in encoded data, use of padding in encoded data, use of non-alphabet characters in encoded data, use of different encoding alphabets, and canonical encodings. [STANDARDS-TRACK]},
+	number = {RFC 4648},
+	urldate = {2024-03-21},
+	institution = {Internet Engineering Task Force},
+	author = {Josefsson, Simon},
+	month = oct,
+	year = {2006},
+	doi = {10.17487/RFC4648},
+	note = {Num Pages: 18},
+	file = {Full Text PDF:C\:\\Users\\abiva\\Zotero\\storage\\4VNHYZRT\\Josefsson - 2006 - The Base16, Base32, and Base64 Data Encodings.pdf:application/pdf},
+}
+
+@misc{noauthor_openwalljohn_2024,
+	title = {openwall/john},
+	url = {https://github.com/openwall/john},
+	abstract = {John the Ripper jumbo - advanced offline password cracker, which supports hundreds of hash and cipher types, and runs on many operating systems, CPUs, GPUs, and even some FPGAs},
+	urldate = {2024-03-21},
+	publisher = {Openwall},
+	month = mar,
+	year = {2024},
+	note = {original-date: 2011-12-16T19:43:47Z},
+	keywords = {assembler, c, cracker, crypt, fpga, gpgpu, gpu, hash, john, jtr, mpi, opencl, openmp, password, ripper, simd},
+}
+
+@misc{noauthor_rub-hgihigh-speed_bcrypt_nodate,
+	title = {rub-hgi/high-speed\_bcrypt: {VHDL} implementation and {LaTeX} source of "{High}-{Speed} {Implementation} of bcrypt {Password} {Search} using {Special}-{Purpose} {Hardware}", published at {ReConFig}'14},
+	url = {https://github.com/rub-hgi/high-speed_bcrypt},
+	urldate = {2024-03-21},
+	file = {rub-hgi/high-speed_bcrypt\: VHDL implementation and LaTeX source of "High-Speed Implementation of bcrypt Password Search using Special-Purpose Hardware", published at ReConFig'14:C\:\\Users\\abiva\\Zotero\\storage\\P62BEU6V\\high-speed_bcrypt.html:text/html},
+}
+
+@misc{noauthor_5_nodate,
+	title = {5. {Accessing} {PCI} device resources through sysfs — {The} {Linux} {Kernel} documentation},
+	url = {https://docs.kernel.org/PCI/sysfs-pci.html},
+	urldate = {2024-03-21},
+	file = {5. Accessing PCI device resources through sysfs — The Linux Kernel documentation:C\:\\Users\\abiva\\Zotero\\storage\\XSNSRN4I\\sysfs-pci.html:text/html},
+}
+
+@misc{noauthor_introduction_nodate,
+	title = {Introduction • {DMA}/{Bridge} {Subsystem} for {PCI} {Express} {Product} {Guide} ({PG195}) • {Reader} • {AMD} {Technical} {Information} {Portal}},
+	url = {https://docs.amd.com/r/en-US/pg195-pcie-dma},
+	urldate = {2024-03-21},
+	file = {Introduction • DMA/Bridge Subsystem for PCI Express Product Guide (PG195) • Reader • AMD Technical Information Portal:C\:\\Users\\abiva\\Zotero\\storage\\NBXRRACN\\pg195-pcie-dma.html:text/html},
 }
