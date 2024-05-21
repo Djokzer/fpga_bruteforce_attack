@@ -40,3 +40,7 @@ La mise en place d'une pipeline pour la partie Blowfish devrait non seulement pe
 
 Cette semaine je vais devoir mesurer les performances du Bcrypt sur un CPU et si possible de mesurer sur GPU aussi, afin des références pour les futurs optimisations.
 
+## Programme C - Single Threaded
+
+J'ai fait un premier programme C, juste pour tester la fonction bcrypt provenant de la libraire crypt (Librairie POSIX).
+
