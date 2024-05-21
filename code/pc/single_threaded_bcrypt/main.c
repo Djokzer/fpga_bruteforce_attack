@@ -51,7 +51,6 @@ void format_salt(const char* prefix, uint8_t cost, const char* salt, char* outpu
     sprintf(cost_str, "04$");
     //sprintf(cost_str, "%d$", cost);
 
-
     strcpy(output, prefix);
     strcat(output, cost_str);
     strcat(output, salt);

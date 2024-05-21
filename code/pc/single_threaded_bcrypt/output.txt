@@ -1,0 +1,4 @@
+Salt: $2b$04$dnQY/8g/fqXHs8qIjyBD2.
+Hashed password: $2b$04$dnQY/8g/fqXHs8qIjyBD2.L7ADv7gzUZDPxi3tlMJlqIDlgwYgSVy
+Time measured: 0.002595 seconds.
+Hash per second: 385.356455

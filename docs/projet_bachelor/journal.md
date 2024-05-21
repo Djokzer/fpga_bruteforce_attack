@@ -44,3 +44,4 @@ Cette semaine je vais devoir mesurer les performances du Bcrypt sur un CPU et si
 
 J'ai fait un premier programme C, juste pour tester la fonction bcrypt provenant de la libraire crypt (Librairie POSIX).
 
+Pour ce programme, le hash a pris 2.595 ms. J'ai donc un hashrate de 385 !
