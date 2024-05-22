@@ -6,6 +6,7 @@
 #include <time.h>
 #include <unistd.h>
 
+#define HASH_COUNT 10000
 
 void format_salt(const char* prefix, uint8_t cost, const char* salt, char* output);
 
@@ -23,33 +24,35 @@ int main() {
     // Start measuring time
     clock_t start = clock();
 
-    // Use the generated salt to hash the password
-    char *hashed_password = crypt(password, final_salt);
+    for (size_t i = 0; i < HASH_COUNT; i++)
+    {
+        // Use the generated salt to hash the password
+        char *hashed_password = crypt(password, final_salt);
+        // Check hashed password result
+        if (!hashed_password) {
+            perror("crypt");
+            return EXIT_FAILURE;
+        }
+        // Print the hashed password
+        //printf("Hashed password: %s\n", hashed_password);
+    }
     
     // Stop measuring time and calculate the elapsed time
     clock_t end = clock();
     double elapsed = (double)(end - start) / CLOCKS_PER_SEC;
     
-    // Check hashed password result
-    if (!hashed_password) {
-        perror("crypt");
-        return EXIT_FAILURE;
-    }
-
-    // Print the hashed password
-    printf("Hashed password: %s\n", hashed_password);
-
     
     printf("Time measured: %f seconds.\n", elapsed);
-    printf("Hash per second: %f\n", 1 / elapsed);
+    printf("Hash time : %f seconds.\n", elapsed / HASH_COUNT);
+
+    printf("Hash per second: %f\n", 1 / (elapsed / HASH_COUNT));
     return EXIT_SUCCESS;
 }
 
 void format_salt(const char* prefix, uint8_t cost, const char* salt, char* output)
 {
     char cost_str[5];
-    sprintf(cost_str, "04$");
-    //sprintf(cost_str, "%d$", cost);
+    sprintf(cost_str, "%02d$", cost);
 
     strcpy(output, prefix);
     strcat(output, cost_str);

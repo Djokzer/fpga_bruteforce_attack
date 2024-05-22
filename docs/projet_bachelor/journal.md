@@ -21,9 +21,9 @@ Il n'est pas possible d'instancier plus, non pas à cause d'un manque de ressour
 
 | Freq (MHz) 	| WNS (1 Quadcore) 	| Quadcores Max. 	| Utilisations (%)         	| WNS   	| Hashrate (cost : 5) 	|
 |------------	|------------------	|----------------	|--------------------------	|-------	|---------------------	|
-| 100        	| 5.698            	| 35             	| BRAM : 94.79, LUT : 54   	| 1.367 	| 21'564 H/s          	|
-| 200        	| 1.237            	| 35             	| BRAM : 94.79, LUT : 54   	| 0.273 	| 43'128 H/s          	|
-| 250        	| 0.43             	| -              	| -                        	| -     	| -                   	|
+| 100        	| 5.698            	| 36             	| BRAM : 97.50, LUT : 54   	| 0.988 	| 22'180 H/s          	|
+| 200        	| 1.237            	| 36             	| BRAM : 97.50, LUT : 54   	| 0.388 	| 440369 H/s          	|
+| 250        	| 0.43             	| 20            	| BRAM : 54.17, LUT : 30    | 0.171    	| -                   	|
 | 275        	| 0.294            	| -              	| -                        	| -     	| -                   	|
 | 300        	| 0.082            	| 5              	| BRAM : 13.54, LUT : 7.87 	| 0.007 	| 9241 H/s            	|
 | 325        	| -0.153           	| 0              	| 0                        	| X     	| -                   	|
@@ -44,4 +44,32 @@ Cette semaine je vais devoir mesurer les performances du Bcrypt sur un CPU et si
 
 J'ai fait un premier programme C, juste pour tester la fonction bcrypt provenant de la libraire crypt (Librairie POSIX).
 
-Pour ce programme, le hash a pris 2.595 ms. J'ai donc un hashrate de 385 !
+Dans ce programme j'ai lancé la fonction de hash avec un cost de 5, 10'000 fois, afin d'avoir une moyenne du temps pris par le CPU.
+
+Résultat :
+```Bash
+Salt: $2b$05$dnQY/8g/fqXHs8qIjyBD2.
+Time measured: 18.707516 seconds.
+Hash time : 0.001871 seconds.
+Hash per second: 534.544511
+```
+
+## RDV
+
+Liste des sujets :
+ - Chercher la fréquence la plus élévée avec le plus de quadcore
+ - Faire des recherches sur l'utilisation des macros pour le routage (pour définir des blocs)
+ - Vérifier que le design ne soit pas optimisé dû au hash qui a été hardcodé
+- Faire des mesures pour le code C
+- Mettre en place une communication UART pour initialiser les quadcores
+- Mettre en place un protocole de communication avec de la synchronisation et gestion d'erreur pour l'UART
+
+## Programme C - Multi Threaded
+
+J'ai ensuite fait un programme avec des threads afin de utiliser un maximum les différents coeurs de mon processeur.
+
+Dans mon cas, j'ai un **AMD Ryzen 7 4800U** avec **8 Cores** et **2 Threads par core**.
+
+J'ai ainsi fait des mesures ou j'ai executé mon programme qui fait le hash 10'000 fois pour différents nombres de threads.
+
+![](assets/stats.png)
