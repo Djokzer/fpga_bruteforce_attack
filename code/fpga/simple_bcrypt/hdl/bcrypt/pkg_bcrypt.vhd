@@ -35,7 +35,7 @@ package pkg_bcrypt is
     -- Constants
     -- --------------------------------------------------------------------- --
     constant INIT_PIPELINE  : positive := 2;   -- needs to be bigger than 1
-    constant CORE_INSTANCES : positive := 1;
+    constant CORE_INSTANCES : positive := 30;
     constant COST : integer := 4;
     constant COST_LENGTH : integer := 5;
     constant  PWD_LENGTH : integer := 72;   -- maximal length of pwd to bf

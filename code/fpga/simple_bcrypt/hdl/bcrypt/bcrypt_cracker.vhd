@@ -294,7 +294,7 @@ begin
         bcrypt_quad_core : entity work.bcrypt_quad_core
             generic map (
                 INDEX => i,
-                NUMBER_OF_CRACKS => 1024
+                NUMBER_OF_CRACKS => 5000--pass_to_crack(CHARSET_LEN)
             )
             port map (
                 clk     => clk,
