@@ -23,7 +23,7 @@ Il n'est pas possible d'instancier plus, non pas à cause d'un manque de ressour
 |------------	|------------------	|----------------	|--------------------------	|-------	|---------------------	|
 | 100        	| 5.698            	| 36             	| BRAM : 97.50, LUT : 68   	| 0.988 	| 22'180 H/s          	|
 | 200        	| 1.237            	| 36             	| BRAM : 97.50, LUT : 68   	| 0.388 	| 44'369 H/s          	|
-| 250        	| 0.43             	| 30            	| BRAM : 81.25, LUT : 57    | 0.166    	| 46'208 H/s          	|
+| 250        	| 0.43             	| 36            	| BRAM : 97.50, LUT : 68    | 0.115    	| 55'450 H/s          	|
 | 275        	| 0.294            	| -              	| -                        	| -     	| -                   	|
 | 300        	| 0.082            	| 5              	| BRAM : 13.54, LUT : 7.87 	| 0.007 	| 9241 H/s            	|
 | 325        	| -0.153           	| 0              	| 0                        	| X     	| -                   	|
@@ -86,3 +86,18 @@ J'ai lancé une synthèse avec 36 Quadcores, qui est le maximum possible sur la 
 Maintenant que je sais que une optimisation a bien lieu, je dois refaire l'implémentation afin de vérifier que les résultats précedents sont toujours valables.
 
 Pour ce faire, j'ai changé de méthode pour pouvoir faire l'implémentation. J'ai trouvé un exemple qui utilise les attributs afin d'empecher l'optimisation sur les signaux.
+
+## Communication UART
+
+Afin de pouvoir interfacer les différents quadcores, je dois mettre en place pour l'instant une communication UART.
+
+L'idée serait de faire un système de paquets, le paquet contiendra de quoi régler un quadcore.
+
+![](assets/communication_protocol_packet_format.png)
+
+Afin d'avoir une communication solide, il me faut un protocole simple m'assurant que le paquet recu est bien synchronisé.
+Pour ce faire, j'ai décidé d'encoder mes paquets avec l'algorithme COBS.
+
+![](assets/communication_protocol.png)
+
+Il faudrait avant de faire l'encodage mettre un CRC check afin de vérifier l'intégrité du paquet (dans le packet router).
