@@ -4,9 +4,7 @@ import pandas as pd
 import time
 
 bin = "bcrypt_multicore"
-cpu_count = [1, 2, 4, 8, 12, 14, 15, 16, 20, 24, 28, 32, 64, 128]
-
-
+cpu_count = [1, 2, 4, 8, 12, 14, 15, 16, 20, 24, 28, 32, 64]
 
 def run_subprocess(bin_name, arg1, arg2):
         start = time.time()

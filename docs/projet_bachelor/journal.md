@@ -21,14 +21,14 @@ Il n'est pas possible d'instancier plus, non pas à cause d'un manque de ressour
 
 | Freq (MHz) 	| WNS (1 Quadcore) 	| Quadcores Max. 	| Utilisations (%)         	| WNS   	| Hashrate (cost : 5) 	|
 |------------	|------------------	|----------------	|--------------------------	|-------	|---------------------	|
-| 100        	| 5.698            	| 36             	| BRAM : 97.50, LUT : 54   	| 0.988 	| 22'180 H/s          	|
-| 200        	| 1.237            	| 36             	| BRAM : 97.50, LUT : 54   	| 0.388 	| 440369 H/s          	|
-| 250        	| 0.43             	| 20            	| BRAM : 54.17, LUT : 30    | 0.171    	| -                   	|
+| 100        	| 5.698            	| 36             	| BRAM : 97.50, LUT : 68   	| 0.988 	| 22'180 H/s          	|
+| 200        	| 1.237            	| 36             	| BRAM : 97.50, LUT : 68   	| 0.388 	| 44'369 H/s          	|
+| 250        	| 0.43             	| 30            	| BRAM : 81.25, LUT : 57    | 0.166    	| 46'208 H/s          	|
 | 275        	| 0.294            	| -              	| -                        	| -     	| -                   	|
 | 300        	| 0.082            	| 5              	| BRAM : 13.54, LUT : 7.87 	| 0.007 	| 9241 H/s            	|
 | 325        	| -0.153           	| 0              	| 0                        	| X     	| -                   	|
 
-On peut voir déjà que à la même fréquence que la Nexys Video, on est plus vraiment limité par les contraintes de timings mais par les ressources. On arrive donc à instancier **13** Quadcores en plus.
+On peut voir déjà que à la même fréquence que la Nexys Video, on est plus vraiment limité par les contraintes de timings mais par les ressources. On arrive donc à instancier **14** Quadcores en plus.
 
 Le résultat le plus surprenant, c'est à quelle point le système semble marcher à 200 MHz.
 
@@ -57,9 +57,10 @@ Hash per second: 534.544511
 ## RDV
 
 Liste des sujets :
- - Chercher la fréquence la plus élévée avec le plus de quadcore
- - Faire des recherches sur l'utilisation des macros pour le routage (pour définir des blocs)
- - Vérifier que le design ne soit pas optimisé dû au hash qui a été hardcodé
+- Chercher la fréquence la plus élévée avec le plus de quadcore ([voir tableau](#kintex-ultrascale))
+
+- Faire des recherches sur l'utilisation des macros pour le routage (pour définir des blocs)
+- Vérifier que le design ne soit pas optimisé dû au hash qui a été hardcodé
 - Faire des mesures pour le code C
 - Mettre en place une communication UART pour initialiser les quadcores
 - Mettre en place un protocole de communication avec de la synchronisation et gestion d'erreur pour l'UART
@@ -73,3 +74,15 @@ Dans mon cas, j'ai un **AMD Ryzen 7 4800U** avec **8 Cores** et **2 Threads par 
 J'ai ainsi fait des mesures ou j'ai executé mon programme qui fait le hash 10'000 fois pour différents nombres de threads.
 
 ![](assets/stats.png)
+
+Dans ce graphique, on peut voir les différents hashrate déduit de mon programme par rapport au nombre de threads instanciés. Le Hashrate le plus élevé est celui avec 16 threads, cela coincide avec les spécifications de mon processeur.
+
+## Verification optimisation design
+
+Afin de vérifier que le design n'est pas optimisé, j'ai décidé de remplacer le hash en constante par une entrée.
+
+J'ai lancé une synthèse avec 36 Quadcores, qui est le maximum possible sur la Kyntex est le nombre de LUT utilisés a augmenté de 15%.
+
+Maintenant que je sais que une optimisation a bien lieu, je dois refaire l'implémentation afin de vérifier que les résultats précedents sont toujours valables.
+
+Pour ce faire, j'ai changé de méthode pour pouvoir faire l'implémentation. J'ai trouvé un exemple qui utilise les attributs afin d'empecher l'optimisation sur les signaux.
