@@ -95,9 +95,17 @@ L'idée serait de faire un système de paquets, le paquet contiendra de quoi ré
 
 ![](assets/communication_protocol_packet_format.png)
 
-Afin d'avoir une communication solide, il me faut un protocole simple m'assurant que le paquet recu est bien synchronisé.
+Afin d'avoir une communication solide, il me faut un protocole simple m'assurant que le paquet recu soit bien synchronisé.
 Pour ce faire, j'ai décidé d'encoder mes paquets avec l'algorithme COBS.
+
+Il faudrait mettre en place dans le payload un CRC afin de pouvoir vérifier l'intégrité du paquet à la reception.
 
 ![](assets/communication_protocol.png)
 
-Il faudrait avant de faire l'encodage mettre un CRC check afin de vérifier l'intégrité du paquet (dans le packet router).
+A la reception, on aura deux buffer. 
+Le premier va accumuler les données jusqu'à reception d'un 0 qui sigifiera la fin du paquet.
+Puis, pendant que le decodage aura lieu, on va récuperer le prochain paquet dans le deuxième buffer.
+
+Après décodage, le router va s'occuper d'initialiser le bon quadcore à l'aide des informations récupérés dans le paquet.
+
+L'idée serait de bien séparé la couche communication UART du reste, afin de pouvoir plus tard remplacé l'UART par le PCIe. 
