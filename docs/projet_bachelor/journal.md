@@ -89,23 +89,22 @@ Pour ce faire, j'ai changé de méthode pour pouvoir faire l'implémentation. J'
 
 ## Communication UART
 
-Afin de pouvoir interfacer les différents quadcores, je dois mettre en place pour l'instant une communication UART.
+Afin de pouvoir interfacer les différents quadcores, je dois mettre en place pour l'instant une communication UART. Ainsi je vais pouvoir initialiser les compteurs de mots de passes des différents Quadcores. 
 
-L'idée serait de faire un système de paquets, le paquet contiendra de quoi régler un quadcore.
-
-![](assets/communication_protocol_packet_format.png)
+L'idée serait de bien séparé la couche communication UART du reste, afin de pouvoir plus tard remplacé plus facilement l'UART par le PCIe. 
 
 Afin d'avoir une communication solide, il me faut un protocole simple m'assurant que le paquet recu soit bien synchronisé.
 Pour ce faire, j'ai décidé d'encoder mes paquets avec l'algorithme COBS.
 
-Il faudrait mettre en place dans le payload un CRC afin de pouvoir vérifier l'intégrité du paquet à la reception.
+Au final, je vais avoir un système de paquets, contenant un byte de start(le byte va contenir l'offset du prochain 0), un code de fonction, la longueur du payload à venir, le payload et le CRC du payload.
+
+![](assets/communication_protocol_packet_format.png)
+
+Pour l'UART, je vais pouvoir mettre dans le payload toutes les informations nécessaires à l'initialisation d'un Quadcore. C'est à dire l'ID du Quadcore, le nombre d'essais, le salt et le hash que l'on souhaite casser et l'init du compteur de mots de passe. 
 
 ![](assets/communication_protocol.png)
 
-A la reception, on aura deux buffer. 
-Le premier va accumuler les données jusqu'à reception d'un 0 qui sigifiera la fin du paquet.
-Puis, pendant que le decodage aura lieu, on va récuperer le prochain paquet dans le deuxième buffer.
+A la reception, on aura un buffer qui va stocker le paquet entrant.
+Pendant la récéption du paquet, on va pouvoir en même temps décodé le paquet et stocker le résultat dans un deuxième buffer qui va servir au routeur. En parralèle du décodage, le CRC va pouvoir être calculer.
 
-Après décodage, le router va s'occuper d'initialiser le bon quadcore à l'aide des informations récupérés dans le paquet.
-
-L'idée serait de bien séparé la couche communication UART du reste, afin de pouvoir plus tard remplacé l'UART par le PCIe. 
+Si le CRC check est bon, le routeur va pouvoir distribuer les informations en fonction du paquet recu.
