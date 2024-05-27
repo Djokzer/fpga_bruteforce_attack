@@ -3,11 +3,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.math_real.all;
 
+library work;
 
 entity packet_receiver is
-	generic (
-		PACKET_BUFF_SIZE : integer := 110;
-	  );
     port (
         clk   : in std_logic;
         reset : in std_logic;
@@ -18,21 +16,24 @@ entity packet_receiver is
 
         -- ROUTER INTERFACE
         packet_data : out std_logic_vector(7 downto 0);
+        packet_data_valid : out std_logic;
         packet_incomming : out std_logic;
-        packet_data_valid : out std_logic
+		packet_valid : out std_logic
     );
 end entity packet_receiver;
 
 architecture rtl of packet_receiver is
     -- SIGNALS
 	signal packet_start : std_logic := '0';
+	signal packet_valid_s : std_logic := '0';
 	signal data_out : std_logic_vector(7 downto 0);
 	signal data_out_valid : std_logic := '0';
 
-	signal cobs_counter : integer := 0;
+	signal cobs_count : integer := 0;
 	signal cobs_next : integer := 0;
 	signal cobs_load : std_logic := '0';
 
+	signal crc_s : std_logic_vector(7 downto 0):= x"00";
 	signal crc_in : std_logic_vector(7 downto 0) := x"00";
 	signal crc_out : std_logic_vector(7 downto 0):= x"00";
 begin
@@ -40,6 +41,7 @@ begin
 	packet_incomming <= packet_start;
 	packet_data_valid <= data_out_valid;
 	packet_data <= data_out;
+	packet_valid <= packet_valid_s;
 
 	-- check end of packet
 	check_end : process(clk)
@@ -63,11 +65,11 @@ begin
 		if rising_edge(clk) then
 			if cobs_load = '1' then
 				-- INIT COBS COUNTER, (NEXT 0x00 OFFSET)
-				cobs_counter <= cobs_next - 1;
+				cobs_count <= cobs_next - 1;
 			elsif rx_valid = '1' then
-				if cobs_counter /= 0  then
+				if cobs_count /= 0  then
 					-- DECREMENT COBS COUNTER
-					cobs_counter <= cobs_counter - 1;
+					cobs_count <= cobs_count - 1;
 				end if;
 			end if;
 		end if;
@@ -90,7 +92,7 @@ begin
 					data_out_valid <= '0';
 				else
 					-- GET DECODED DATA
-					if cobs_counter = 0 then
+					if cobs_count = 0 then
 						-- DATA : 0x00
 						data_out <= x"00";
 
@@ -111,13 +113,30 @@ begin
 		end if;
 	end process;
 
+	-- crc module
+	crc_m: entity work.crc
+		port map (
+			crcIn   => crc_in,
+			data 	=> data_out,
+			crcOut	=> crc_out
+		);
+	
+	crc_in <= crc_s;
+	
 	-- crc check
 	crc_check : process(clk)
 	begin
 		if rising_edge(clk) then
-				
+			if data_out_valid = '1' then
+				crc_s <= crc_out;
+			else
+				if crc_out = x"00" then
+					packet_valid_s <= '1';
+				else
+					packet_valid_s <= '0';
+				end if;
+			end if;
 		end if;
 	end process;
 
-	-- TO DO : ADD CRC
 end architecture;
