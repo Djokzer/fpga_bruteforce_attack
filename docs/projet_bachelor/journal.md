@@ -24,7 +24,7 @@ Il n'est pas possible d'instancier plus, non pas à cause d'un manque de ressour
 | 100        	| 5.698            	| 36             	| BRAM : 97.50, LUT : 68   	| 0.988 	| 22'180 H/s          	|
 | 200        	| 1.237            	| 36             	| BRAM : 97.50, LUT : 68   	| 0.388 	| 44'369 H/s          	|
 | 250        	| 0.43             	| 36            	| BRAM : 97.50, LUT : 68    | 0.115    	| 55'450 H/s          	|
-| 275        	| 0.294            	| -              	| -                        	| -     	| -                   	|
+| 275        	| 0.294            	| < 30            	| -                        	| -     	| < 50'820 H/s          |
 | 300        	| 0.082            	| 5              	| BRAM : 13.54, LUT : 7.87 	| 0.007 	| 9241 H/s            	|
 | 325        	| -0.153           	| 0              	| 0                        	| X     	| -                   	|
 
@@ -58,7 +58,6 @@ Hash per second: 534.544511
 
 Liste des sujets :
 - Chercher la fréquence la plus élévée avec le plus de quadcore ([voir tableau](#kintex-ultrascale))
-
 - Faire des recherches sur l'utilisation des macros pour le routage (pour définir des blocs)
 - Vérifier que le design ne soit pas optimisé dû au hash qui a été hardcodé
 - Faire des mesures pour le code C
@@ -96,7 +95,7 @@ L'idée serait de bien séparé la couche communication UART du reste, afin de p
 Afin d'avoir une communication solide, il me faut un protocole simple m'assurant que le paquet recu soit bien synchronisé.
 Pour ce faire, j'ai décidé d'encoder mes paquets avec l'algorithme COBS.
 
-Au final, je vais avoir un système de paquets, contenant un byte de start(le byte va contenir l'offset du prochain 0), un code de fonction, la longueur du payload à venir, le payload et le CRC du payload.
+Au final, je vais avoir un système de paquets, contenant un byte de start(le byte va contenir l'offset du prochain 0x00), le payload, le CRC du payload et un byte de fin (0x00).
 
 ![](assets/communication_protocol_packet_format.png)
 
@@ -104,7 +103,10 @@ Pour l'UART, je vais pouvoir mettre dans le payload toutes les informations néc
 
 ![](assets/communication_protocol.png)
 
-A la reception, on aura un buffer qui va stocker le paquet entrant.
-Pendant la récéption du paquet, on va pouvoir en même temps décodé le paquet et stocker le résultat dans un deuxième buffer qui va servir au routeur. En parralèle du décodage, le CRC va pouvoir être calculer.
+Pendant la récéption du paquet, je vais pouvoir décoder le paquet et stocker le résultat dans un buffer pour le routeur. En parralèle du décodage, le CRC va pouvoir être calculé.
 
 Si le CRC check est bon, le routeur va pouvoir distribuer les informations en fonction du paquet recu.
+
+# Semaine 3 - (27.05.2024 - 31.05.2024)
+
+Cette semaine je dois mettre en place la communication UART avec un système de paquet. Le programme doit être fait de manière modulable afin de pouvoir aisemment remplacer l'UART par le PCIe.
