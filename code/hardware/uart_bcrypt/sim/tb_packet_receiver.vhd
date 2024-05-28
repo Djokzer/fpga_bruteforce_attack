@@ -87,59 +87,59 @@ begin
     
     stimuli : process
     begin
-    -- Wait for reset to be released
-    wait until reset = '0';
-    wait for CLK_PERIOD;
-    
-    -- FIRST PACKET (Payload : 1, 0, 2)
-    data_write(x"03", rx_data, rx_valid);
-    data_write(x"03", rx_data, rx_valid);
-    data_write(x"01", rx_data, rx_valid);
-    data_write(x"03", rx_data, rx_valid);
-    data_write(x"02", rx_data, rx_valid);
-    data_write(x"65", rx_data, rx_valid);
-    data_write(x"00", rx_data, rx_valid);
-    
-    
-    -- SECOND PACKET (Payload : 0, 0, 2, 255, 0)
-    data_write(x"02", rx_data, rx_valid);
-    data_write(x"05", rx_data, rx_valid);
-    data_write(x"01", rx_data, rx_valid);
-    data_write(x"03", rx_data, rx_valid);
-    data_write(x"02", rx_data, rx_valid);
-    data_write(x"ff", rx_data, rx_valid);
-    data_write(x"02", rx_data, rx_valid);
-    data_write(x"01", rx_data, rx_valid);
-    data_write(x"00", rx_data, rx_valid);
+        -- Wait for reset to be released
+        wait until reset = '0';
+        wait for CLK_PERIOD;
+        
+        -- FIRST PACKET (Payload : 1, 0, 2)
+        data_write(x"03", rx_data, rx_valid);
+        data_write(x"03", rx_data, rx_valid);
+        data_write(x"01", rx_data, rx_valid);
+        data_write(x"03", rx_data, rx_valid);
+        data_write(x"02", rx_data, rx_valid);
+        data_write(x"65", rx_data, rx_valid);
+        data_write(x"00", rx_data, rx_valid);
+        
+        
+        -- SECOND PACKET (Payload : 0, 0, 2, 255, 0)
+        data_write(x"02", rx_data, rx_valid);
+        data_write(x"05", rx_data, rx_valid);
+        data_write(x"01", rx_data, rx_valid);
+        data_write(x"03", rx_data, rx_valid);
+        data_write(x"02", rx_data, rx_valid);
+        data_write(x"ff", rx_data, rx_valid);
+        data_write(x"02", rx_data, rx_valid);
+        data_write(x"01", rx_data, rx_valid);
+        data_write(x"00", rx_data, rx_valid);
     end process;
     
     check_output : process
     begin
-    -- Wait for reset to be released
-    wait until reset = '0';
-    wait for CLK_PERIOD;
-    
-    check_out_data(x"01", data_out, data_valid);
-    check_out_data(x"00", data_out, data_valid);
-    check_out_data(x"02", data_out, data_valid);
-    
-    report "-- First packet succefull --";
-    
-    wait until packet_valid = '1';
-    wait for CLK_PERIOD * 2;
-    
-    check_out_data(x"00", data_out, data_valid);
-    check_out_data(x"00", data_out, data_valid);
-    check_out_data(x"02", data_out, data_valid);
-    check_out_data(x"FF", data_out, data_valid);
-    check_out_data(x"00", data_out, data_valid);
-    
-    report "-- Second packet succefull --";
-    
-    wait until packet_valid = '1';
-    wait for CLK_PERIOD * 2;
-    
-    report "-- Simulation completed successfully --";
-    finish;
+        -- Wait for reset to be released
+        wait until reset = '0';
+        wait for CLK_PERIOD;
+        
+        check_out_data(x"01", data_out, data_valid);
+        check_out_data(x"00", data_out, data_valid);
+        check_out_data(x"02", data_out, data_valid);
+        
+        report "-- First packet succefull --";
+        
+        wait until packet_valid = '1';
+        wait for CLK_PERIOD * 2;
+        
+        check_out_data(x"00", data_out, data_valid);
+        check_out_data(x"00", data_out, data_valid);
+        check_out_data(x"02", data_out, data_valid);
+        check_out_data(x"FF", data_out, data_valid);
+        check_out_data(x"00", data_out, data_valid);
+        
+        report "-- Second packet succefull --";
+        
+        wait until packet_valid = '1';
+        wait for CLK_PERIOD * 2;
+        
+        report "-- Simulation completed successfully --";
+        finish;
     end process;
 end Behavioral;
