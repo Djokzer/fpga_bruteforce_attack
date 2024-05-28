@@ -95,7 +95,7 @@ L'idée serait de bien séparé la couche communication UART du reste, afin de p
 Afin d'avoir une communication solide, il me faut un protocole simple m'assurant que le paquet recu soit bien synchronisé.
 Pour ce faire, j'ai décidé d'encoder mes paquets avec l'algorithme COBS.
 
-Au final, je vais avoir un système de paquets, contenant un byte de start(le byte va contenir l'offset du prochain 0x00), le payload, le CRC du payload et un byte de fin (0x00).
+Au final, je vais avoir un système de paquets, contenant un byte de start(le byte va contenir l'offset du prochain 0x00), la longueur du payload, le payload, le CRC du payload et un byte de fin (0x00).
 
 ![](assets/communication_protocol_packet_format.png)
 
@@ -110,3 +110,9 @@ Si le CRC check est bon, le routeur va pouvoir distribuer les informations en fo
 # Semaine 3 - (27.05.2024 - 31.05.2024)
 
 Cette semaine je dois mettre en place la communication UART avec un système de paquet. Le programme doit être fait de manière modulable afin de pouvoir aisemment remplacer l'UART par le PCIe.
+
+## Packet receiver
+
+J'ai pu commencer par le module packet receiver, qui va s'occuper de recevoir les données de l'UART et décoder le paquet à chaque byte recu. Le calcul du crc sera fait à chaque byte décodé. A la fin à l'aide de la longueur du payload recu, j'ai pu vérifier le crc.
+
+J'ai validé le fonctionnement de ce module à l'aide d'un testbentch qui a envoyé deux paquets différents et vérifier que les paquets recus ont bien été décodé et le crc bien vérifié.
