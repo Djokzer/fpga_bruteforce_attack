@@ -126,3 +126,11 @@ Maintenant que le packet receiver est fonctionnel, je peux entamer le design du 
 Le router va bufferisé les données recus, jusqu'à recevoir une confirmation du receiver lorsque le paquet entier a été envoyé et vérifié. Suite à la confirmation, le router va pouvoir entamé l'envoi des données au quadcore ciblé.
 
 Ce module au contraire du packet receiver va avoir une execution spécifique pour l'UART. C'est à dire que ce module et le module quadcore vont avoir une interface particulière qui ne sera plus le même pour le PCIe.
+
+## RDV
+
+Liste des sujets :
+
+- Finir la partie emission de paquets et tester avec des LEDs
+- Mettre en place un système de retour de paquets par couche (transfert et applicatifs)
+- Commencer à voir en parralèle pour le PCIe.
