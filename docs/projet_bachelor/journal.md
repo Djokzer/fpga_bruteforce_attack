@@ -116,3 +116,9 @@ Cette semaine je dois mettre en place la communication UART avec un système de 
 J'ai pu commencer par le module packet receiver, qui va s'occuper de recevoir les données de l'UART et décoder le paquet à chaque byte recu. Le calcul du crc sera fait à chaque byte décodé. A la fin à l'aide de la longueur du payload recu, j'ai pu vérifier le crc.
 
 J'ai validé le fonctionnement de ce module à l'aide d'un testbentch qui a envoyé deux paquets différents et vérifier que les paquets recus ont bien été décodé et le crc bien vérifié.
+
+J'ai pu aussi valider le bon fonctionnement du module avec un deuxième testbench qui va cette fois ci communiquer avec un module uart. 
+
+## Data router
+
+Maintenant que le packet receiver est fonctionnel, je peux entamer le design du Data router.
