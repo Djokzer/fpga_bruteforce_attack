@@ -122,3 +122,7 @@ J'ai pu aussi valider le bon fonctionnement du module avec un deuxième testbenc
 ## Data router
 
 Maintenant que le packet receiver est fonctionnel, je peux entamer le design du Data router.
+
+Le router va bufferisé les données recus, jusqu'à recevoir une confirmation du receiver lorsque le paquet entier a été envoyé et vérifié. Suite à la confirmation, le router va pouvoir entamé l'envoi des données au quadcore ciblé.
+
+Ce module au contraire du packet receiver va avoir une execution spécifique pour l'UART. C'est à dire que ce module et le module quadcore vont avoir une interface particulière qui ne sera plus le même pour le PCIe.
