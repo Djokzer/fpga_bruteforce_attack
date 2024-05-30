@@ -119,6 +119,14 @@ J'ai validé le fonctionnement de ce module à l'aide d'un testbentch qui a envo
 
 J'ai pu aussi valider le bon fonctionnement du module avec un deuxième testbench qui va cette fois ci communiquer avec un module uart. 
 
+## RDV
+
+Liste des sujets :
+
+- Finir la partie emission de paquets et tester avec des LEDs
+- Mettre en place un système de retour de paquets par couche (transfert et applicatifs)
+- Commencer à voir en parralèle pour le PCIe.
+
 ## Data router
 
 Maintenant que le packet receiver est fonctionnel, je peux entamer le design du Data router.
@@ -127,10 +135,11 @@ Le router va bufferisé les données recus, jusqu'à recevoir une confirmation d
 
 Ce module au contraire du packet receiver va avoir une execution spécifique pour l'UART. C'est à dire que ce module et le module quadcore vont avoir une interface particulière qui ne sera plus le même pour le PCIe.
 
-## RDV
+Il va falloir aussi modifier le bcrypt quadcore. Il va falloir notamment adapter son interface. 
 
-Liste des sujets :
-
-- Finir la partie emission de paquets et tester avec des LEDs
-- Mettre en place un système de retour de paquets par couche (transfert et applicatifs)
-- Commencer à voir en parralèle pour le PCIe.
+**Les modifications à faire sur le Quadcore :**
+- Changer le number of cracks de generic à port d'entrée
+- Ajouter deux ports pour initialiser le générateur de mot de passe (vec_init et vec_length)
+- Ajouter une mémorisation de ces différents ports d'interface, car l'état des ports risque de changer pendant les calculs.
+- Modifier la machine d'état afin d'y ajouter un état d'initialisation
+- Modifier le générateur de mots passe afin de changer les génériques en ports d'entrée

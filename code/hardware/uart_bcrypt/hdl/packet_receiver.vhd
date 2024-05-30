@@ -41,7 +41,7 @@ architecture rtl of packet_receiver is
 	signal crc_s : std_logic_vector(7 downto 0):= x"00";
 	signal crc_in : std_logic_vector(7 downto 0) := x"00";
 	signal crc_out : std_logic_vector(7 downto 0):= x"00";
-	signal packet_crc_valid : std_logic := '0';
+	signal payload_finish : std_logic := '0';
 begin
 	-- packet out
 	packet_incomming <= packet_start;
@@ -64,6 +64,9 @@ begin
 						-- PACKET COMING
 						packet_start <= '1';
 					end if;
+                elsif payload_finish = '1' then
+                    -- END OF PACKET
+                    packet_start <= '0';
 				end if;
 			end if;
 		end if;
@@ -121,7 +124,7 @@ begin
 				data_out <= x"00";
 				payload_load <= '0';
 				payload_count_load <= 0;
-				packet_crc_valid <= '0';
+				payload_finish <= '0';
 			else
 				if rx_valid = '1' then
 					-- IF NEW DATA IN
@@ -131,20 +134,20 @@ begin
 						data_out_valid <= '0';
 						cobs_header <= '0';
 						payload_load <= '0';
-						packet_crc_valid <= '0';
+						payload_finish <= '0';
 					elsif packet_start = '0' then
 						-- COBS HEADER
 						cobs_load <= '1';
 						cobs_next <= to_integer(unsigned(rx_data));
 						data_out_valid <= '0';
 						payload_load <= '0';
-						packet_crc_valid <= '0';
+						payload_finish <= '0';
 						cobs_header <= '1';
 					elsif cobs_header = '1' then
 						-- PAYLOAD LENGTH
 						cobs_header <= '0';
 						cobs_load <= '0';
-						packet_crc_valid <= '0';
+						payload_finish <= '0';
 						payload_load <= '1';
 						payload_count_load <= to_integer(unsigned(rx_data));
 					else
@@ -166,7 +169,7 @@ begin
 						
 						if payload_count = 0 then
 							-- GET CRC FROM PACKET
-							packet_crc_valid <= '1';
+							payload_finish <= '1';
 							data_out_valid <= '0';
 						end if;
 					end if;
@@ -199,7 +202,7 @@ begin
 				if data_out_valid = '1' then
 					crc_s <= crc_out;
 					packet_valid_s <= '0';
-				elsif packet_crc_valid = '1' then
+				elsif payload_finish = '1' then
 					if crc_s = data_out then
 						packet_valid_s <= '1';
 					else
