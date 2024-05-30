@@ -57,12 +57,12 @@ Hash per second: 534.544511
 ## RDV
 
 Liste des sujets :
-- Chercher la fréquence la plus élévée avec le plus de quadcore ([voir tableau](#kintex-ultrascale))
-- Faire des recherches sur l'utilisation des macros pour le routage (pour définir des blocs)
-- Vérifier que le design ne soit pas optimisé dû au hash qui a été hardcodé
-- Faire des mesures pour le code C
-- Mettre en place une communication UART pour initialiser les quadcores
-- Mettre en place un protocole de communication avec de la synchronisation et gestion d'erreur pour l'UART
+- [x] Chercher la fréquence la plus élévée avec le plus de quadcore ([voir tableau](#kintex-ultrascale))
+- [ ] Faire des recherches sur l'utilisation des macros pour le routage (pour définir des blocs)
+- [x] Vérifier que le design ne soit pas optimisé dû au hash qui a été hardcodé
+- [x] Faire des mesures pour le code C
+- [ ] Mettre en place une communication UART pour initialiser les quadcores
+- [ ] Mettre en place un protocole de communication avec de la synchronisation et gestion d'erreur pour l'UART
 
 ## Programme C - Multi Threaded
 
@@ -123,9 +123,9 @@ J'ai pu aussi valider le bon fonctionnement du module avec un deuxième testbenc
 
 Liste des sujets :
 
-- Finir la partie emission de paquets et tester avec des LEDs
-- Mettre en place un système de retour de paquets par couche (transfert et applicatifs)
-- Commencer à voir en parralèle pour le PCIe.
+- [ ] Finir la partie emission de paquets et tester avec des LEDs
+- [ ] Mettre en place un système de retour de paquets par couche (transfert et applicatifs)
+- [ ] Commencer à étudier en parralèle pour le PCIe.
 
 ## Data router
 
@@ -138,8 +138,9 @@ Ce module au contraire du packet receiver va avoir une execution spécifique pou
 Il va falloir aussi modifier le bcrypt quadcore. Il va falloir notamment adapter son interface. 
 
 **Les modifications à faire sur le Quadcore :**
-- Changer le number of cracks de generic à port d'entrée
-- Ajouter deux ports pour initialiser le générateur de mot de passe (vec_init et vec_length)
-- Ajouter une mémorisation de ces différents ports d'interface, car l'état des ports risque de changer pendant les calculs.
-- Modifier la machine d'état afin d'y ajouter un état d'initialisation
-- Modifier le générateur de mots passe afin de changer les génériques en ports d'entrée
+- [x] Changer le number of cracks de generic à port d'entrée
+- [x] Ajouter deux ports pour initialiser le générateur de mot de passe (vec_init et vec_length)
+- [x] Ajouter une mémorisation de ces différents ports d'interface, car l'état des ports risque de changer pendant les calculs.
+- [x] Modifier la machine d'état afin d'y ajouter un état d'initialisation
+- [x] Modifier le générateur de mots passe afin de changer les génériques en ports d'entrée
+- [ ] Tester à l'aide d'un testbench le bon fonctionnement du nouveau bcrypt quadcore
