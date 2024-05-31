@@ -101,6 +101,7 @@ Au final, je vais avoir un système de paquets, contenant un byte de start(le by
 
 Pour l'UART, je vais pouvoir mettre dans le payload toutes les informations nécessaires à l'initialisation d'un Quadcore. C'est à dire l'ID du Quadcore, le nombre d'essais, le salt et le hash que l'on souhaite casser et l'init du compteur de mots de passe. 
 
+
 ![](assets/communication_protocol.png)
 
 Pendant la récéption du paquet, je vais pouvoir décoder le paquet et stocker le résultat dans un buffer pour le routeur. En parralèle du décodage, le CRC va pouvoir être calculé.
@@ -144,3 +145,74 @@ Il va falloir aussi modifier le bcrypt quadcore. Il va falloir notamment adapter
 - [x] Modifier la machine d'état afin d'y ajouter un état d'initialisation
 - [x] Modifier le générateur de mots passe afin de changer les génériques en ports d'entrée
 - [ ] Tester à l'aide d'un testbench le bon fonctionnement du nouveau bcrypt quadcore
+
+## Benchmark GPU
+
+Afin d'avoir une référence de vitesse de hash pour notre FPGA, j'ai utilisé Hashcat afin de trouver le hashrate de mon GPU.
+
+En effet, on peut utiliser hashcat afin de faire un benchmark de notre GPU pour le type de Hash souhaité.
+Dans mon cas, j'ai utilisé le GPU de chez moi, un **GTX 1660 Super**.
+
+Benchmark GPU:
+```Bash
+.\hashcat.exe -m 3200 --benchmark
+hashcat (v6.2.6) starting in benchmark mode
+
+Benchmarking uses hand-optimized kernel code by default.
+You can use it in your cracking session by setting the -O option.
+Note: Using optimized kernel code limits the maximum supported password length.
+To disable the optimized kernel code in benchmark mode, use the -w option.
+
+CUDA API (CUDA 12.4)
+====================
+* Device #1: NVIDIA GeForce GTX 1660 SUPER, 5134/6143 MB, 22MCU
+
+OpenCL API (OpenCL 3.0 CUDA 12.4.131) - Platform #1 [NVIDIA Corporation]
+========================================================================
+* Device #2: NVIDIA GeForce GTX 1660 SUPER, skipped
+
+Benchmark relevant options:
+===========================
+* --optimized-kernel-enable
+
+----------------------------------------------------------------
+* Hash-Mode 3200 (bcrypt $2*$, Blowfish (Unix)) [Iterations: 32]
+----------------------------------------------------------------
+
+Speed.#1.........:    19201 H/s (66.78ms) @ Accel:4 Loops:32 Thr:16 Vec:1
+
+Started: Fri May 31 18:11:39 2024
+Stopped: Fri May 31 18:11:47 2024
+```
+
+Le benchmark de Hashcat nous a donné un hashrate de **19201 Hash/s**, pour 32 itérations de boucle (cost = 5, 2**5 = 32).
+Le benchmark a été donc fait sur un cost de 5, on peut vérifier cela :
+```Bash
+.\hashcat.exe -m 3200 --example-hashes
+hashcat (v6.2.6) starting in hash-info mode
+
+Hash Info:
+==========
+
+Hash mode #3200
+  Name................: bcrypt $2*$, Blowfish (Unix)
+  Category............: Operating System
+  Slow.Hash...........: Yes
+  Password.Len.Min....: 0
+  Password.Len.Max....: 72
+  Salt.Type...........: Embedded
+  Salt.Len.Min........: 0
+  Salt.Len.Max........: 256
+  Kernel.Type(s)......: pure
+  Example.Hash.Format.: plain
+  Example.Hash........: $2a$05$MBCzKhG1KhezLh.0LRa0Kuw12nLJtpHy6DIaU.JAnqJUDYspHC.Ou
+  Example.Pass........: hashcat
+  Benchmark.Mask......: ?b?b?b?b?b?b?b
+  Autodetect.Enabled..: Yes
+  Self.Test.Enabled...: Yes
+  Potfile.Enabled.....: Yes
+  Custom.Plugin.......: No
+  Plaintext.Encoding..: ASCII, HEX
+```
+
+Le hash d'exemple a bien un cost de 5.
