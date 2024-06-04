@@ -39,6 +39,7 @@ architecture Behavioral of tb_bcrypt_quad_core is
     --                              Constants
     -- --------------------------------------------------------------------- --
     constant CLK_PERIOD  : time                           := 10 ns;
+    constant crack_max : integer := 20;
     constant SUBKEY_INIT_VAL : std_logic_vector(575 downto 0) :=
     x"243F6A88_85A308D3_13198A2E_03707344_A4093822_299F31D0" &
     x"082EFA98_EC4E6C89_452821E6_38D01377_BE5466CF_34E90C6C" &
@@ -46,7 +47,47 @@ architecture Behavioral of tb_bcrypt_quad_core is
     constant SALT : std_logic_vector(SALT_LENGTH - 1 downto 0) := 
     x"7e949a07e88186c649bbeb0a9740c5e0";
     constant HASH : std_logic_vector(HASH_LENGTH-1 downto 0) :=
-    x"37d085c7d8b559b151ce4e6f9ce2e7b0a1678b26a2517d";
+    --x"37d085c7d8b559b151ce4e6f9ce2e7b0a1678b26a2517d";  -- b cost 4
+    --x"f31c6c5da150c28ada3fe7566bcdf35314de5b8825dd23";  -- c cost 4
+    x"a2a4f09f9ed6d6f9f0e1747dd709f95809f27129279c92";    -- z cost 4
+    constant PWD_CNT_INIT : std_logic_vector (PWD_LENGTH*CHARSET_OF_BIT-1 downto 0)
+     := const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
+        const_slv(0,CHARSET_OF_BIT) & const_slv(20,CHARSET_OF_BIT);
+    constant PWD_CNT_LENGTH : integer := 1;
     
     -- --------------------------------------------------------------------- --
     --                               Signals
@@ -65,6 +106,7 @@ architecture Behavioral of tb_bcrypt_quad_core is
        
     -- BCRYPT
     signal mem_init         : std_logic;
+    signal mem_init_d         : std_logic;
     signal pipeline_full    : std_logic;
     -- sbox init out signals
     signal sbox0_init_dout : std_logic_vector(31 downto 0);
@@ -89,6 +131,7 @@ architecture Behavioral of tb_bcrypt_quad_core is
     signal success    : std_logic;
     signal dout_we    : std_logic;
     -- delayed output signals
+    signal dout_we_d  : std_logic;
     signal dout_d : std_logic_vector (31 downto 0);
     
     -- CONTROLS
@@ -272,34 +315,79 @@ begin
     begin
         if rising_edge(clk) then
             dout_d <= dout;
+            dout_we_d <= dout_we;
+            mem_init_d <= mem_init;
         end if;
     end process delay_output;
+    
+    -- config quadcore
+    config_quadcore : process(clk)
+    begin
+        if rising_edge(clk) then
+            if rst = '1' then
+                number_of_cracks <= (others => '0');
+                t_salt <= (others => '0');
+                t_hash <= (others => '0');
+                vec_init <= (others => '0');
+                vec_length <= (others => '0'); 
+             else   
+                number_of_cracks <= std_logic_vector(to_unsigned(crack_max, number_of_cracks'length));
+                t_salt <= SALT;
+                t_hash <= HASH;
+                vec_init <= PWD_CNT_INIT;
+                vec_length <= std_logic_vector(to_unsigned(PWD_CNT_LENGTH, vec_length'length));
+            end if;
+        end if;
+    end process;
+
+    wait_mem_init : process(mem_init)
+    begin
+        if mem_init = '0' then
+            pipeline_full <= '1';
+            enable_count <= '1';
+            enable_shift <= '1';
+        else
+            pipeline_full <= '0';
+            enable_count <= '0';
+            enable_shift <= '0';
+        end if;
+    end process;
+    
+    mem_init_proc : process(clk)
+    begin
+        if rising_edge(clk) then
+            if rst = '1' then
+                enable_shift <= '0';
+            else
+                if pipeline_full = '1' then
+                    enable_shift <= '1';
+                else
+                    enable_shift <= '0';
+                end if;
+            end if;
+        end if;
+    end process;
     
     -- stimulus & check
     stim_check_proc : process
     begin
         report "reset core" severity note;
         rst <= '1';
-        pipeline_full <= '0';
-        enable_count <= '0';
+        config <= '0';
         debug <= '0';
-        enable_shift <= '0';
         wait for 10 * CLK_PERIOD;
-        
-        report "begin tests" severity note;
         rst <= '0';
-        wait until mem_init = '0';
-        pipeline_full <= '1';
         wait for CLK_PERIOD;
-        enable_shift <= '1';
-        enable_count <= '1';
         
-        --wait until sbox_addr_cnt_dout > "011111111";
-        wait until sbox_addr_cnt_dout > "100000000";
-        -- --------------------------------------------------------------------- --
-        -- Test:    check hash output
-        -- --------------------------------------------------------------------- --
+        report "begin config" severity note;
+        config <= '1';
+        wait for CLK_PERIOD;
+        config <= '0';
         
+        report "begin attack" severity note;
+        
+        wait until done = '1';
+        wait for 10 * CLK_PERIOD;
         
         report "---- TEST PASSED ----" severity note;
         finish;

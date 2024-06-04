@@ -570,7 +570,7 @@ begin
 				mem_access_pwd_cnt  <= '1';
 
 				-- output all (18 chunks)
-				if pwd_addr_cnt_dout = x"17" then
+				if pwd_addr_cnt_dout = x"11" then
 					next_state <= TERMINATE;
 				end if;
 
