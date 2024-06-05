@@ -47,9 +47,9 @@ architecture Behavioral of tb_bcrypt_quad_core is
     constant SALT : std_logic_vector(SALT_LENGTH - 1 downto 0) := 
     x"7e949a07e88186c649bbeb0a9740c5e0";
     constant HASH : std_logic_vector(HASH_LENGTH-1 downto 0) :=
-    --x"37d085c7d8b559b151ce4e6f9ce2e7b0a1678b26a2517d";  -- b cost 4
+    x"37d085c7d8b559b151ce4e6f9ce2e7b0a1678b26a2517d";  -- b cost 4
     --x"f31c6c5da150c28ada3fe7566bcdf35314de5b8825dd23";  -- c cost 4
-    x"a2a4f09f9ed6d6f9f0e1747dd709f95809f27129279c92";    -- z cost 4
+    --x"a2a4f09f9ed6d6f9f0e1747dd709f95809f27129279c92";    -- z cost 4
     constant PWD_CNT_INIT : std_logic_vector (PWD_LENGTH*CHARSET_OF_BIT-1 downto 0)
      := const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
         const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
@@ -86,7 +86,7 @@ architecture Behavioral of tb_bcrypt_quad_core is
         const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
         const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
         const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
-        const_slv(0,CHARSET_OF_BIT) & const_slv(20,CHARSET_OF_BIT);
+        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT);
     constant PWD_CNT_LENGTH : integer := 1;
     
     -- --------------------------------------------------------------------- --
@@ -386,7 +386,15 @@ begin
         
         report "begin attack" severity note;
         
-        wait until done = '1';
+        wait until dout_we = '1';
+        for i in 0 to 17 loop
+            wait for CLK_PERIOD;
+            report integer'image(i) severity note;
+            assert dout = x"62006200" report "checking dout" severity failure;    -- b cost 4
+            --assert dout = x"63006300" report "checking dout" severity failure;    -- c cost 4
+            --assert dout = x"7a007a00" report "checking dout" severity failure;    -- z cost 4
+        end loop;
+        --wait until done = '1';
         wait for 10 * CLK_PERIOD;
         
         report "---- TEST PASSED ----" severity note;

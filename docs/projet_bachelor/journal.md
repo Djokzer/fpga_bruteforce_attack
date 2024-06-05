@@ -144,7 +144,7 @@ Il va falloir aussi modifier le bcrypt quadcore. Il va falloir notamment adapter
 - [x] Ajouter une mémorisation de ces différents ports d'interface, car l'état des ports risque de changer pendant les calculs.
 - [x] Modifier la machine d'état afin d'y ajouter un état d'initialisation
 - [x] Modifier le générateur de mots passe afin de changer les génériques en ports d'entrée
-- [ ] Tester à l'aide d'un testbench le bon fonctionnement du nouveau bcrypt quadcore
+- [x] Tester à l'aide d'un testbench le bon fonctionnement du nouveau bcrypt quadcore
 
 ## Benchmark GPU
 
@@ -216,3 +216,15 @@ Hash mode #3200
 ```
 
 Le hash d'exemple a bien un cost de 5.
+
+# Semaine 3 - (03.06.2024 - 07.06.2024)
+
+## Bcrypt quadcore
+
+Le bcrypt quadcore a été modifié de manière à pouvoir le rendre reconfigurable. Le module a été testé à l'aide d'un testbench.
+
+## Data router
+
+Maintenant que le packet receiver a été fait et que le bcrypt quadcore a été modifié, il ne reste plus qu'à faire le router qui va s'occuper de faire la liaison entre les deux.
+
+![](assets/communication_protocol_data_router.png)
