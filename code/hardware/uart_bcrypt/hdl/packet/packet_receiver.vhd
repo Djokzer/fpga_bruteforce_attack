@@ -7,6 +7,7 @@ library work;
 
 entity packet_receiver is
 	port (
+		-- GENERAL
 		clk   : in std_logic;
 		reset : in std_logic;
 		
@@ -14,7 +15,7 @@ entity packet_receiver is
 		rx_valid : in std_logic;
 		rx_data  : in std_logic_vector(7 downto 0);
 
-		-- ROUTER INTERFACE
+		-- BUFFER INTERFACE
 		packet_data : out std_logic_vector(7 downto 0);
 		packet_data_valid : out std_logic;
 		packet_incomming : out std_logic;

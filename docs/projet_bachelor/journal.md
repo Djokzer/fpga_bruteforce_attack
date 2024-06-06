@@ -102,11 +102,11 @@ Au final, je vais avoir un système de paquets, contenant un byte de start(le by
 Pour l'UART, je vais pouvoir mettre dans le payload toutes les informations nécessaires à l'initialisation d'un Quadcore. C'est à dire l'ID du Quadcore, le nombre d'essais, le salt et le hash que l'on souhaite casser et l'init du compteur de mots de passe. 
 
 
-![](assets/communication_protocol.png)
+![](assets/communication_protocol_tx_general.png)
 
-Pendant la récéption du paquet, je vais pouvoir décoder le paquet et stocker le résultat dans un buffer pour le routeur. En parralèle du décodage, le CRC va pouvoir être calculé.
+Pendant la récéption du paquet, je vais pouvoir décoder le paquet et stocker le résultat dans un buffer. En parralèle du décodage, le CRC va pouvoir être calculé.
 
-Si le CRC check est bon, le routeur va pouvoir distribuer les informations en fonction du paquet recu.
+Si le CRC check est bon, le buffer va pouvoir envoyer les données en fonction du paquet recu.
 
 # Semaine 3 - (27.05.2024 - 31.05.2024)
 
@@ -130,9 +130,9 @@ Liste des sujets :
 
 ## Data router
 
-Maintenant que le packet receiver est fonctionnel, je peux entamer le design du Data router.
+Maintenant que le packet receiver est fonctionnel, je peux entamer le design du Data buffer.
 
-Le router va bufferisé les données recus, jusqu'à recevoir une confirmation du receiver lorsque le paquet entier a été envoyé et vérifié. Suite à la confirmation, le router va pouvoir entamé l'envoi des données au quadcore ciblé.
+Ce module va bufferisé les données recus, jusqu'à recevoir une confirmation du receiver lorsque le paquet entier a été envoyé et vérifié. Suite à la confirmation, le buffer va pouvoir entamé l'envoi des données au quadcore ciblé.
 
 Ce module au contraire du packet receiver va avoir une execution spécifique pour l'UART. C'est à dire que ce module et le module quadcore vont avoir une interface particulière qui ne sera plus le même pour le PCIe.
 
@@ -219,12 +219,28 @@ Le hash d'exemple a bien un cost de 5.
 
 # Semaine 3 - (03.06.2024 - 07.06.2024)
 
+## RDV
+
+Liste des sujets :
+
+- [ ] Tester le packet receiver sur l'Hardware
+- [ ] Déjà commencer le feedback des paquets (avec système de couches)
+- On a discuté de la possibilité d'utiliser L'ethernet pour maximiser la scalabilité. On a envisagé l'utilisation de Zinq avec un Petalinux et des cartes SCALP qui sont des cartes scalables en 3D : https://www.linkedin.com/pulse/scalp-self-configurable-3-d-cellular-multi-fpga-adaptive-upegui/
+
 ## Bcrypt quadcore
 
 Le bcrypt quadcore a été modifié de manière à pouvoir le rendre reconfigurable. Le module a été testé à l'aide d'un testbench.
 
-## Data router
+## Data buffer
 
-Maintenant que le packet receiver a été fait et que le bcrypt quadcore a été modifié, il ne reste plus qu'à faire le router qui va s'occuper de faire la liaison entre les deux.
+![](assets/communication_protocol_data_buffer.png)
 
-![](assets/communication_protocol_data_router.png)
+Avant de commencer le data buffer, il faut que je commence à mettre en place le retour de paquets et que je teste le packet receiver directement sur l'HARDWARE
+
+## Système de retour de paquets
+
+Pour le système de retour de paquets, il va falloir séparer le système en 2 couches. On a une première couche qui est le décodage et le calcul de CRC, quand le CRC est faux il faut renvoyé un paquet à ce niveau là. On a ensuite la couche applicative, qui va permettre de confirmer que le quadcore a bien été configuré.
+
+Pour ce faire j'ai refais le schéma général pour la communication, en y intégrant le retour.
+
+![](assets/communication_protocol_tx_rx_general.png)
