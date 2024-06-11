@@ -75,11 +75,12 @@ begin
     begin
         if rising_edge(clk) then
             if reset = '1' then
-                leds_out <= x"00";
+                --leds_out <= x"00";
+                out_en <= '0';
             else
                 if packet_valid = '1' then
                     out_en <= '1';
-                    leds_out <= packet_data_buffer(0);
+                    --leds_out <= packet_data_buffer(0);
                 else
                     out_en <= '0';
                 end if;
@@ -87,5 +88,6 @@ begin
         end if;
     end process;
     
+    leds_out <= packet_data_buffer(0);
     
 end architecture;
