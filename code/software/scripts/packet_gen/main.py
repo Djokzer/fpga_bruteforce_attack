@@ -24,7 +24,7 @@ def cobs_encode(packet):
             last_zero = i
     return [last_zero + 1] + packet
 
-payload = [0x01, 0x00, 0x02]
+payload = [0xf8]
 print(f"Payload : {payload}")
 packet = create_normal_packet(payload)
 #print(packet)

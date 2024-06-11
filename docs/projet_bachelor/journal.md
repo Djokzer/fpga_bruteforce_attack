@@ -231,11 +231,11 @@ Liste des sujets :
 
 Le bcrypt quadcore a été modifié de manière à pouvoir le rendre reconfigurable. Le module a été testé à l'aide d'un testbench.
 
-## Data buffer
+## rx packet process
 
-![](assets/communication_protocol_data_buffer.png)
+![](assets/communication_protocol_rx_packet_process.png)
 
-Avant de commencer le data buffer, il faut que je commence à mettre en place le retour de paquets et que je teste le packet receiver directement sur l'HARDWARE
+Avant de commencer le rx packet process, il faut que je commence à mettre en place le retour de paquets et que je teste le packet receiver directement sur l'HARDWARE
 
 ## Système de retour de paquets
 
@@ -244,3 +244,7 @@ Pour le système de retour de paquets, il va falloir séparer le système en 2 c
 Pour ce faire j'ai refais le schéma général pour la communication, en y intégrant le retour.
 
 ![](assets/communication_protocol_tx_rx_general.png)
+
+# Semaine 4 - (10.06.2024 - 14.06.2024)
+
+Afin d'être sûr que le packet receiver fonctionne, je vais créer un nouveau projet afin de pouvoir le tester directement sur l'hardware (test_packet_system). Afin de tester, je vais faire un système permettant d'allumer les LEDs souhaités à partir du paquet.

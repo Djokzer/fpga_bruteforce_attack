@@ -9,7 +9,7 @@ use work.rzi_helper.all;
 
 library work;
 
-entity data_buffer is
+entity rx_packet_process is
     port (
         -- GENERAL
         clk                 : in std_logic;
@@ -29,9 +29,9 @@ entity data_buffer is
         pwd_count_init      : out std_logic_vector(PWD_LENGTH*CHARSET_OF_BIT-1 downto 0);
         pwd_len_init        : out std_logic_vector(PWD_BITLEN - 1 downto 0);
     );
-end entity data_router;
+end entity rx_packet_process;
 
-architecture rtl of data_buffer is
+architecture rtl of rx_packet_process is
 
 begin
 
