@@ -43,7 +43,7 @@ begin
             if reset = '1' then
                 packet_data_counter <= 0;
             else
-                if packet_incomming = '1' then
+                if packet_incomming = '0' then
                     packet_data_counter <= 0;
                 elsif packet_data_valid = '1' then
                     if packet_data_counter < PACKET_DATA_SIZE then

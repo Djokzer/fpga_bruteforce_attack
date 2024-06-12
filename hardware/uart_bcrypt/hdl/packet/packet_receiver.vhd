@@ -102,7 +102,7 @@ begin
 			else        
 				if payload_load = '1' then
 					-- INIT PAYLOAD COUNTER
-					payload_count <= payload_count_load - 1;
+                    payload_count <= payload_count_load;
 				elsif rx_valid = '1' then
 					if payload_count /= 0 then
 						-- DECREMENT PAYLOAD COUNTER
@@ -175,6 +175,7 @@ begin
 						end if;
 					end if;
 				else
+				    payload_load <= '0';
 					cobs_load <= '0';
 					data_out_valid <= '0';
 				end if;

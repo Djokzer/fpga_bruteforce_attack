@@ -231,12 +231,6 @@ Liste des sujets :
 
 Le bcrypt quadcore a été modifié de manière à pouvoir le rendre reconfigurable. Le module a été testé à l'aide d'un testbench.
 
-## RX packet process
-
-![](assets/communication_protocol_rx_packet_process.png)
-
-Avant de commencer le rx packet process, il faut que je commence à mettre en place le retour de paquets et que je teste le packet receiver directement sur l'HARDWARE
-
 ## Système de retour de paquets
 
 Pour le système de retour de paquets, il va falloir séparer le système en 2 couches. On a une première couche qui est le décodage et le calcul de CRC, quand le CRC est faux il faut renvoyé un paquet à ce niveau là. On a ensuite la couche applicative, qui va permettre de confirmer que le quadcore a bien été configuré.
@@ -255,4 +249,10 @@ J'ai pu tester et valider le fonctionnement du système à l'aide d'un testbench
 
 ## Configuration des Quadcores
 
-Maintenant que je suis sûr que le receiver fonctionne, il faut que je refasse le RX packet process mais avec des sorties adaptés au Quadcores. L'idée serait aussi de prévoir dans le design une interface supplémentaire afin de pouvoir plus tard ajouter le retour des paquets.
+Maintenant que je suis sûr que le receiver fonctionne, il faut que je refasse le RX packet process mais avec des sorties adaptés au Quadcores. L'idée serait aussi de potentiellement prévoir dans le design une interface supplémentaire afin de pouvoir plus tard ajouter le retour des paquets.
+
+## RX packet process
+
+![](assets/communication_protocol_rx_packet_process.png)
+
+Lorsque le paquet est validé par le receiver, un check va avoir lieu afin de vérifier si l'ID du Quadcore n'est pas trop grand ou si la longueur du message n'est pas bonne. 
