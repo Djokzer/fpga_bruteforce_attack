@@ -62,7 +62,7 @@ Liste des sujets :
 - [x] Vérifier que le design ne soit pas optimisé dû au hash qui a été hardcodé
 - [x] Faire des mesures pour le code C
 - [ ] Mettre en place une communication UART pour initialiser les quadcores
-- [ ] Mettre en place un protocole de communication avec de la synchronisation et gestion d'erreur pour l'UART
+- [x] Mettre en place un protocole de communication avec de la synchronisation et gestion d'erreur pour l'UART
 
 ## Programme C - Multi Threaded
 
@@ -124,7 +124,7 @@ J'ai pu aussi valider le bon fonctionnement du module avec un deuxième testbenc
 
 Liste des sujets :
 
-- [ ] Finir la partie emission de paquets et tester avec des LEDs
+- [x] Finir la partie emission de paquets et tester avec des LEDs
 - [ ] Mettre en place un système de retour de paquets par couche (transfert et applicatifs)
 - [ ] Commencer à étudier en parralèle pour le PCIe.
 
@@ -217,13 +217,13 @@ Hash mode #3200
 
 Le hash d'exemple a bien un cost de 5.
 
-# Semaine 3 - (03.06.2024 - 07.06.2024)
+# Semaine 4 - (03.06.2024 - 07.06.2024)
 
 ## RDV
 
 Liste des sujets :
 
-- [ ] Tester le packet receiver sur l'Hardware
+- [x] Tester le packet receiver sur l'Hardware
 - [ ] Déjà commencer le feedback des paquets (avec système de couches)
 - On a discuté de la possibilité d'utiliser L'ethernet pour maximiser la scalabilité. On a envisagé l'utilisation de Zinq avec un Petalinux et des cartes SCALP qui sont des cartes scalables en 3D : https://www.linkedin.com/pulse/scalp-self-configurable-3-d-cellular-multi-fpga-adaptive-upegui/
 
@@ -231,7 +231,7 @@ Liste des sujets :
 
 Le bcrypt quadcore a été modifié de manière à pouvoir le rendre reconfigurable. Le module a été testé à l'aide d'un testbench.
 
-## rx packet process
+## RX packet process
 
 ![](assets/communication_protocol_rx_packet_process.png)
 
@@ -245,6 +245,14 @@ Pour ce faire j'ai refais le schéma général pour la communication, en y inté
 
 ![](assets/communication_protocol_tx_rx_general.png)
 
-# Semaine 4 - (10.06.2024 - 14.06.2024)
+# Semaine 5 - (10.06.2024 - 14.06.2024)
 
 Afin d'être sûr que le packet receiver fonctionne, je vais créer un nouveau projet afin de pouvoir le tester directement sur l'hardware (test_packet_system). Afin de tester, je vais faire un système permettant d'allumer les LEDs souhaités à partir du paquet.
+
+## Test sur HARDWARE du système de paquet
+
+J'ai pu tester et valider le fonctionnement du système à l'aide d'un testbench et directement sur l'HARDWARE. Afin de tester sur l'hardware, j'ai fait un système permettant de controller les LED's sur la carte Nexys Video. Pour l'envoi de paquets, j'ai fait un petit scrpit python permettant la génération et l'envoi des paquets par UART.
+
+## Configuration des Quadcores
+
+Maintenant que je suis sûr que le receiver fonctionne, il faut que je refasse le RX packet process mais avec des sorties adaptés au Quadcores. L'idée serait aussi de prévoir dans le design une interface supplémentaire afin de pouvoir plus tard ajouter le retour des paquets.
