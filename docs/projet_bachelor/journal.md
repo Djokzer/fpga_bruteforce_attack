@@ -239,6 +239,8 @@ Pour ce faire j'ai refais le schéma général pour la communication, en y inté
 
 ![](assets/communication_protocol_tx_rx_general.png)
 
+Ce schéma n'est pas vraiment complet, il manque encore le feedback des quadcores, afin d'avoir régulièrement des paquets de status.
+
 # Semaine 5 - (10.06.2024 - 14.06.2024)
 
 Afin d'être sûr que le packet receiver fonctionne, je vais créer un nouveau projet afin de pouvoir le tester directement sur l'hardware (test_packet_system). Afin de tester, je vais faire un système permettant d'allumer les LEDs souhaités à partir du paquet.
@@ -256,3 +258,9 @@ Maintenant que je suis sûr que le receiver fonctionne, il faut que je refasse l
 ![](assets/communication_protocol_rx_packet_process.png)
 
 Lorsque le paquet est validé par le receiver, un check va avoir lieu afin de vérifier si l'ID du Quadcore n'est pas trop grand ou si la longueur du message n'est pas bonne. 
+
+## Fonctionnement global du système de paquets avec Quadcore
+
+![](assets/communication_protocol_top_rev1.png)
+
+Le RX Packet Pipeline, contrairement au test, va avoir un logique supplémentaire qui est une vérification d'erreur dans les deux couches. Cette logique va détécter les erreurs dans chaque couche puis ressortir ces erreurs afin qu'elles puissent être utilisé par le TX Packet pipeline. Ce nouveau module va s'occuper de gérer la logique entre le renvoi de paquet et l'envoi de paquet de Status. Les paquets de status vont permettre de régulièrement envoyer un snapshot de l'état actuel des différents quadcores. Pour ce faire les différents mots de passes qui sont testés vont être bufferisé. 
