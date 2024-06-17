@@ -29,6 +29,9 @@ use work.pkg_bcrypt.all;
 use work.rzi_helper.all;
 
 entity rx_packet_pipeline is
+    generic (
+        NUMBER_OF_QUADCORES : integer := 1
+    );
 	port (
 		-- GENERAL
 		clk           : in std_logic;
@@ -79,6 +82,9 @@ begin
     
     -- PACKET PROCESS
     pckt_process : entity work.rx_packet_process
+    generic map(
+        NUMBER_OF_QUADCORES => NUMBER_OF_QUADCORES
+    )
     port map(
         clk => clk,
         reset => reset,

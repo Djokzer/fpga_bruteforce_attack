@@ -277,3 +277,14 @@ Un bloc d'UltraRAM possède beaucoup plus de mémoire qu'un bloc de BRAM. Il se 
 Il faudrait donc optimiser le design de manière à ce que les deux types de mémoires soit utilisés de manière balancés. 
 
 Tout cela pourrait permettre de potentiellement ajouter beaucoup plus de Quadcores que possible actuellement.
+
+## Bcrypt Cracker
+
+Pour l'instanciation des quadcores, j'ai repris le bcrypt cracker et j'y ai ajouté les interfaces pour les données provenant des paquets. J'ai aussi ajouté un système de MUX afin de pouvoir configurer le quadcore en fonction de l'ID recu.
+
+Il faut encore que je refasse un testbench pour être sûr que je n'ai pas cassé le système.
+
+## Top
+
+Il me restera plus qu'à faire un top level qui va s'occuper d'instancier les différents modules (UART, RX PIPELINE et BCRYPT CRACKER) puis y ajouter une logique avec des LED's afin de
+pouvoir observer directement sur l'HARDWARE le bon fonctionnement.
