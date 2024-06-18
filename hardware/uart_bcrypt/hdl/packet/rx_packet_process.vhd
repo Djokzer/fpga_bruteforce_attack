@@ -58,7 +58,7 @@ architecture rtl of rx_packet_process is
         variable slv : std_logic_vector((8 * size) - 1 downto 0);
         variable pos : integer := 0;
     begin
-        for i in index to index+size loop
+        for i in index to index+size-1 loop
             slv((pos * 8) + 7 downto pos * 8) := data_array(i);  
             pos := pos + 1;
         end loop;
@@ -139,7 +139,7 @@ begin
     salt                <= concat_array_to_slv(packet_data_buffer, 16, 5);
     hash                <= concat_array_to_slv(packet_data_buffer, 23, 21);
     pwd_count_init      <= concat_array_to_slv(packet_data_buffer, 54, 44);
-    pwd_len_init        <= packet_data_buffer(98);
+    pwd_len_init        <= packet_data_buffer(98)(6 downto 0);
     
     
 end architecture;
