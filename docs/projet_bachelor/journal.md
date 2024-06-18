@@ -239,6 +239,8 @@ Pour ce faire j'ai refais le schéma général pour la communication, en y inté
 
 ![](assets/communication_protocol_tx_rx_general.png)
 
+Ce schéma n'est pas vraiment complet, il manque encore le feedback des quadcores, afin d'avoir régulièrement des paquets de status.
+
 # Semaine 5 - (10.06.2024 - 14.06.2024)
 
 Afin d'être sûr que le packet receiver fonctionne, je vais créer un nouveau projet afin de pouvoir le tester directement sur l'hardware (test_packet_system). Afin de tester, je vais faire un système permettant d'allumer les LEDs souhaités à partir du paquet.
@@ -263,3 +265,33 @@ Maintenant que je suis sûr que le receiver fonctionne, il faut que je refasse l
 ![](assets/communication_protocol_rx_packet_process.png)
 
 Lorsque le paquet est validé par le receiver, un check va avoir lieu afin de vérifier si l'ID du Quadcore n'est pas trop grand ou si la longueur du message n'est pas bonne. 
+
+## Fonctionnement global du système de paquets avec Quadcore
+
+![](assets/communication_protocol_top_rev1.png)
+
+Le RX Packet Pipeline, contrairement au test, va avoir un logique supplémentaire qui est une vérification d'erreur dans les deux couches. Cette logique va détécter les erreurs dans chaque couche puis ressortir ces erreurs afin qu'elles puissent être utilisé par le TX Packet pipeline. Ce nouveau module va s'occuper de gérer la logique entre le renvoi de paquet et l'envoi de paquet de Status. Les paquets de status vont permettre de régulièrement envoyer un snapshot de l'état actuel des différents quadcores. Pour ce faire les différents mots de passes qui sont testés vont être bufferisé. 
+
+## H.S (A regarder plus tard) - BRAM ET ULTRARAM 
+
+Il se trouve que les performances qui ont été mesurés durant la première semaine sur la KCU116 sont incomplètes ([voir tableau](#kintex-ultrascale)).
+En effet, les performances Max. que j'avais mesuré était à un Hashrate de **55'450 H/s** avec **36** Quadcores, à une fréquence de **250 MHz** et à une utilisation de ressources de **BRAM : 97.50%, LUT : 68%**.
+D'après ces résultats, on peut constater qu'on ne peut pas instancier plus de quadcores à cause du manque de BRAM. 
+
+Mais il se trouve que la Kyntex Ultrascale+ a une particularité supplémentaire par rapport à l'Artix 7 de la Nexys Video, La Kyntex possède à sa disposition en plus de la BRAM de l'UltraRAM. 
+Un bloc d'UltraRAM possède beaucoup plus de mémoire qu'un bloc de BRAM. Il se trouve que en plus des **16.9 MB** de BRAM (480 Blocks), la Kyntex possède aussi **18 Mb** de UltraRAM (64 Blocks).
+
+Il faudrait donc optimiser le design de manière à ce que les deux types de mémoires soit utilisés de manière balancés. 
+
+Tout cela pourrait permettre de potentiellement ajouter beaucoup plus de Quadcores que possible actuellement.
+
+## Bcrypt Cracker
+
+Pour l'instanciation des quadcores, j'ai repris le bcrypt cracker et j'y ai ajouté les interfaces pour les données provenant des paquets. J'ai aussi ajouté un système de MUX afin de pouvoir configurer le quadcore en fonction de l'ID recu.
+
+Il faut encore que je refasse un testbench pour être sûr que je n'ai pas cassé le système.
+
+## Top
+
+Il me restera plus qu'à faire un top level qui va s'occuper d'instancier les différents modules (UART, RX PIPELINE et BCRYPT CRACKER) puis y ajouter une logique avec des LED's afin de
+pouvoir observer directement sur l'HARDWARE le bon fonctionnement.
