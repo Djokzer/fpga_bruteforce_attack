@@ -243,6 +243,13 @@ Pour ce faire j'ai refais le schéma général pour la communication, en y inté
 
 Afin d'être sûr que le packet receiver fonctionne, je vais créer un nouveau projet afin de pouvoir le tester directement sur l'hardware (test_packet_system). Afin de tester, je vais faire un système permettant d'allumer les LEDs souhaités à partir du paquet.
 
+## RDV
+
+Liste des sujets :
+- [] 
+
+
+
 ## Test sur HARDWARE du système de paquet
 
 J'ai pu tester et valider le fonctionnement du système à l'aide d'un testbench et directement sur l'HARDWARE. Afin de tester sur l'hardware, j'ai fait un système permettant de controller les LED's sur la carte Nexys Video. Pour l'envoi de paquets, j'ai fait un petit scrpit python permettant la génération et l'envoi des paquets par UART.
