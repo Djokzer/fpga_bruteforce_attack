@@ -117,10 +117,14 @@ begin
                     if packet_too_big = '1' then
                         output_en <= '0';
                         error_code <= "01";
+                    -- IF PACKET SIZE TOO SMALL
+                    elsif packet_data_counter < PACKET_DATA_SIZE then
+                        output_en <= '0';
+                        error_code <= "10";
                     -- IF QUADCORE ID IS NOT IN RANGE
                     elsif to_integer(unsigned(packet_data_buffer(0))) >= NUMBER_OF_QUADCORES then
                         output_en <= '0';
-                        error_code <= "10";
+                        error_code <= "11";
                     else
                         error_code <= "00";
                         output_en <= '1';

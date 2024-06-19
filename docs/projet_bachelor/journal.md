@@ -295,3 +295,12 @@ Il faut encore que je refasse un testbench pour être sûr que je n'ai pas cass�
 
 Il me restera plus qu'à faire un top level qui va s'occuper d'instancier les différents modules (UART, RX PIPELINE et BCRYPT CRACKER) puis y ajouter une logique avec des LED's afin de
 pouvoir observer directement sur l'HARDWARE le bon fonctionnement.
+
+## Test
+
+Le top level ne semble pas marcher, je vais donc faire un testbentch afin d'identifier le problème.
+
+Le problème était l'endianess de mon paquet. J'avais formaté mon paquet en big endian, et je me suis donc retrouvé avec des configurations fausses pour mon quadcore.
+Après correction du paquet, la simulation fonctionne enfin.
+
+J'ai aussi ajouté un type d'erreur supplémentaire dans ma gestion d'erreur qui prend en compte les paquets trop petits.

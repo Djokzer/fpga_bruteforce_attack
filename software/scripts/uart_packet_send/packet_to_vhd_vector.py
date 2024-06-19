@@ -1,6 +1,4 @@
 from packet import gen_packet
-import serial
-import time
 
 if __name__ == "__main__":
     # QUADCORE PACKET VALUE
@@ -12,22 +10,26 @@ if __name__ == "__main__":
     q_pwd_len = 1
 
     # PAYLOAD FORMAT
-    b_q_id        = q_id.to_bytes(1, "big")
-    b_q_crack_max = q_crack_max.to_bytes(100, "big")
-    b_q_salt      = q_salt.to_bytes(16, "big")
-    b_q_hash      = q_hash.to_bytes(23, "big")
-    b_q_pwd_init  = q_pwd_init.to_bytes(54, "big")
-    b_q_pwd_len   = q_pwd_len.to_bytes(1, "big")
+    endianess = "little"
+    b_q_id        = q_id.to_bytes(1, endianess)
+    b_q_crack_max = q_crack_max.to_bytes(4, endianess)
+    b_q_salt      = q_salt.to_bytes(16, endianess)
+    b_q_hash      = q_hash.to_bytes(23, endianess)
+    b_q_pwd_init  = q_pwd_init.to_bytes(54, endianess)
+    b_q_pwd_len   = q_pwd_len.to_bytes(1, endianess)
 
     b_q_data = b_q_id + b_q_crack_max + b_q_salt + b_q_hash + b_q_pwd_init + b_q_pwd_len
     b_q_data = list(b_q_data)
 
+    packet = gen_packet(b_q_data)
+    #print(f"PACKET LEN : {len(packet)}")
+
     # Create our base output
-    out = "constant PACKET : std_logic_vector(791 downto 0) :=\n"
+    out = "constant PACKET : std_logic_vector(823 downto 0) :=\n"
 
     # For each line
     count = 0
-    for data in b_q_data:        
+    for data in packet:        
         if count == 0:
             out += "x\""
         

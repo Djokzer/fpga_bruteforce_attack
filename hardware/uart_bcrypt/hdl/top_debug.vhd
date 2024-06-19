@@ -28,7 +28,7 @@ library work;
 use work.pkg_bcrypt.all;
 use work.rzi_helper.all;
 
-entity top is
+entity top_debug is
 	port (
 		-- GENERAL
 		clk         : in std_logic;
@@ -37,21 +37,26 @@ entity top is
 		-- UART interface
 		tx          : out std_logic;
 		rx          : in  std_logic;
+		
+		-- UART TX USER INTERFACE (DEBUG ONLY)
+		tx_valid_i : in  std_logic;
+		tx_data_i  : in  std_logic_vector(7 downto 0);
+		tx_busy_o  : out std_logic;
 
-		-- OUTPUT
+		-- OUTPUT 
 		leds        : out std_logic_vector(7 downto 0)
 	);
-end top;
+end top_debug;
 
-architecture Behavioral of top is
+architecture Behavioral of top_debug is
 	-- CONSTANTS
 	constant NUMBER_OF_QUADCORES : integer := 1;
 	
 	-- UART SIGNALS
 	signal resetn  : std_logic;
-	signal tx_valid_i : std_logic;
-	signal tx_data_i : std_logic_vector(7 downto 0);
-	signal tx_busy_o : std_logic;
+	--signal tx_valid_i : std_logic;
+	--signal tx_data_i : std_logic_vector(7 downto 0);
+	--signal tx_busy_o : std_logic;
 	signal rx_valid_o : std_logic;
 	signal rx_data_o  : std_logic_vector(7 downto 0);
 

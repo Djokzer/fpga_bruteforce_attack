@@ -5,6 +5,7 @@ use ieee.std_logic_textio.all;
 
 library std;
 use std.textio.all;
+use std.env.finish;
 
 library work;
 use work.pkg_bcrypt.all;
@@ -189,7 +190,7 @@ begin
         
         
         report "---------------------- End of Report ----------------------" severity note;
-        assert false report "End of Testbench" severity failure;
+        finish;
     end process stim_proc;
 
 end Behavioral;
