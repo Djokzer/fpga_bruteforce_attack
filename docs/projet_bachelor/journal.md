@@ -304,3 +304,11 @@ Le problème était l'endianess de mon paquet. J'avais formaté mon paquet en bi
 Après correction du paquet, la simulation fonctionne enfin.
 
 J'ai aussi ajouté un type d'erreur supplémentaire dans ma gestion d'erreur qui prend en compte les paquets trop petits.
+
+## Uart Bcrypt
+
+Le système semble fonctionnel avec un quadcore !
+
+Autres tests à faire : 
+- [ ] Tester avec plusieurs quadcore et vérification du fonctionnement de l'adressage.
+- [ ] Tester des paquets faux afin de voir si le système détécte bien les erreurs.
