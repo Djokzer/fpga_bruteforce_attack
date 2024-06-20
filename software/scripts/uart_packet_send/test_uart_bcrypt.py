@@ -1,14 +1,24 @@
 from packet import gen_packet
+from bcrypt_utils import bcrypt_hash
 import serial
-import time
+
+def format_to_pwd_init(init):
+    size = len(init)
+    out = 0
+    for i in range(size-1, -1, -1):
+        if init[i] < 2**6:
+            out = out + (init[i] << (((size-1) - i) * 6))
+    return out
+
 
 if __name__ == "__main__":
     # QUADCORE PACKET VALUE
-    q_id = 0
+    q_id = 10
     q_crack_max = 5
     q_salt = 0x7e949a07e88186c649bbeb0a9740c5e0
-    q_hash = 0x1982ade712f9ec3d3a57ce85adf7fc3e2b43d7d89f90d3
-    q_pwd_init = 0
+    q_hash = bcrypt_hash(q_salt, b'aaaz')
+    #q_hash = 0x1982ade712f9ec3d3a57ce85adf7fc3e2b43d7d89f90d3
+    q_pwd_init = 0#format_to_pwd_init([1, 1, 1])
     q_pwd_len = 1
 
     # PAYLOAD FORMAT

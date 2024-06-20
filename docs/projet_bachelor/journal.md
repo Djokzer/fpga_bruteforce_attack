@@ -310,5 +310,22 @@ J'ai aussi ajouté un type d'erreur supplémentaire dans ma gestion d'erreur qui
 Le système semble fonctionnel avec un quadcore !
 
 Autres tests à faire : 
+- [ ] Tester la vitesse
 - [ ] Tester avec plusieurs quadcore et vérification du fonctionnement de l'adressage.
 - [ ] Tester des paquets faux afin de voir si le système détécte bien les erreurs.
+
+## Test vitesse
+
+Afin de mesurer la vitesse, je vais tenter de cracker le mot de passe **aaaz**, en utilisant seulement un quadcore.
+
+Un caractère a 64 possibilités, il y a là 4 caractère mais les trois premières sont la lettre **a** qui est la valeur initiale du compteur.
+
+Donc, il est supposé tester environ : 64 + 64^2 + 64^3 + 64 soit **266368** mots de passe avant de trouver la bonne.
+
+Pour mon premier test, j'ai que un quadcore, donc mon système à un hashrate théorique de **1208 H/s**.
+
+Mon système va donc prendre **220s** soit **3m40s**.
+
+Temps mesurés : **3m26s** = **206s**.
+
+## Test paquets faux
