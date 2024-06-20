@@ -539,7 +539,7 @@ begin
 					next_state <= OUTPUT_PASSWORD;
 				else
 					-- no match found, check if we have passwords left
-					if unsigned(cracks_cnt_dout) = number_of_cracks_reg-1 then
+					if unsigned(cracks_cnt_dout) >= number_of_cracks_reg-1 then
 						next_state <= TERMINATE;
 					else
 						-- restart computation
