@@ -310,9 +310,9 @@ J'ai aussi ajouté un type d'erreur supplémentaire dans ma gestion d'erreur qui
 Le système semble fonctionnel avec un quadcore !
 
 Autres tests à faire : 
-- [ ] Tester la vitesse
-- [ ] Tester avec plusieurs quadcore et vérification du fonctionnement de l'adressage.
-- [ ] Tester des paquets faux afin de voir si le système détécte bien les erreurs.
+- [x] Tester la vitesse
+- [x] Tester avec plusieurs quadcores
+- [x] Tester des paquets faux afin de voir si le système détécte bien les erreurs.
 
 ## Test vitesse
 
@@ -328,4 +328,15 @@ Mon système va donc prendre **220s** soit **3m40s**.
 
 Temps mesurés : **3m26s** = **206s**.
 
+## Test multiple quadcores
+
+J'ai pu tester avec 4 quadcores dans mon système, j'ai réussi à les excecuter indépendemment.
+
 ## Test paquets faux
+
+J'ai pu tester et valider les différents erreurs possibles à l'aide de LED's :
+- Erreur de CRC 
+- Paquet trop grand
+- Paquet trop petit
+- ID du quadcore incorrect
+
