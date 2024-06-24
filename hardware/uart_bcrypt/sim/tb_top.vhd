@@ -31,7 +31,14 @@ architecture rtl of tb_top is
     x"01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01" &
     x"01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_03" &
     x"01_c0_00";
-
+    
+    constant PACKET_B : std_logic_vector(823 downto 0) :=
+    x"02_63_02_03_01_01_28_e0_c5_40_97_0a_eb_bb_49_c6_86_81_e8_07" &
+    x"9a_94_7e_d3_90_9f_d8_d7_43_2b_3e_fc_f7_ad_85_ce_57_3a_3d_ec" &
+    x"f9_12_e7_ad_82_20_01_01_01_01_01_01_01_01_01_01_01_01_01_01" &
+    x"01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01" &
+    x"01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_01_03" &
+    x"01_9f_00";
 	constant PACKET_BYTE_SIZE : integer := 103;
 
 	-- --------------------------------------------------------------------- --
@@ -92,7 +99,7 @@ begin
 		-- Send Packet
         for i in PACKET_BYTE_SIZE-1 downto 0 loop
             --report integer'image(i) severity note;
-			uart_tx_byte(clk, tx_valid, tx_data, tx_busy, PACKET((i*8)+7 downto i*8));
+			uart_tx_byte(clk, tx_valid, tx_data, tx_busy, PACKET_B((i*8)+7 downto i*8));
         end loop;
         
         report "Attack Started !" severity note;

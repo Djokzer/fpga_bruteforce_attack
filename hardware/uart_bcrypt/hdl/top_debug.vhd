@@ -203,7 +203,8 @@ begin
 			if reset = '1' then
 				leds_reg <= x"00";
 			else
-				leds_reg <= error_status & "000" & success & done;
+				leds_reg(4 downto 0) <= "000" & success & done;
+				leds_reg(7 downto 5) <= leds_reg(7 downto 5) or error_status;
 			end if;
 		end if;
 	end process;
