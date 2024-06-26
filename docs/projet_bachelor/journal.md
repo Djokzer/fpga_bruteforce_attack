@@ -285,6 +285,8 @@ Il faudrait donc optimiser le design de manière à ce que les deux types de mé
 
 Tout cela pourrait permettre de potentiellement ajouter beaucoup plus de Quadcores que possible actuellement.
 
+# Semaine 6 - (17.06.2024 - 21.06.2024)
+
 ## Bcrypt Cracker
 
 Pour l'instanciation des quadcores, j'ai repris le bcrypt cracker et j'y ai ajouté les interfaces pour les données provenant des paquets. J'ai aussi ajouté un système de MUX afin de pouvoir configurer le quadcore en fonction de l'ID recu.
@@ -295,6 +297,10 @@ Il faut encore que je refasse un testbench pour être sûr que je n'ai pas cass�
 
 Il me restera plus qu'à faire un top level qui va s'occuper d'instancier les différents modules (UART, RX PIPELINE et BCRYPT CRACKER) puis y ajouter une logique avec des LED's afin de
 pouvoir observer directement sur l'HARDWARE le bon fonctionnement.
+
+J'ai fais un nouveau schéma pour y ajouter le bcrypt cracker :
+
+![](assets/communication_protocol_top_rev2.png)
 
 ## Test
 
@@ -328,6 +334,8 @@ Mon système va donc prendre **220s** soit **3m40s**.
 
 Temps mesurés : **3m26s** = **206s**.
 
+# Semaine 7 - (24.06.2024 - 28.06.2024)
+
 ## Test multiple quadcores
 
 J'ai pu tester avec 4 quadcores dans mon système, j'ai réussi à les excecuter indépendemment.
@@ -339,4 +347,10 @@ J'ai pu tester et valider les différents erreurs possibles à l'aide de LED's :
 - Paquet trop grand
 - Paquet trop petit
 - ID du quadcore incorrect
+
+## Ajout d'un système de retour de paquets
+
+Maintenant que mon système de paquets semble marcher pour notre attaque, il faudrait ajouter un système de retour qui permettra de confirmer la réception d'un paquet.
+
+Il faudrait aussi ajouter un paquet de status qui va permettre d'indiquer l'avancement de l'attaque.
 
