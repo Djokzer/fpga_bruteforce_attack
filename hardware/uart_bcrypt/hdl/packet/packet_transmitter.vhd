@@ -154,6 +154,7 @@ begin
                 elsif counter > to_integer(unsigned(payload_length)) then
                     c_counter_enable <= '1';
                     packet_buffer(counter+PAYLOAD_BASE_INDEX) <= payload_crc;
+                    packet_buffer(counter+PAYLOAD_BASE_INDEX+1) <= x"00";
                     next_state <= COBS_ENCODE;
                 else
                     if data_valid = '1' then
@@ -212,9 +213,14 @@ begin
                     else
                         tx_valid <= '1';
                         tx_data  <= packet_buffer(counter);
+                        if packet_buffer(counter) = x"00" then
+                            transmit_finished <= '1';
+                        end if;
                     end if;
                 end if;
             end if; -- rst
         end if; -- clk
     end process;
+    
+    
 end architecture;
