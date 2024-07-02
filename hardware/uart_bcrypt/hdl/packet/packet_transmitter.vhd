@@ -1,3 +1,10 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use ieee.math_real.all;
+
+library work;
+
 entity packet_transmitter is
     port (
         -- GENERAL
@@ -21,28 +28,40 @@ end entity packet_transmitter;
 architecture rtl of packet_transmitter is
 
     -- PACKET DATA BUFFER
-    constant PAYLOAD_DATA_SIZE : integer := 252; -- Packer Max Size : 256, Control Bytes : 4
-    type data_buffer is array (0 to PAYLOAD_DATA_SIZE-1) of std_logic_vector(7 downto 0);
-    signal payload_buffer : data_buffer;
+    constant PACKET_DATA_SIZE : integer := 256; -- Packer Max Size : 256, Control Bytes : 4
+    constant PAYLOAD_BASE_INDEX : integer := 2;
+    type data_buffer is array (0 to PACKET_DATA_SIZE-1) of std_logic_vector(7 downto 0);
+    signal packet_buffer : data_buffer;
     
     -- STATE MACHINE
     type states_t is (
-        RESET,
+        S_RESET,
         WAIT_FOR_DATA, GET_DATA,
         COBS_ENCODE,
         TRANSMIT
 	);
-    signal current_state : states_t := RESET;
-    signal next_state    : states_t := RESET;
+    signal current_state : states_t := S_RESET;
+    signal next_state    : states_t := S_RESET;
 
     -- COUNTER
     signal counter : integer := 0;
     signal counter_init : std_logic := '0';
+    signal counter_init_val : integer := 0;
+    signal counter_enable : std_logic := '0';
+    signal counter_up : std_logic := '0';
+    signal c_counter : integer := 0;
+    signal c_counter_init : std_logic := '0';
+    signal c_counter_enable : std_logic := '0';
 
     -- CRC
     signal crc_in : std_logic_vector(7 downto 0) := x"00";
     signal crc_data : std_logic_vector(7 downto 0) := x"00";
 	signal crc_out : std_logic_vector(7 downto 0):= x"00";
+    signal payload_crc : std_logic_vector(7 downto 0) := x"00";
+    
+    -- UART TRANSMIT
+    signal transmit_enable : std_logic := '0';
+    signal transmit_finished : std_logic := '0';
 begin
 
     -- COUNTERS
@@ -54,11 +73,32 @@ begin
 			else        
 				if counter_init = '1' then
 					-- INIT PAYLOAD COUNTER
-                    counter <= 0;
-				elsif data_valid = '1' then
+                    counter <= counter_init_val;
+				elsif counter_enable = '1' then
+                    if counter_up = '1' then
+                        -- INCREMENT PAYLOAD COUNTER
+                        counter <= counter + 1;
+                    else
+                        -- DECREMENT PAYLOAD COUNTER
+                        counter <= counter - 1;
+                    end if;
+				end if;           
+			end if;
+		end if;
+	end process;
+
+    cobs_counter : process(clk)
+	begin
+		if rising_edge(clk) then
+			if reset = '1' then
+				c_counter <= 0;
+			else        
+				if c_counter_init = '1' then
+					-- INIT PAYLOAD COUNTER
+                    c_counter <= 0;
+				elsif c_counter_enable = '1' then
                     -- INCREMENT PAYLOAD COUNTER
-                    counter <= counter + 1;
-					end if;
+                    c_counter <= c_counter + 1;
 				end if;           
 			end if;
 		end if;
@@ -68,47 +108,84 @@ begin
     fsm_state : process(clk)
     begin
         if rising_edge(clk) then
-            if rst = '1' then
-                current_state <= RESET;
+            if reset = '1' then
+                current_state <= S_RESET;
             else
                 current_state <= next_state;
             end if; -- rst
         end if; -- clk
     end process fsm_state;
     
-    fsm_ctrl : process (current_state, payload_incomming, counter, data, data_valid)
+    fsm_ctrl : process (current_state, payload_incomming, counter, data, data_valid, payload_length, crc_out, transmit_finished)
     begin
         -- Defaults
         next_state <= current_state;
         counter_init <= '0';
-        payload_buffer(counter) <= payload_buffer(counter);
-        crc_in <= x"00";
+        counter_init_val <= 0;
+        counter_enable <= '0';
+        counter_up <= '0';
+        c_counter_init <= '0';
+        c_counter_enable <= '0';
+        crc_in <= crc_out;
+        crc_data <= crc_data;
+        payload_crc <= payload_crc;
+        transmit_busy <= '0';
+        transmit_enable <= '0';
 
         -- FSM Cases
         case current_state is
-            when RESET =>
+            when S_RESET =>
                 next_state <= WAIT_FOR_DATA;
             when WAIT_FOR_DATA =>
+                payload_crc <= x"00";
                 if payload_incomming = '1' then
+                    packet_buffer(0) <= x"00";
+                    packet_buffer(1) <= payload_length;
                     counter_init <= '1';
+                    counter_init_val <= 0;
                     next_state <= GET_DATA;
                 end if;
             when GET_DATA =>
-                if counter >= payload_length then
+                if counter = to_integer(unsigned(payload_length)) then
+                    payload_crc <= crc_out;
+                    counter_enable <= '1';
+                    counter_up <= '1';
+                    c_counter_enable <= '1';
+                elsif counter > to_integer(unsigned(payload_length)) then
+                    c_counter_enable <= '1';
+                    packet_buffer(counter+PAYLOAD_BASE_INDEX) <= payload_crc;
                     next_state <= COBS_ENCODE;
                 else
                     if data_valid = '1' then
-                        if counter = 0 then
-                            crc_in <= x"00";
-                        else
-                            crc_in <= crc_out;
-                        end if;
+                        counter_enable <= '1';
+                        counter_up <= '1';
                         crc_data <= data;
-                        payload_buffer(counter) <= data;
+                        packet_buffer(counter+PAYLOAD_BASE_INDEX) <= data;
                     end if;
                 end if;
             when COBS_ENCODE =>
+                transmit_busy <= '1';
+                counter_enable <= '1';
+                counter_up <= '0';
+                c_counter_enable <= '1';
+                
+                if packet_buffer(counter) = x"00" then
+                    packet_buffer(counter) <= std_logic_vector(to_unsigned(c_counter, packet_buffer(counter)'length));
+                    c_counter_init <= '1';
+                end if;
+
+                if counter = 0 then
+                    next_state <= TRANSMIT;
+                end if;
             when TRANSMIT =>
+                counter_enable <= '1';
+                counter_up <= '1';
+                transmit_enable <= '1';
+                transmit_busy <= '1';
+                
+                if transmit_finished = '1' then
+                    next_state <= WAIT_FOR_DATA;
+                end if;
         end case;
     end process;
 
@@ -119,5 +196,25 @@ begin
         data 	=> crc_data,
         crcOut	=> crc_out
     );
-
+    
+    -- UART TRANSMIT
+    uart_process : process(clk)
+    begin
+        if rising_edge(clk) then
+            if reset = '1' then
+                tx_valid <= '0';
+		        tx_data  <= x"00";
+            else
+                if transmit_enable = '1' then
+                    if tx_busy = '1' then
+                        tx_valid <= '0';
+                        tx_data  <= x"00";
+                    else
+                        tx_valid <= '1';
+                        tx_data  <= packet_buffer(counter);
+                    end if;
+                end if;
+            end if; -- rst
+        end if; -- clk
+    end process;
 end architecture;
