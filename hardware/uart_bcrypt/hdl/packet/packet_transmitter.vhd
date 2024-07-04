@@ -26,7 +26,6 @@ entity packet_transmitter is
 end entity packet_transmitter;
 
 architecture rtl of packet_transmitter is
-
     -- PACKET DATA BUFFER
     constant PACKET_DATA_SIZE : integer := 256; -- Packer Max Size : 256, Control Bytes : 4
     constant PAYLOAD_BASE_INDEX : integer := 2;
@@ -57,11 +56,13 @@ architecture rtl of packet_transmitter is
     signal crc_in : std_logic_vector(7 downto 0) := x"00";
     signal crc_data : std_logic_vector(7 downto 0) := x"00";
 	signal crc_out : std_logic_vector(7 downto 0):= x"00";
+	signal crc_out_reg : std_logic_vector(7 downto 0):= x"00";
     signal payload_crc : std_logic_vector(7 downto 0) := x"00";
     
     -- UART TRANSMIT
     signal transmit_enable : std_logic := '0';
     signal transmit_finished : std_logic := '0';
+    signal tx_enable : std_logic := '0';
 begin
 
     -- COUNTERS
@@ -79,8 +80,10 @@ begin
                         -- INCREMENT PAYLOAD COUNTER
                         counter <= counter + 1;
                     else
-                        -- DECREMENT PAYLOAD COUNTER
-                        counter <= counter - 1;
+                        if counter > 0 then
+                            -- DECREMENT PAYLOAD COUNTER
+                            counter <= counter - 1;
+                        end if;
                     end if;
 				end if;           
 			end if;
@@ -112,11 +115,12 @@ begin
                 current_state <= S_RESET;
             else
                 current_state <= next_state;
+                crc_out_reg <= crc_out;
             end if; -- rst
         end if; -- clk
     end process fsm_state;
     
-    fsm_ctrl : process (current_state, payload_incomming, counter, data, data_valid, payload_length, crc_out, transmit_finished)
+    fsm_ctrl : process (current_state, payload_incomming, counter, data, data_valid, payload_length, crc_out_reg, transmit_finished, tx_busy, tx_enable)
     begin
         -- Defaults
         next_state <= current_state;
@@ -126,7 +130,6 @@ begin
         counter_up <= '0';
         c_counter_init <= '0';
         c_counter_enable <= '0';
-        crc_in <= crc_out;
         crc_data <= crc_data;
         payload_crc <= payload_crc;
         transmit_busy <= '0';
@@ -147,11 +150,13 @@ begin
                 end if;
             when GET_DATA =>
                 if counter = to_integer(unsigned(payload_length)) then
-                    payload_crc <= crc_out;
+                    payload_crc <= crc_out_reg;
                     counter_enable <= '1';
                     counter_up <= '1';
                     c_counter_enable <= '1';
                 elsif counter > to_integer(unsigned(payload_length)) then
+                    counter_init <= '1';
+                    counter_init_val <= counter+PAYLOAD_BASE_INDEX;
                     c_counter_enable <= '1';
                     packet_buffer(counter+PAYLOAD_BASE_INDEX) <= payload_crc;
                     packet_buffer(counter+PAYLOAD_BASE_INDEX+1) <= x"00";
@@ -179,10 +184,13 @@ begin
                     next_state <= TRANSMIT;
                 end if;
             when TRANSMIT =>
-                counter_enable <= '1';
                 counter_up <= '1';
                 transmit_enable <= '1';
                 transmit_busy <= '1';
+                
+                if (not tx_busy and tx_enable) = '1' then
+                    counter_enable <= '1';
+                end if;
                 
                 if transmit_finished = '1' then
                     next_state <= WAIT_FOR_DATA;
@@ -197,30 +205,28 @@ begin
         data 	=> crc_data,
         crcOut	=> crc_out
     );
+    crc_in <= crc_out_reg;
     
     -- UART TRANSMIT
+    tx_valid <= not tx_busy and tx_enable;
+        
     uart_process : process(clk)
     begin
         if rising_edge(clk) then
             if reset = '1' then
-                tx_valid <= '0';
 		        tx_data  <= x"00";
+		        tx_enable <= '0';
             else
                 if transmit_enable = '1' then
-                    if tx_busy = '1' then
-                        tx_valid <= '0';
-                        tx_data  <= x"00";
-                    else
-                        tx_valid <= '1';
-                        tx_data  <= packet_buffer(counter);
-                        if packet_buffer(counter) = x"00" then
-                            transmit_finished <= '1';
-                        end if;
+                    tx_enable <= '1';
+                    tx_data  <= packet_buffer(counter);
+                    if counter = (to_integer(unsigned(packet_buffer(1))) + PAYLOAD_BASE_INDEX + 2) then
+                        transmit_finished <= '1';
                     end if;
+                else
+                    tx_enable <= '0';
                 end if;
             end if; -- rst
         end if; -- clk
     end process;
-    
-    
 end architecture;
