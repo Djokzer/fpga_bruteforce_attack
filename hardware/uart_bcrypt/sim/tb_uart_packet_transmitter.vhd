@@ -101,14 +101,36 @@ begin
         wait until reset = '0';
         wait for CLK_PERIOD;
         
-        -- Send data
+        -- Send packet 1 (0x12)
         payload_incomming <= '1';
         payload_length <= x"01";
+        wait for CLK_PERIOD;
+        data <= x"12";
+        data_valid <= '1';
+        wait for CLK_PERIOD;
+        payload_incomming <= '0';
+        payload_length <= x"00";
+        data_valid <= '0';
+        wait until transmit_busy = '0';
+        wait for CLK_PERIOD * 10;
+        
+        -- Send packet 2 (0x55, 0x44)
+        payload_incomming <= '1';
+        payload_length <= x"02";
         wait for CLK_PERIOD;
         data <= x"55";
         data_valid <= '1';
         wait for CLK_PERIOD;
-        
+        data_valid <= '0';
+        wait for CLK_PERIOD;
+        data <= x"44";
+        data_valid <= '1';
+        wait for CLK_PERIOD;
+        payload_incomming <= '0';
+        payload_length <= x"00";
+        data_valid <= '0';
+        wait for CLK_PERIOD;
+
     end process;
     
     check_output : process
@@ -117,13 +139,23 @@ begin
         wait until reset = '0';
         wait for CLK_PERIOD;
         
+        -- Check Packet 1
         check_out_data(x"04", rx_data_o, rx_valid_o);
         check_out_data(x"01", rx_data_o, rx_valid_o);
-        check_out_data(x"55", rx_data_o, rx_valid_o);
-        check_out_data(x"ac", rx_data_o, rx_valid_o);
+        check_out_data(x"12", rx_data_o, rx_valid_o);
+        check_out_data(x"7e", rx_data_o, rx_valid_o);
         check_out_data(x"00", rx_data_o, rx_valid_o);
         
-        wait for CLK_PERIOD * 10;
+        -- Check Packet 2
+        check_out_data(x"05", rx_data_o, rx_valid_o);
+        check_out_data(x"02", rx_data_o, rx_valid_o);
+        check_out_data(x"55", rx_data_o, rx_valid_o);
+        check_out_data(x"44", rx_data_o, rx_valid_o);
+        check_out_data(x"96", rx_data_o, rx_valid_o);
+        check_out_data(x"00", rx_data_o, rx_valid_o);
+        
+        wait for CLK_PERIOD;
+        --wait for CLK_PERIOD * 100000;
         report "Simulation Finished !" severity note;
         finish;
     end process;

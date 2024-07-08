@@ -115,7 +115,6 @@ begin
                 current_state <= S_RESET;
             else
                 current_state <= next_state;
-                crc_out_reg <= crc_out;
             end if; -- rst
         end if; -- clk
     end process fsm_state;
@@ -131,7 +130,6 @@ begin
         c_counter_init <= '0';
         c_counter_enable <= '0';
         crc_data <= crc_data;
-        payload_crc <= payload_crc;
         transmit_busy <= '0';
         transmit_enable <= '0';
 
@@ -140,7 +138,6 @@ begin
             when S_RESET =>
                 next_state <= WAIT_FOR_DATA;
             when WAIT_FOR_DATA =>
-                payload_crc <= x"00";
                 if payload_incomming = '1' then
                     packet_buffer(0) <= x"00";
                     packet_buffer(1) <= payload_length;
@@ -150,7 +147,6 @@ begin
                 end if;
             when GET_DATA =>
                 if counter = to_integer(unsigned(payload_length)) then
-                    payload_crc <= crc_out_reg;
                     counter_enable <= '1';
                     counter_up <= '1';
                     c_counter_enable <= '1';
@@ -158,7 +154,7 @@ begin
                     counter_init <= '1';
                     counter_init_val <= counter+PAYLOAD_BASE_INDEX;
                     c_counter_enable <= '1';
-                    packet_buffer(counter+PAYLOAD_BASE_INDEX) <= payload_crc;
+                    packet_buffer(counter+PAYLOAD_BASE_INDEX) <= crc_out_reg;
                     packet_buffer(counter+PAYLOAD_BASE_INDEX+1) <= x"00";
                     next_state <= COBS_ENCODE;
                 else
@@ -207,6 +203,21 @@ begin
     );
     crc_in <= crc_out_reg;
     
+    crc_update : process(clk)
+    begin
+        if rising_edge(clk) then
+            if reset = '1' then
+                crc_out_reg <= x"00";
+            else
+                if transmit_finished = '1' then
+                    crc_out_reg <= x"00";
+                elsif data_valid = '1' then
+                    crc_out_reg <= crc_out;
+                end if;
+            end if; -- rst
+        end if; -- clk
+    end process;
+    
     -- UART TRANSMIT
     tx_valid <= not tx_busy and tx_enable;
         
@@ -216,7 +227,9 @@ begin
             if reset = '1' then
 		        tx_data  <= x"00";
 		        tx_enable <= '0';
+		        transmit_finished <= '0';
             else
+                transmit_finished <= '0';
                 if transmit_enable = '1' then
                     tx_enable <= '1';
                     tx_data  <= packet_buffer(counter);
@@ -229,4 +242,6 @@ begin
             end if; -- rst
         end if; -- clk
     end process;
+    
+    
 end architecture;

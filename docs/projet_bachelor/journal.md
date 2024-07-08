@@ -348,9 +348,23 @@ J'ai pu tester et valider les différents erreurs possibles à l'aide de LED's :
 - Paquet trop petit
 - ID du quadcore incorrect
 
+# Semaine 8 - (01.07.2024 - 05.07.2024)
+
 ## Ajout d'un système de retour de paquets
 
 Maintenant que mon système de paquets semble marcher pour notre attaque, il faudrait ajouter un système de retour qui permettra de confirmer la réception d'un paquet.
 
 Il faudrait aussi ajouter un paquet de status qui va permettre d'indiquer l'avancement de l'attaque.
+
+# Semaine 9 - (08.07.2024 - 12.07.2024)
+
+Cette semaine, je vais tenter de compléter le système de retour de paquets.
+
+## Packet transmitter
+
+J'ai pu faire le bloc packet transmitter qui s'occupe de recevoir des données 8 Bits en entrée et va les enpaqueter afin de pouvoir les envoyer en UART.
+
+J'ai pu tester et valider le bloc à l'aide d'un testbench.
+
+
 
