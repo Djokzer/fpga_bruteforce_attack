@@ -24,15 +24,26 @@ end entity tx_packet_pipeline;
 
 architecture rtl of tx_packet_pipeline is
 
+    -- Packet transmitter
     signal payload_incomming   : std_logic;
     signal payload_length      : std_logic_vector(7 downto 0);     
     signal data                : std_logic_vector(7 downto 0);
     signal data_valid          : std_logic;
     signal transmit_busy       : std_logic;
 
-    signal return_flag         : std_logic := '0';
-    signal return_process      : std_logic := '0';
-    signal return_packet       : std_logic_vector(7 downto 0);
+    -- STATE MACHINE
+    type states_t is (
+        S_RESET,
+        WAIT_FOR_RETURN,
+		WAIT_FOR_READY, 
+		SEND_CTRL, SEND_DATA
+    );
+    signal current_state : states_t := S_RESET;
+    signal next_state    : states_t := S_RESET;
+
+	-- RETURN LOGIC
+	signal return_packet       : std_logic_vector(7 downto 0);
+
 begin
 
     -- PACKET TRANSMITTER
@@ -55,36 +66,60 @@ begin
         transmit_busy       => transmit_busy
     );
 
-    -- REPLACE ALL BY A STATE MACHINE
-
-    check_error_code : process(packet_processed, error_code)
-    begin
-        if packet_processed = '1' or
-            -- RECEIVED PACKET CORRECT 
-            return_flag <= '1';
-            return_packet <= x"00";
-        elsif error_code /= '000' then
-            -- RECEIVED PACKET WRONG 
-            return_flag <= '1';
-            return_packet <= '00000' & error_code;
-        else
-            return_flag <= '0';
-            return_packet <= x"00";
-        end if;
-    end process;
-
-    get_status : process(clk)
+    -- FSM 
+    fsm_state : process(clk)
     begin
         if rising_edge(clk) then
             if reset = '1' then
-                return_process <= '0';
-                return_packet <= x"00";
+                current_state <= S_RESET;
             else
-                if return_flag = '1' and return_process = '0' then
-                    return_process <= '1';
-                end if;
-            end if;
-        end if;
-    end process;
+                current_state <= next_state;
+            end if; -- rst
+        end if; -- clk
+    end process fsm_state;
+
+	fsm_ctrl : process(current_state, packet_processed, error_code, transmit_busy)
+	begin
+		-- Defaults
+		next_state <= current_state;
+		return_packet <= return_packet;
+		payload_length <= payload_length;
+		payload_incomming <= '0';
+        data_valid <= '0';
+
+		case current_state is
+			when S_RESET =>
+				next_state <= WAIT_FOR_RETURN;
+				-- DEFAULT VALUES
+				return_packet <= x"FF";
+				payload_length <= x"00";
+			when WAIT_FOR_RETURN =>
+                -- DEFAULT VALUES
+				return_packet <= x"FF";
+				payload_length <= x"00";
+				-- WAIT FOR STATUS RETURN FROM RX
+				if packet_processed = '1' then
+					return_packet <= x"00";
+					next_state <= WAIT_FOR_READY;
+				elsif error_code /= "000" then
+					return_packet <= "00000" & error_code;
+					next_state <= WAIT_FOR_READY;
+				end if;
+			when WAIT_FOR_READY =>
+				if transmit_busy = '0' then
+					next_state <= SEND_CTRL;
+				end if;
+			when SEND_CTRL =>
+				payload_incomming <= '1';
+				payload_length <= x"01";
+				next_state <= SEND_DATA;
+			when SEND_DATA =>
+                data_valid <= '1';
+                next_state <= WAIT_FOR_RETURN;
+		end case ;
+	end process;
+
+    data <= return_packet;
+
 
 end architecture;

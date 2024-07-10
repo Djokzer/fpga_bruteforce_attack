@@ -30,7 +30,7 @@ def gen_packet(data):
     return encoded_packet
 
 if __name__ == "__main__":
-    payload = [0x55, 0x44]
+    payload = [0x00]
     print(f"Payload : {payload}")
     encoded_packet = gen_packet(payload)
     print(', '.join([hex(i) for i in encoded_packet]))
