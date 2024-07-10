@@ -1,11 +1,13 @@
 from packet import gen_packet
+from bcrypt_utils import bcrypt_hash
+
 
 if __name__ == "__main__":
     # QUADCORE PACKET VALUE
-    q_id = 0
+    q_id = 5
     q_crack_max = 5
     q_salt = 0x7e949a07e88186c649bbeb0a9740c5e0
-    q_hash = 0x1982ade712f9ec3d3a57ce85adf7fc3e2b43d7d89f90d3
+    q_hash = bcrypt_hash(q_salt, b'a')
     q_pwd_init = 0
     q_pwd_len = 1
 

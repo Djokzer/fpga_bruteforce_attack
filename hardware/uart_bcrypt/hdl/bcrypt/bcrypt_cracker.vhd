@@ -281,7 +281,7 @@ begin
         -- ----------------------------------------------------------------- --
         bcrypt_quad_core : entity work.bcrypt_quad_core
             generic map (
-                INDEX => i,
+                INDEX => i
             )
             port map (
                 -- GENERAL

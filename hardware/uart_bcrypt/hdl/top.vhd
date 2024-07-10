@@ -45,7 +45,7 @@ end top;
 
 architecture Behavioral of top is
 	-- CONSTANTS
-	constant NUMBER_OF_QUADCORES : integer := 4;
+	constant NUMBER_OF_QUADCORES : integer := 1;
 	
 	-- UART SIGNALS
 	signal resetn  : std_logic;
@@ -82,7 +82,6 @@ architecture Behavioral of top is
 	signal dout_we 	: std_logic;
 	signal dout 	: std_logic_vector(31 downto 0);
 	
-
 	-- OUTPUT
 	signal leds_reg : std_logic_vector(7 downto 0);
 	
@@ -109,7 +108,7 @@ begin
 	resetn <= not reset;
 	
 	-- RX PACKET PIPELINE
-	pckt_pipeline : entity work.rx_packet_pipeline
+	rx_pckt_pipeline : entity work.rx_packet_pipeline
 	generic map(
 		NUMBER_OF_QUADCORES => NUMBER_OF_QUADCORES
 	)
@@ -132,6 +131,20 @@ begin
 		error_status    => error_status
 	);
 
+	tx_pckt_pipeline : entity work.tx_packet_pipeline
+    port map(
+        -- GENERAL
+        clk                 => clk,
+        reset               => reset,
+        -- UART TX
+        tx_valid            => tx_valid_i,
+        tx_data             => tx_data_i,
+        tx_busy             => tx_busy_o,
+        -- PACKET RETURN
+        packet_processed    => output_en,
+        error_code          => error_status     
+    );
+
 	-- BCRPYT CRACKER
 	cracker : entity work.bcrypt_cracker
 	generic map(
@@ -140,7 +153,7 @@ begin
 	port map(
 		-- GENERAL
 		clk         => clk,
-		rst       => reset,
+		rst       	=> reset,
 
 		-- CONFIG
 		config_enable		=> output_en_reg,
@@ -199,7 +212,7 @@ begin
 				leds_reg <= x"00";
 			else
 				leds_reg(4 downto 0) <= "000" & success & done;
-				leds_reg(7 downto 5) <= leds_reg(7 downto 5) or error_status;
+				--leds_reg(7 downto 5) <= leds_reg(7 downto 5) or error_status;
 			end if;
 		end if;
 	end process;
