@@ -95,23 +95,23 @@ begin
         wait until reset = '0';
         wait for CLK_PERIOD * 2;
 
---        -- PACKET 1 - CRC WRONG
---        error_code <= "100";
---        wait for CLK_PERIOD;
---        error_code <= "000";
---        wait until packet_sended = '1';
+        -- PACKET 1 - CRC WRONG
+        error_code <= "100";
+        wait for CLK_PERIOD;
+        error_code <= "000";
+        wait until packet_sended = '1';
 
---        -- PACKET 2 - ID WRONG
---        error_code <= "011";
---        wait for CLK_PERIOD;
---        error_code <= "000";
---        wait until packet_sended = '1';
+        -- PACKET 2 - ID WRONG
+        error_code <= "011";
+        wait for CLK_PERIOD;
+        error_code <= "000";
+        wait until packet_sended = '1';
 
         -- PACKET 3 - ALL CORRECT
         packet_processed <= '1';
         wait for CLK_PERIOD;
         packet_processed <= '0';
-        --wait until packet_sended = '1';
+        wait until packet_sended = '1';
         
         wait for CLK_PERIOD;
     end process;
@@ -123,38 +123,38 @@ begin
         wait until reset = '0';
         wait for CLK_PERIOD * 2;
 
---        -- PACKET 1 - CRC WRONG
---        check_out_data(x"04", rx_data_o, rx_valid_o);
---        check_out_data(x"01", rx_data_o, rx_valid_o);
---        check_out_data(x"04", rx_data_o, rx_valid_o);
---        check_out_data(x"1c", rx_data_o, rx_valid_o);
---        check_out_data(x"00", rx_data_o, rx_valid_o);
---        packet_sended <= '1';
---        wait for CLK_PERIOD;
---        packet_sended <= '0';
---        wait for CLK_PERIOD;
+        -- PACKET 1 - CRC WRONG
+        check_out_data(x"04", rx_data_o, rx_valid_o);
+        check_out_data(x"01", rx_data_o, rx_valid_o);
+        check_out_data(x"04", rx_data_o, rx_valid_o);
+        check_out_data(x"1c", rx_data_o, rx_valid_o);
+        check_out_data(x"00", rx_data_o, rx_valid_o);
+        packet_sended <= '1';
+        wait for CLK_PERIOD;
+        packet_sended <= '0';
+        wait for CLK_PERIOD;
 
---        -- PACKET 2 - ID WRONG
---        check_out_data(x"04", rx_data_o, rx_valid_o);
---        check_out_data(x"01", rx_data_o, rx_valid_o);
---        check_out_data(x"03", rx_data_o, rx_valid_o);
---        check_out_data(x"09", rx_data_o, rx_valid_o);
---        check_out_data(x"00", rx_data_o, rx_valid_o);
---        packet_sended <= '1';
---        wait for CLK_PERIOD;
---        packet_sended <= '0';
---        wait for CLK_PERIOD;
+        -- PACKET 2 - ID WRONG
+        check_out_data(x"04", rx_data_o, rx_valid_o);
+        check_out_data(x"01", rx_data_o, rx_valid_o);
+        check_out_data(x"03", rx_data_o, rx_valid_o);
+        check_out_data(x"09", rx_data_o, rx_valid_o);
+        check_out_data(x"00", rx_data_o, rx_valid_o);
+        packet_sended <= '1';
+        wait for CLK_PERIOD;
+        packet_sended <= '0';
+        wait for CLK_PERIOD;
 
---        -- PACKET 3 - ALL CORRECT
---        check_out_data(x"02", rx_data_o, rx_valid_o);
---        check_out_data(x"01", rx_data_o, rx_valid_o);
---        check_out_data(x"01", rx_data_o, rx_valid_o);
---        check_out_data(x"01", rx_data_o, rx_valid_o);
---        check_out_data(x"00", rx_data_o, rx_valid_o);
---        packet_sended <= '1'
---        wait for CLK_PERIOD;
---        packet_sended <= '0'
---        wait for CLK_PERIOD;
+        -- PACKET 3 - ALL CORRECT
+        check_out_data(x"02", rx_data_o, rx_valid_o);
+        check_out_data(x"01", rx_data_o, rx_valid_o);
+        check_out_data(x"01", rx_data_o, rx_valid_o);
+        check_out_data(x"01", rx_data_o, rx_valid_o);
+        check_out_data(x"00", rx_data_o, rx_valid_o);
+        packet_sended <= '1';
+        wait for CLK_PERIOD;
+        packet_sended <= '0';
+        wait for CLK_PERIOD;
 
         wait for CLK_PERIOD*100000;
         report "Simulation Finished !" severity note;

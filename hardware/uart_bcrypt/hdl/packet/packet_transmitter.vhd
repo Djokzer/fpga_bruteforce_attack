@@ -98,7 +98,7 @@ begin
 			else        
 				if c_counter_init = '1' then
 					-- INIT PAYLOAD COUNTER
-                    c_counter <= 0;
+                    c_counter <= 1;
 				elsif c_counter_enable = '1' then
                     -- INCREMENT PAYLOAD COUNTER
                     c_counter <= c_counter + 1;
@@ -127,7 +127,7 @@ begin
         counter_init_val <= 0;
         counter_enable <= '0';
         counter_up <= '0';
-        c_counter_init <= '0';
+        c_counter_init <= '1';
         c_counter_enable <= '0';
         crc_data <= crc_data;
         transmit_busy <= '0';
@@ -149,11 +149,9 @@ begin
                 if counter = to_integer(unsigned(payload_length)) then
                     counter_enable <= '1';
                     counter_up <= '1';
-                    c_counter_enable <= '1';
                 elsif counter > to_integer(unsigned(payload_length)) then
                     counter_init <= '1';
                     counter_init_val <= counter+PAYLOAD_BASE_INDEX;
-                    c_counter_enable <= '1';
                     packet_buffer(counter+PAYLOAD_BASE_INDEX) <= crc_out_reg;
                     packet_buffer(counter+PAYLOAD_BASE_INDEX+1) <= x"00";
                     next_state <= COBS_ENCODE;
@@ -170,6 +168,7 @@ begin
                 counter_enable <= '1';
                 counter_up <= '0';
                 c_counter_enable <= '1';
+                c_counter_init <= '0';
                 
                 if packet_buffer(counter) = x"00" then
                     packet_buffer(counter) <= std_logic_vector(to_unsigned(c_counter, packet_buffer(counter)'length));
