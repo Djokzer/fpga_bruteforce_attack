@@ -364,7 +364,17 @@ Cette semaine, je vais tenter de compléter le système de retour de paquets.
 
 J'ai pu faire le bloc packet transmitter qui s'occupe de recevoir des données 8 Bits en entrée et va les enpaqueter afin de pouvoir les envoyer en UART.
 
-J'ai pu tester et valider le bloc à l'aide d'un testbench.
+J'ai pu testé et validé le bloc à l'aide d'un testbench.
+
+## Tx packet pipeline
+
+Ce bloc a pour mission de répondre à un paquet recu, l'objectif étant de prévenir le PC de la bonne reception du paquet.
+
+Dans ce bloc, j'ai pu instancier le packet transmitter fait plus tôt, et j'ai pu ensuite le fournir le retour du rx packet pipeline.
+
+Ce bloc a été testé et validé à l'aide d'un testbench. Toutefois, il faudrait par la suite ajouter un nouveau feature, celui-ci aura pour objectif d'envoyer régulièrement un paquet contenant l'état actuel des différens Quadcores.
 
 
+## Top level avec réponses
 
+J'ai pu déjà tester une première version de mon système de paquets, il faudrait maintenant pouvoir le tester avec le nouveau système de retour.
