@@ -43,6 +43,8 @@ architecture rtl of tx_packet_pipeline is
 
 	-- RETURN LOGIC
 	signal return_packet       : std_logic_vector(7 downto 0);
+	signal return_buff         : std_logic_vector(7 downto 0);
+	signal return_we           : std_logic;
 
 begin
 
@@ -82,8 +84,9 @@ begin
 	begin
 		-- Defaults
 		next_state <= current_state;
-		return_packet <= return_packet;
-		payload_length <= payload_length;
+		return_packet <= x"FF";
+		return_we <= '0';
+		payload_length <= x"00";
 		payload_incomming <= '0';
         data_valid <= '0';
 
@@ -91,18 +94,18 @@ begin
 			when S_RESET =>
 				next_state <= WAIT_FOR_RETURN;
 				-- DEFAULT VALUES
-				return_packet <= x"FF";
 				payload_length <= x"00";
 			when WAIT_FOR_RETURN =>
                 -- DEFAULT VALUES
-				return_packet <= x"FF";
 				payload_length <= x"00";
 				-- WAIT FOR STATUS RETURN FROM RX
 				if packet_processed = '1' then
 					return_packet <= x"00";
+					return_we <= '1';
 					next_state <= WAIT_FOR_READY;
 				elsif error_code /= "000" then
 					return_packet <= "00000" & error_code;
+					return_we <= '1';
 					next_state <= WAIT_FOR_READY;
 				end if;
 			when WAIT_FOR_READY =>
@@ -114,12 +117,27 @@ begin
 				payload_length <= x"01";
 				next_state <= SEND_DATA;
 			when SEND_DATA =>
+			    payload_length <= x"01";
                 data_valid <= '1';
                 next_state <= WAIT_FOR_RETURN;
 		end case ;
 	end process;
 
-    data <= return_packet;
+    -- RETURN DATA
+    ret_data: process(clk)
+    begin
+        if rising_edge(clk) then
+            if reset = '1' then
+                return_buff <= x"FF";
+            else
+                if return_we = '1' then
+                    return_buff <= return_packet;
+                end if;
+            end if; -- rst
+        end if; -- clk
+    end process;
+    
+    data <= return_buff;
 
 
 end architecture;

@@ -32,8 +32,8 @@ def easy_attack():
 
     b_q_data = b_q_id + b_q_crack_max + b_q_salt + b_q_hash + b_q_pwd_init + b_q_pwd_len
     b_q_data = list(b_q_data)
-    print(f"PAYLOAD : {b_q_data}")
-    print(f"PAYLOAD SIZE : {len(b_q_data)}")
+    #print(f"PAYLOAD : {b_q_data}")
+    #print(f"PAYLOAD SIZE : {len(b_q_data)}")
 
     packet = gen_packet(b_q_data)
     return packet
@@ -59,8 +59,8 @@ def hard_attack():
 
     b_q_data = b_q_id + b_q_crack_max + b_q_salt + b_q_hash + b_q_pwd_init + b_q_pwd_len
     b_q_data = list(b_q_data)
-    print(f"PAYLOAD : {b_q_data}")
-    print(f"PAYLOAD SIZE : {len(b_q_data)}")
+    #print(f"PAYLOAD : {b_q_data}")
+    #print(f"PAYLOAD SIZE : {len(b_q_data)}")
 
     packet = gen_packet(b_q_data)
     return packet
@@ -88,8 +88,8 @@ def crc_error():
 
     b_q_data = b_q_id + b_q_crack_max + b_q_salt + b_q_hash + b_q_pwd_init + b_q_pwd_len
     b_q_data = list(b_q_data)
-    print(f"PAYLOAD : {b_q_data}")
-    print(f"PAYLOAD SIZE : {len(b_q_data)}")
+    #print(f"PAYLOAD : {b_q_data}")
+    #print(f"PAYLOAD SIZE : {len(b_q_data)}")
 
     packet = gen_packet(b_q_data)
     packet[-2] = 24 # CRC ERROR
@@ -118,8 +118,8 @@ def big_packet():
 
     b_q_data = b_q_id + b_q_crack_max + b_q_salt + b_q_hash + b_q_pwd_init + b_q_pwd_len + b_q_random_data
     b_q_data = list(b_q_data)
-    print(f"PAYLOAD : {b_q_data}")
-    print(f"PAYLOAD SIZE : {len(b_q_data)}")
+    #print(f"PAYLOAD : {b_q_data}")
+    #print(f"PAYLOAD SIZE : {len(b_q_data)}")
 
     packet = gen_packet(b_q_data)
     return packet
@@ -145,8 +145,8 @@ def small_packet():
 
     b_q_data = b_q_id + b_q_crack_max + b_q_salt + b_q_hash + b_q_pwd_init + b_q_pwd_len
     b_q_data = list(b_q_data)
-    print(f"PAYLOAD : {b_q_data}")
-    print(f"PAYLOAD SIZE : {len(b_q_data)}")
+    #print(f"PAYLOAD : {b_q_data}")
+    #print(f"PAYLOAD SIZE : {len(b_q_data)}")
 
     packet = gen_packet(b_q_data)
     return packet
@@ -172,8 +172,8 @@ def wrong_id():
 
     b_q_data = b_q_id + b_q_crack_max + b_q_salt + b_q_hash + b_q_pwd_init + b_q_pwd_len
     b_q_data = list(b_q_data)
-    print(f"PAYLOAD : {b_q_data}")
-    print(f"PAYLOAD SIZE : {len(b_q_data)}")
+    #print(f"PAYLOAD : {b_q_data}")
+    #print(f"PAYLOAD SIZE : {len(b_q_data)}")
 
     packet = gen_packet(b_q_data)
     return packet

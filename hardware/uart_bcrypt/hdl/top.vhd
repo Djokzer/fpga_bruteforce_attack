@@ -83,7 +83,7 @@ architecture Behavioral of top is
 	signal dout 	: std_logic_vector(31 downto 0);
 	
 	-- OUTPUT
-	signal leds_reg : std_logic_vector(7 downto 0);
+	signal leds_reg : std_logic_vector(7 downto 0) := x"00";
 	
 begin
 	-- UART COM
@@ -212,7 +212,7 @@ begin
 				leds_reg <= x"00";
 			else
 				leds_reg(4 downto 0) <= "000" & success & done;
-				--leds_reg(7 downto 5) <= leds_reg(7 downto 5) or error_status;
+				leds_reg(7 downto 5) <= leds_reg(7 downto 5) or error_status;
 			end if;
 		end if;
 	end process;
