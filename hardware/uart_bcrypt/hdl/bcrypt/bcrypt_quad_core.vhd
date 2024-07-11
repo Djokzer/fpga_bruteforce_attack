@@ -433,7 +433,7 @@ begin
 
     -- FSM: control logic
     fsm_ctrl : process (
-			current_state, pwd_gen_done, snd_iteration, finished, bcrypt_core_key_done, pwd_addr_cnt_dout, cracks_cnt_dout, success_int
+			current_state, pwd_gen_done, snd_iteration, finished, bcrypt_core_key_done, pwd_addr_cnt_dout, cracks_cnt_dout, success_int, number_of_cracks_reg
 		)
     begin
         -- default values

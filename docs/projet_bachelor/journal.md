@@ -392,3 +392,10 @@ Suite à la modification, le système semble maintenant fonctionnel. Je retrouve
 Il faut maintenant ajouter deux nouveaux cas de retour. Pour l'instant, il y a un retour seulement lorsque j'envoie un paquet au système afin de nous avertir si le paquet a bien été receptionné.
 
 Maintenant, il faudrait ajouter un premier retour lorsque le mot de passe a été trouvé, afin de renvoyer le mot de passe à l'utilisateur. Il faudrait aussi ajouter, un système de status permettant de fournir de temps en temps l'état actuelle des quadcores.
+
+Afin de faciliter les choses, je pense qu'il serait possible de fusionner ces deux features.
+
+## Système de retour lorsque le mot de passe a été trouvé
+
+Il va falloir bufferisé le mot de passe trouvé pour que par la suite, un message soit envoyé afin de prévenir que le mot de passe a été trouvé avec le mot de passe et l'ID du quadcore.
+
