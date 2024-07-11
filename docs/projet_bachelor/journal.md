@@ -377,4 +377,18 @@ Ce bloc a été testé et validé à l'aide d'un testbench. Toutefois, il faudra
 
 ## Top level avec réponses
 
-J'ai pu déjà tester une première version de mon système de paquets, il faudrait maintenant pouvoir le tester avec le nouveau système de retour.
+J'ai pu déjà tester une première version de mon système de paquets, il faut maintenant pouvoir le tester avec le nouveau système de retour.
+
+Après vérification, à l'aide d'un testbench le système semble fonctionnel.
+
+Après essai sur l'hardware, le système me renvoit pas les bonnes valeurs. J'ai essayé de regarder à l'aide d'un ILA, pour voir si le problème venait pas du bloc UART, mais le problème ne semble pas venir de là.
+
+Après examination des warnings, j'ai remarqué que au niveau des systèmes de buffer que j'ai mis en place, des latchs étaient présents. J'ai donc changé ma méthode afin d'éviter les latchs.
+
+Suite à la modification, le système semble maintenant fonctionnel. Je retrouve bien le bon message de retour, en fonction du paquet envoyé.
+
+## Prochaine étape
+
+Il faut maintenant ajouter deux nouveaux cas de retour. Pour l'instant, il y a un retour seulement lorsque j'envoie un paquet au système afin de nous avertir si le paquet a bien été receptionné.
+
+Maintenant, il faudrait ajouter un premier retour lorsque le mot de passe a été trouvé, afin de renvoyer le mot de passe à l'utilisateur. Il faudrait aussi ajouter, un système de status permettant de fournir de temps en temps l'état actuelle des quadcores.
