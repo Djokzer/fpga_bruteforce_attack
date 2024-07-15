@@ -85,6 +85,10 @@ architecture Behavioral of tb_bcrypt_cracker is
     signal dout_we  : std_logic;
     signal dout     : std_logic_vector (31 downto 0);
     
+    -- STATUS RETURN
+    signal crack_count_index   : std_logic_vector(7 downto 0);
+    signal crack_count         : std_logic_vector (31 downto 0);
+    
 begin
 
     -- --------------------------------------------------------------------- --
@@ -112,7 +116,11 @@ begin
         done    => done,
         success => success,
         dout_we => dout_we,
-        dout    => dout
+        dout    => dout,
+        
+        -- STATUS RETURN
+        crack_count_index   => crack_count_index,
+        crack_count         => crack_count
     );
 
     -- --------------------------------------------------------------------- --
@@ -140,6 +148,7 @@ begin
     stim_proc : process
     begin
         report "Begin Testbench" severity note;
+        crack_count_index <= x"00";
         rst <= '1';
         wait for 10*CLK_PERIOD;
         rst <= '0';

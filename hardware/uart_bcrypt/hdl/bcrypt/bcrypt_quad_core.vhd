@@ -63,7 +63,10 @@ entity bcrypt_quad_core is
         done    : out std_logic;
         success : out std_logic;
         dout_we : out std_logic;
-        dout    : out std_logic_vector (31 downto 0)
+        dout    : out std_logic_vector (31 downto 0);
+        
+        -- STATUS RETURN
+        crack_count  : out std_logic_vector (31 downto 0)
     );
 end bcrypt_quad_core;
 
@@ -364,7 +367,7 @@ begin
             count_up    => '1',
             dout        => cracks_cnt_dout
         );
-
+    crack_count <= cracks_cnt_dout;
     -- --------------------------------------------------------------------- --
     -- Instantiation    pwd addr counter
     -- --------------------------------------------------------------------- --

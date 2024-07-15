@@ -16,7 +16,7 @@ entity tx_packet_pipeline is
 		tx_data             : out  std_logic_vector(7 downto 0);
 		tx_busy             : in std_logic;
 
-        -- Packet return
+        -- Packet return (from RX)
         packet_processed    : in std_logic;
         error_code          : in std_logic_vector(2 downto 0)
     );

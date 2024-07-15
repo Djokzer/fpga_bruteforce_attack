@@ -29,7 +29,11 @@ entity bcrypt_cracker is
         done    : out std_logic;
         success : out std_logic;
         dout_we : out std_logic;
-        dout    : out std_logic_vector (31 downto 0)
+        dout    : out std_logic_vector (31 downto 0);
+        
+        -- STATUS RETURN
+        crack_count_index   : in std_logic_vector(7 downto 0);
+        crack_count         : out std_logic_vector (31 downto 0)
     );
 end bcrypt_cracker;
 
@@ -83,6 +87,9 @@ architecture Behavioral of bcrypt_cracker is
     signal bcrypt_mem_init : std_logic_vector (NUMBER_OF_QUADCORES-1 downto 0);
     signal bcrypt_dout_we  : std_logic_vector (NUMBER_OF_QUADCORES-1 downto 0);
     signal bcrypt_dout     : slv32_ary_t (NUMBER_OF_QUADCORES-1 downto 0);
+    
+    -- STATUS RETURN
+    signal crack_count_all  : slv32_ary_t (NUMBER_OF_QUADCORES-1 downto 0);
 
 	-- reduction signals
 	signal reduction_ctrl : std_logic_vector(NUMBER_OF_QUADCORES-1 downto 0);
@@ -310,7 +317,9 @@ begin
                 done    => bcrypt_done(i),
                 success => bcrypt_success(i),
                 dout_we => bcrypt_dout_we(i),
-                dout    => bcrypt_dout(i)
+                dout    => bcrypt_dout(i),
+                -- STATUS RETURN
+                crack_count => crack_count_all(i)
             );
 		-- generate reduction input
 		reduction_ctrl(i) <= bcrypt_success(i) and bcrypt_dout_we(i);
@@ -380,4 +389,6 @@ begin
 	-- use the done signal of the last quadcore to signal the end of the run
 	done    <= bcrypt_done(NUMBER_OF_QUADCORES-1);
 
+    -- return crack count of the selected quadcore
+    crack_count <= crack_count_all(to_integer(unsigned(crack_count_index)));
 end Behavioral;

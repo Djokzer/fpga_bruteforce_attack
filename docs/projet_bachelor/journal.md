@@ -97,7 +97,7 @@ Pour ce faire, j'ai décidé d'encoder mes paquets avec l'algorithme COBS.
 
 Au final, je vais avoir un système de paquets, contenant un byte de start(le byte va contenir l'offset du prochain 0x00), la longueur du payload, le payload, le CRC du payload et un byte de fin (0x00).
 
-![](assets/communication_protocol_packet_format.png)
+![](assets/communication_protocol_mosi_packet_format.png)
 
 Pour l'UART, je vais pouvoir mettre dans le payload toutes les informations nécessaires à l'initialisation d'un Quadcore. C'est à dire l'ID du Quadcore, le nombre d'essais, le salt et le hash que l'on souhaite casser et l'init du compteur de mots de passe. 
 
@@ -398,4 +398,14 @@ Afin de faciliter les choses, je pense qu'il serait possible de fusionner ces de
 ## Système de retour lorsque le mot de passe a été trouvé
 
 Il va falloir bufferisé le mot de passe trouvé pour que par la suite, un message soit envoyé afin de prévenir que le mot de passe a été trouvé avec le mot de passe et l'ID du quadcore.
+
+# Semaine 10 - (15.07.2024 - 19.07.2024)
+
+## Format paquet retour
+
+Afin que le PC puisse identifier le type de paquet recu, il va falloir ajouter un code identifiant le type de paquet.
+
+![](assets/communication_protocol_miso_packet_format.png)
+
+Pour le retour de status, j'ai decidé pour l'instant de renvoyé le nombre de crack qui a été fait par chaque quadcore. Pour ce faire, je dois modifier toute la partie cracker, afin d'y ajouter une interface pour le crack_count.
 

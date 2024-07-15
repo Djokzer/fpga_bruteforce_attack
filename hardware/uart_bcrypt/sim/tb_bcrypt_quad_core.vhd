@@ -133,6 +133,9 @@ architecture Behavioral of tb_bcrypt_quad_core is
     -- delayed output signals
     signal dout_we_d  : std_logic;
     signal dout_d : std_logic_vector (31 downto 0);
+         
+    -- STATUS RETURN
+    signal crack_count  : std_logic_vector (31 downto 0);
     
     -- CONTROLS
     signal enable_count : std_logic;
@@ -172,7 +175,9 @@ begin
       dout => dout,
       done => done,
       success => success,
-      dout_we => dout_we
+      dout_we => dout_we,
+      -- STATUS RETURN
+      crack_count => crack_count
     );
     
     -- --------------------------------------------------------------------- --
