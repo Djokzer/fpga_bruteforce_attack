@@ -71,6 +71,8 @@ architecture rtl of packet_transmitter is
     signal transmit_enable : std_logic := '0';
     signal transmit_finished : std_logic := '0';
     signal tx_enable : std_logic := '0';
+    
+    signal payload_length_reg : std_logic_vector(7 downto 0) := x"00";     
 begin
 
     -- COUNTERS
@@ -133,6 +135,8 @@ begin
             end if; -- rst
         end if; -- clk
     end process;
+    
+    payload_length_reg <= packet_buffer(1);
 
     -- FSM
     fsm_state : process(clk)
@@ -146,7 +150,7 @@ begin
         end if; -- clk
     end process fsm_state;
     
-    fsm_ctrl : process (current_state, payload_incomming, counter, data, data_valid, payload_length, crc_out_reg, transmit_finished, tx_busy, tx_enable, packet_buffer, c_counter)
+    fsm_ctrl : process (current_state, payload_incomming, counter, data, data_valid, payload_length, crc_out_reg, transmit_finished, tx_busy, tx_enable, packet_buffer, c_counter, payload_length_reg)
     begin
         -- Defaults
         next_state <= current_state;
@@ -186,19 +190,19 @@ begin
                     next_state <= GET_DATA;
                 end if;
             when GET_DATA =>
-                if counter = to_integer(unsigned(payload_length)) then
+                if counter = to_integer(unsigned(payload_length_reg)) then
                     counter_enable <= '1';
                     counter_up <= '1';
-                elsif counter > to_integer(unsigned(payload_length)) then
+                elsif counter > to_integer(unsigned(payload_length_reg)) then
                     -- SET NEW COUNTER
                     counter_init <= '1';
-                    counter_init_val <= counter+PAYLOAD_BASE_INDEX;
+                    counter_init_val <= counter+PAYLOAD_BASE_INDEX-1;
                     -- INIT PACKET BUFFER FOOTER
                     buffer_we_0 <= '1';
-                    buffer_wr_0_i <= counter+PAYLOAD_BASE_INDEX;
+                    buffer_wr_0_i <= counter+PAYLOAD_BASE_INDEX-1;
                     buffer_wr_0_data <= crc_out_reg;
                     buffer_we_1 <= '1';
-                    buffer_wr_1_i <= counter+PAYLOAD_BASE_INDEX+1;
+                    buffer_wr_1_i <= counter+PAYLOAD_BASE_INDEX;
                     buffer_wr_1_data <= x"00";
                     -- NEXT STATE
                     next_state <= COBS_ENCODE;
