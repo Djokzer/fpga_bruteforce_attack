@@ -46,14 +46,14 @@ architecture rtl of tx_packet_pipeline is
     
     --------------------- PACKET RETURN SIGNALS -------------------------
     -- STATE MACHINE
-    type states_t is (
+    type states_ret_t is (
         S_RESET,
         WAIT_FOR_RETURN,
 		WAIT_FOR_READY, 
 		SEND_CTRL, SEND_DATA
     );
-    signal current_state : states_t := S_RESET;
-    signal next_state    : states_t := S_RESET;
+    signal current_state_ret : states_ret_t := S_RESET;
+    signal next_state_ret    : states_ret_t := S_RESET;
 
 	signal return_packet       : std_logic_vector(7 downto 0);
 	signal return_buff         : std_logic_vector(7 downto 0);
@@ -108,12 +108,25 @@ architecture rtl of tx_packet_pipeline is
     signal pwd_valid        : std_logic;
     ---------------------------------------------------------------------
     --------------------- GLOBAL CONTROL LOGIC -------------------------
+    -- STATE MACHINE GLOBAL
+    type states_g_t is (
+        S_RESET,
+        WAIT_FOR_READY,
+        SEND_TYPE,
+        SEND_PWD, SEND_RETURN, SEND_STATUS
+    );
+    signal current_state_global : states_g_t := S_RESET;
+    signal next_state_global    : states_g_t := S_RESET;
+    
     signal return_rts : std_logic := '0';
     signal select_return : std_logic := '0';
+    signal return_finish : std_logic := '0'; 
     signal status_rts : std_logic := '0';
     signal select_status : std_logic := '0';
+    signal status_finish : std_logic := '0'; 
     signal pwd_rts : std_logic := '0';
     signal select_pwd : std_logic := '0';
+    signal pwd_finish : std_logic := '0'; 
     ---------------------------------------------------------------------
 begin
 
@@ -139,53 +152,55 @@ begin
 
     --------------------- PACKET RETURN LOGIC -------------------------
     -- FSM 
-    fsm_state : process(clk)
+    fsm_state_ret : process(clk)
     begin
         if rising_edge(clk) then
             if reset = '1' then
-                current_state <= S_RESET;
+                current_state_ret <= S_RESET;
             else
-                current_state <= next_state;
+                current_state_ret <= next_state_ret;
             end if; -- rst
         end if; -- clk
-    end process fsm_state;
+    end process;
 
-	fsm_ctrl : process(current_state, packet_processed, error_code, select_return)
+	fsm_ctrl_ret : process(current_state_ret, packet_processed, error_code, select_return)
 	begin
 		-- Defaults
-		next_state <= current_state;
+		next_state_ret <= current_state_ret;
 		return_packet <= x"FF";
 		return_we <= '0';
         return_valid <= '0';
         return_rts <= '0';
+        return_finish <= '0';
 
-		case current_state is
+		case current_state_ret is
 			when S_RESET =>
-				next_state <= WAIT_FOR_RETURN;
+				next_state_ret <= WAIT_FOR_RETURN;
 			when WAIT_FOR_RETURN =>
 				-- WAIT FOR STATUS RETURN FROM RX
 				if packet_processed = '1' then
 					return_packet <= x"00";
 					return_we <= '1';
-					next_state <= WAIT_FOR_READY;
+					next_state_ret <= WAIT_FOR_READY;
 				elsif error_code /= "000" then
 					return_packet <= "00000" & error_code;
 					return_we <= '1';
-					next_state <= WAIT_FOR_READY;
+					next_state_ret <= WAIT_FOR_READY;
 				end if;
 			when WAIT_FOR_READY =>
                 return_rts <= '1';
 				if select_return = '1' then
-					next_state <= SEND_CTRL;
+					next_state_ret <= SEND_CTRL;
 				end if;
 			when SEND_CTRL =>
                 -- WAIT ONE CYCLE FOR CTRL SETUP
                 return_rts <= '1';
-				next_state <= SEND_DATA;
+				next_state_ret <= SEND_DATA;
 			when SEND_DATA =>
                 return_rts <= '1';
                 return_valid <= '1';
-                next_state <= WAIT_FOR_RETURN;
+                return_finish <= '1';
+                next_state_ret <= WAIT_FOR_RETURN;
 		end case ;
 	end process;
 
@@ -294,6 +309,7 @@ begin
         data_1_count_load <= '0';
         data_1_count_in <= 0;
         status_valid <= '0';
+        status_finish <= '0';
 
         case current_state_stat is
             when S_RESET =>
@@ -334,6 +350,7 @@ begin
                     -- IF ALL BUFFER HAVE BEEN TRANSMITTED
                     if data_1_count = NUMBER_OF_QUADCORES-1 then
                         data_0_count_en <= '0';
+                        status_finish <= '1';
                         next_state_stat <= RESTART;
                     else
                         -- ENABLE BUFFER INDEX COUNTER
@@ -378,9 +395,22 @@ begin
     end process;
     --------------------------------------------------------------------
     --------------------- GLOBAL CONTROL LOGIC -------------------------
-    output_ctrl : process(return_rts, status_rts, pwd_rts, return_valid, status_valid, pwd_valid, tx_busy, crack_count_buffer, data_0_count, data_1_count)
+    -- FSM 
+    fsm_state_global : process(clk)
+    begin
+        if rising_edge(clk) then
+            if reset = '1' then
+                current_state_global <= S_RESET;
+            else
+                current_state_global <= next_state_global;
+            end if; -- rst
+        end if; -- clk
+    end process;
+    
+    output_ctrl : process(current_state_global, return_rts, status_rts, pwd_rts, return_valid, status_valid, pwd_valid, tx_busy, crack_count_buffer, data_0_count, data_1_count, return_finish, status_finish)
     begin
         -- DEFAULTS
+        next_state_global <= current_state_global;
         select_pwd <= '0';
         select_return <= '0';
         select_status <= '0';
@@ -389,23 +419,54 @@ begin
         data <= x"E7"; 
         data_valid <= '0';
 
-        -- SELECT WHETHER OUTPUT RETURN, STATUS OR PASSWORD
-        if pwd_rts = '1' and tx_busy = '0' then
-            select_pwd <= '1';
-            data <= x"42";
-        elsif return_rts = '1' and tx_busy = '0'  then
-            payload_incomming <= '1';
-            payload_length <= x"01";
-            data <= return_buff;
-            data_valid <= return_valid;
-            select_return <= '1';
-        elsif status_rts = '1' and tx_busy = '0'  then
-            payload_incomming <= '1';
-            payload_length <= std_logic_vector(to_unsigned(NUMBER_OF_QUADCORES * 4, payload_length'length));
-            data <= crack_count_buffer(data_1_count)(((4-data_0_count) * 8) - 1 downto ((3-data_0_count) * 8));
-            data_valid <= status_valid;
-            select_status <= '1';
-        end if;
+        case current_state_global is
+            when S_RESET =>
+                next_state_global <= WAIT_FOR_READY;
+            when WAIT_FOR_READY =>
+                -- SELECT RETURN OR TYPE BYTE OF OTHER CASES
+                if pwd_rts = '1' and tx_busy = '0' then
+                    select_pwd <= '1';
+                    next_state_global <= SEND_TYPE;
+                elsif return_rts = '1' and tx_busy = '0'  then
+                    payload_incomming <= '1';
+                    payload_length <= x"01";
+                    select_return <= '1';
+                    next_state_global <= SEND_RETURN;
+                elsif status_rts = '1' and tx_busy = '0'  then
+                    payload_incomming <= '1';
+                    payload_length <= std_logic_vector(to_unsigned((NUMBER_OF_QUADCORES * 4) + 1, payload_length'length));
+                    select_status <= '1';
+                    next_state_global <= SEND_TYPE;
+                end if;
+            when SEND_TYPE =>
+                -- SELECT WHETHER OUTPUT STATUS OR PASSWORD
+                if pwd_rts = '1' then
+                    data <= x"10";
+                    data_valid <= '1';
+                    next_state_global <= SEND_PWD;
+                elsif status_rts = '1' then
+                    payload_length <= std_logic_vector(to_unsigned((NUMBER_OF_QUADCORES * 4) + 1, payload_length'length));
+                    data <= x"08";
+                    data_valid <= '1';
+                    next_state_global <= SEND_STATUS;
+                end if;
+            when SEND_PWD =>
+                next_state_global <= WAIT_FOR_READY;
+            when SEND_RETURN =>
+                payload_length <= x"01";
+                data <= return_buff;
+                data_valid <= return_valid;
+                if return_finish = '1' then
+                    next_state_global <= WAIT_FOR_READY;
+                end if;
+            when SEND_STATUS =>
+                payload_length <= std_logic_vector(to_unsigned(NUMBER_OF_QUADCORES * 4, payload_length'length));
+                data <= crack_count_buffer(data_1_count)(((4-data_0_count) * 8) - 1 downto ((3-data_0_count) * 8));
+                data_valid <= status_valid;
+                if status_finish = '1' then
+                    next_state_global <= WAIT_FOR_READY;
+                end if;
+        end case;
     end process;
     --------------------------------------------------------------------
 end architecture;
