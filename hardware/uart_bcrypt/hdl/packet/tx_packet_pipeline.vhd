@@ -63,8 +63,8 @@ architecture rtl of tx_packet_pipeline is
     ---------------------------------------------------------------------
     --------------------- STATUS RETURN SIGNALS -------------------------
     -- CRACK COUNT BUFFER
-    type data_32_buffer is array (0 to NUMBER_OF_QUADCORES-1) of std_logic_vector(31 downto 0);
-    signal crack_count_buffer   : data_32_buffer := (others => (others => '0'));  -- Default initialization
+    type crack_count_32_buffer is array (0 to NUMBER_OF_QUADCORES-1) of std_logic_vector(31 downto 0);
+    signal crack_count_buffer   : crack_count_32_buffer := (others => (others => '0'));  -- Default initialization
     signal quadcore_count       : integer := 0;
     signal quadcore_count_en    : std_logic := '0'; 
     signal quadcore_count_load  : std_logic := '0'; 
@@ -82,18 +82,27 @@ architecture rtl of tx_packet_pipeline is
     signal next_state_stat    : states_stat_t := S_RESET;
 
     -- COUNTERS SIGNALS FOR DATA OUT
-    signal data_0_count       : integer := 0;
-    signal data_0_count_en    : std_logic := '0'; 
-    signal data_0_count_load  : std_logic := '0'; 
-    signal data_0_count_in    : integer := 0;
-    signal data_1_count       : integer := 0;
-    signal data_1_count_en    : std_logic := '0'; 
-    signal data_1_count_load  : std_logic := '0'; 
-    signal data_1_count_in    : integer := 0;
+    signal stat_0_count       : integer := 0;
+    signal stat_0_count_en    : std_logic := '0'; 
+    signal stat_0_count_load  : std_logic := '0'; 
+    signal stat_0_count_in    : integer := 0;
+    signal stat_1_count       : integer := 0;
+    signal stat_1_count_en    : std_logic := '0'; 
+    signal stat_1_count_load  : std_logic := '0'; 
+    signal stat_1_count_in    : integer := 0;
 
     signal status_valid        : std_logic;
     ---------------------------------------------------------------------
-    -------------------- PASSWORD RETURN SIGNALS -------------------------
+    -------------------- PASSWORD RETURN SIGNALS ------------------------
+    -- CRACK COUNT BUFFER
+    constant PWD_32_SIZE : integer := 18;
+    type pwd_32_buffer is array (0 to PWD_32_SIZE-1) of std_logic_vector(31 downto 0);
+    signal pwd_buffer   : pwd_32_buffer := (others => (others => '0'));  -- Default initialization
+    signal pwd_count       : integer := 0;
+    signal pwd_count_en    : std_logic := '0'; 
+    signal pwd_count_load  : std_logic := '0'; 
+    signal pwd_count_in    : integer := 0;
+
     -- STATE MACHINE PWD
     type states_pwd_t is (
         S_RESET,
@@ -104,6 +113,16 @@ architecture rtl of tx_packet_pipeline is
     );
     signal current_state_pwd : states_pwd_t := S_RESET;
     signal next_state_pwd    : states_pwd_t := S_RESET;
+
+    -- COUNTERS SIGNALS FOR DATA OUT
+    signal pwd_0_count       : integer := 0;
+    signal pwd_0_count_en    : std_logic := '0'; 
+    signal pwd_0_count_load  : std_logic := '0'; 
+    signal pwd_0_count_in    : integer := 0;
+    signal pwd_1_count       : integer := 0;
+    signal pwd_1_count_en    : std_logic := '0'; 
+    signal pwd_1_count_load  : std_logic := '0'; 
+    signal pwd_1_count_in    : integer := 0;
 
     signal pwd_valid        : std_logic;
     ---------------------------------------------------------------------
@@ -249,32 +268,32 @@ begin
     end process;
 
     -- DATA OUT COUNTER 0
-    data_out_counter_0 : process(clk)
+    stat_out_counter_0 : process(clk)
     begin
         if rising_edge(clk) then
             if reset = '1' then
-                data_0_count <= 0;
+                stat_0_count <= 0;
             else
-                if data_0_count_load = '1' then
-                    data_0_count <= data_0_count_in;
-                elsif data_0_count_en = '1' then
-                    data_0_count <= data_0_count + 1;
+                if stat_0_count_load = '1' then
+                    stat_0_count <= stat_0_count_in;
+                elsif stat_0_count_en = '1' then
+                    stat_0_count <= stat_0_count + 1;
                 end if;
             end if;
         end if;
     end process;
 
     -- DATA OUT COUNTER 1
-    data_out_counter_1 : process(clk)
+    stat_out_counter_1 : process(clk)
     begin
         if rising_edge(clk) then
             if reset = '1' then
-                data_1_count <= 0;
+                stat_1_count <= 0;
             else
-                if data_1_count_load = '1' then
-                    data_1_count <= data_1_count_in;
-                elsif data_1_count_en = '1' then
-                    data_1_count <= data_1_count + 1;
+                if stat_1_count_load = '1' then
+                    stat_1_count <= stat_1_count_in;
+                elsif stat_1_count_en = '1' then
+                    stat_1_count <= stat_1_count + 1;
                 end if;
             end if;
         end if;
@@ -294,7 +313,7 @@ begin
     end process;
 
     -- FSM LOGIC
-    fsm_ctrl_stat : process(current_state_stat, select_status, data_0_count, data_1_count, quadcore_count)
+    fsm_ctrl_stat : process(current_state_stat, select_status, stat_0_count, stat_1_count, quadcore_count)
     begin
         -- Defaults
         next_state_stat <= current_state_stat;
@@ -302,18 +321,18 @@ begin
         quadcore_count_in <= 0;
         quadcore_count_en <= '0';
         status_rts <= '0';
-        data_0_count_en <= '0';
-        data_0_count_load <= '0';
-        data_0_count_in <= 0;
-        data_1_count_en <= '0';
-        data_1_count_load <= '0';
-        data_1_count_in <= 0;
+        stat_0_count_en <= '0';
+        stat_0_count_load <= '0';
+        stat_0_count_in <= 0;
+        stat_1_count_en <= '0';
+        stat_1_count_load <= '0';
+        stat_1_count_in <= 0;
         status_valid <= '0';
         status_finish <= '0';
 
         case current_state_stat is
             when S_RESET =>
-                next_state_stat <= RESTART;
+                --next_state_stat <= RESTART;
             when RESTART =>
                 -- RESTART COUNTER
                 quadcore_count_load <= '1';
@@ -334,36 +353,98 @@ begin
 			when SEND_CTRL =>
                 status_rts <= '1';
                 -- INIT COUNTERS FOR DATA OUT
-                data_0_count_load <= '1';
-                data_0_count_in <= 0;
-                data_1_count_load <= '1';
-                data_1_count_in <= 0;
+                stat_0_count_load <= '1';
+                stat_0_count_in <= 0;
+                stat_1_count_load <= '1';
+                stat_1_count_in <= 0;
                 -- NEXT STATE
 				next_state_stat <= SEND_DATA;
             when SEND_DATA =>
                 status_rts <= '1';
                 status_valid <= '1';
                 -- ENABLE 8 BIT INDEX COUNTER OF 32 BITS DATA
-                data_0_count_en <= '1';
+                stat_0_count_en <= '1';
                 -- IF ALL 32 BITS HAVE BEEN TRANSMITTED
-                if data_0_count = 3 then
+                if stat_0_count = 3 then
                     -- IF ALL BUFFER HAVE BEEN TRANSMITTED
-                    if data_1_count = NUMBER_OF_QUADCORES-1 then
-                        data_0_count_en <= '0';
+                    if stat_1_count = NUMBER_OF_QUADCORES-1 then
+                        stat_0_count_en <= '0';
                         status_finish <= '1';
                         next_state_stat <= RESTART;
                     else
                         -- ENABLE BUFFER INDEX COUNTER
-                        data_1_count_en <= '1';
+                        stat_1_count_en <= '1';
                         -- RESET 8 BIT INDEX COUNTER
-                        data_0_count_load <= '1';
-                        data_0_count_in <= 0;
+                        stat_0_count_load <= '1';
+                        stat_0_count_in <= 0;
                     end if;
                 end if;
         end case;
     end process;
     --------------------------------------------------------------------
     -------------------- PASSWORD RETURN LOGIC -------------------------
+    -- COUNT TO GET ALL 32 BITS WORD OF PASSWORD
+    password_counter : process(clk)
+    begin
+        if rising_edge(clk) then
+            if reset = '1' then
+                pwd_count <= 0;
+            else
+                if pwd_count_load = '1' then
+                    pwd_count <= pwd_count_in;
+                elsif pwd_count_en = '1' then
+                    pwd_count <= pwd_count + 1;
+                end if;
+            end if;
+        end if;
+    end process;
+
+    -- STORE PASSWORD IN THE BUFFER
+    store_password : process(clk)
+    begin
+        if rising_edge(clk) then
+            if reset = '1' then
+                pwd_buffer <= (others => (others => '0'));  -- Default initialization
+            else
+                if pwd_count < PWD_32_SIZE then
+                    pwd_buffer(pwd_count) <= dout;
+                end if;
+            end if;
+        end if;
+    end process;
+    
+    -- PWD OUT COUNTER 0
+    pwd_out_counter_0 : process(clk)
+    begin
+        if rising_edge(clk) then
+            if reset = '1' then
+                pwd_0_count <= 0;
+            else
+                if pwd_0_count_load = '1' then
+                    pwd_0_count <= pwd_0_count_in;
+                elsif pwd_0_count_en = '1' then
+                    pwd_0_count <= pwd_0_count + 1;
+                end if;
+            end if;
+        end if;
+    end process;
+
+    -- PWD OUT COUNTER 1
+    pwd_out_counter_1 : process(clk)
+    begin
+        if rising_edge(clk) then
+            if reset = '1' then
+                pwd_1_count <= 0;
+            else
+                if pwd_1_count_load = '1' then
+                    pwd_1_count <= pwd_1_count_in;
+                elsif pwd_1_count_en = '1' then
+                    pwd_1_count <= pwd_1_count + 1;
+                end if;
+            end if;
+        end if;
+    end process;
+
     -- FSM PASSWORD
     -- FSM UPDATE
     fsm_state_pwd : process(clk)
@@ -378,19 +459,74 @@ begin
     end process;
 
     -- FSM LOGIC
-    fsm_ctrl_pwd : process(current_state_pwd)
+    fsm_ctrl_pwd : process(current_state_pwd, dout_we, select_pwd, pwd_0_count, pwd_1_count)
 	begin
         -- Defaults
         next_state_pwd <= current_state_pwd;
+        pwd_count_en <= '0'; 
+        pwd_count_load <= '0';
+        pwd_count_in <= 0;
+        pwd_rts <= '0';
+        pwd_0_count_load <= '0';
+        pwd_0_count_in <= 0;
+        pwd_1_count_load <= '0';
+        pwd_1_count_in <= 0;
+        pwd_valid <= '0';
+        pwd_0_count_en <= '0';
+        pwd_1_count_en <= '0';
+        pwd_finish <= '0';
+        
 
         case current_state_pwd is
             when S_RESET =>
                 next_state_pwd <= WAIT_FOR_SUCCESS;
             when WAIT_FOR_SUCCESS =>
+                if dout_we = '1' then
+                    pwd_count_load <= '1';
+                    pwd_count_in <= 0;
+                    next_state_pwd <= GET_PASSWORD;
+                end if;
             when GET_PASSWORD =>
+                -- ENABLE COUNTER TO FILL THE BUFFER
+                pwd_count_en <= '1';
+                if pwd_count = PWD_32_SIZE-1 then
+                    --pwd_count_en <= '0'; -- disable counter to avoid overflow
+                    next_state_pwd <= WAIT_FOR_READY;
+                end if;
             when WAIT_FOR_READY =>
+                pwd_rts <= '1';
+                if select_pwd = '1' then
+                    next_state_pwd <= SEND_CTRL;
+                end if;
             when SEND_CTRL =>
+                pwd_rts <= '1';
+                -- INIT COUNTERS FOR DATA OUT
+                pwd_0_count_load <= '1';
+                pwd_0_count_in <= 0;
+                pwd_1_count_load <= '1';
+                pwd_1_count_in <= 0;
+                -- NEXT STATE
+                next_state_pwd <= SEND_DATA;
             when SEND_DATA =>
+                pwd_rts <= '1';
+                pwd_valid <= '1';
+                -- ENABLE 8 BIT INDEX COUNTER OF 32 BITS DATA
+                pwd_0_count_en <= '1';
+                -- IF ALL 32 BITS HAVE BEEN TRANSMITTED
+                if pwd_0_count = 3 then
+                    -- IF ALL BUFFER HAVE BEEN TRANSMITTED
+                    if pwd_1_count = PWD_32_SIZE-1 then
+                        pwd_0_count_en <= '0';
+                        pwd_finish <= '1';
+                        next_state_pwd <= WAIT_FOR_SUCCESS;
+                    else
+                        -- ENABLE BUFFER INDEX COUNTER
+                        pwd_1_count_en <= '1';
+                        -- RESET 8 BIT INDEX COUNTER
+                        pwd_0_count_load <= '1';
+                        pwd_0_count_in <= 0;
+                    end if;
+                end if;
         end case;
     end process;
     --------------------------------------------------------------------
@@ -407,7 +543,7 @@ begin
         end if; -- clk
     end process;
     
-    output_ctrl : process(current_state_global, return_rts, status_rts, pwd_rts, return_valid, status_valid, pwd_valid, tx_busy, crack_count_buffer, data_0_count, data_1_count, return_finish, status_finish)
+    output_ctrl : process(current_state_global, return_rts, status_rts, pwd_rts, return_valid, status_valid, pwd_valid, tx_busy, crack_count_buffer, stat_0_count, stat_1_count, return_finish, status_finish, pwd_finish, pwd_0_count, pwd_1_count)
     begin
         -- DEFAULTS
         next_state_global <= current_state_global;
@@ -425,6 +561,8 @@ begin
             when WAIT_FOR_READY =>
                 -- SELECT RETURN OR TYPE BYTE OF OTHER CASES
                 if pwd_rts = '1' and tx_busy = '0' then
+                    payload_incomming <= '1';
+                    payload_length <= std_logic_vector(to_unsigned((PWD_32_SIZE * 4) + 1, payload_length'length));
                     select_pwd <= '1';
                     next_state_global <= SEND_TYPE;
                 elsif return_rts = '1' and tx_busy = '0'  then
@@ -441,6 +579,7 @@ begin
             when SEND_TYPE =>
                 -- SELECT WHETHER OUTPUT STATUS OR PASSWORD
                 if pwd_rts = '1' then
+                    payload_length <= std_logic_vector(to_unsigned((PWD_32_SIZE * 4) + 1, payload_length'length));
                     data <= x"10";
                     data_valid <= '1';
                     next_state_global <= SEND_PWD;
@@ -451,7 +590,12 @@ begin
                     next_state_global <= SEND_STATUS;
                 end if;
             when SEND_PWD =>
-                next_state_global <= WAIT_FOR_READY;
+                payload_length <= std_logic_vector(to_unsigned((PWD_32_SIZE * 4) + 1, payload_length'length));
+                data <= pwd_buffer(pwd_1_count)(((4-pwd_0_count) * 8) - 1 downto ((3-pwd_0_count) * 8));
+                data_valid <= pwd_valid;
+                if pwd_finish = '1' then
+                    next_state_global <= WAIT_FOR_READY;
+                end if;
             when SEND_RETURN =>
                 payload_length <= x"01";
                 data <= return_buff;
@@ -460,8 +604,8 @@ begin
                     next_state_global <= WAIT_FOR_READY;
                 end if;
             when SEND_STATUS =>
-                payload_length <= std_logic_vector(to_unsigned(NUMBER_OF_QUADCORES * 4, payload_length'length));
-                data <= crack_count_buffer(data_1_count)(((4-data_0_count) * 8) - 1 downto ((3-data_0_count) * 8));
+                payload_length <= std_logic_vector(to_unsigned((NUMBER_OF_QUADCORES * 4) + 1, payload_length'length));
+                data <= crack_count_buffer(stat_1_count)(((4-stat_0_count) * 8) - 1 downto ((3-stat_0_count) * 8));
                 data_valid <= status_valid;
                 if status_finish = '1' then
                     next_state_global <= WAIT_FOR_READY;

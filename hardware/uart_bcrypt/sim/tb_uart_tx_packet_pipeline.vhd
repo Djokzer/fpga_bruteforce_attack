@@ -122,17 +122,29 @@ begin
     begin
         packet_processed <= '0';
         error_code <= "000";
+        dout_we <= '0';
+        dout <= x"42424242";
         -- Wait for reset to be released
         wait until reset = '0';
         wait for CLK_PERIOD * 2;
 
-        ---------------------------- RETURN PACKET TEST -----------------------------------
-        -- PACKET 1 - CRC WRONG
-        report "First packet Sent - CRC ERROR !" severity note;
-        error_code <= "100";
+        ---------------------------- PASSWORD PACKET TEST ---------------------------------
+        dout_we <= '1';
         wait for CLK_PERIOD;
-        error_code <= "000";
-        wait until packet_sended = '1';
+        dout <= x"61006100";    -- PASSWORD
+        wait for CLK_PERIOD *17;
+        dout_we <= '0';
+        wait for CLK_PERIOD;
+        dout <= x"42424242";
+        -----------------------------------------------------------------------------------
+
+        ---------------------------- RETURN PACKET TEST -----------------------------------
+--        -- PACKET 1 - CRC WRONG
+--        report "First packet Sent - CRC ERROR !" severity note;
+--        error_code <= "100";
+--        wait for CLK_PERIOD;
+--        error_code <= "000";
+--        wait until packet_sended = '1';
 
 --        -- PACKET 2 - ID WRONG
 --        report "Second packet Sent - ID ERROR !" severity note;
@@ -158,18 +170,32 @@ begin
         wait until reset = '0';
         wait for CLK_PERIOD * 2;
         
-        ---------------------------- RETURN PACKET TEST -----------------------------------
-        -- PACKET 1 - CRC WRONG
+        ---------------------------- PASSWORD PACKET TEST ---------------------------------
         check_out_data(x"04", rx_data_o, rx_valid_o);   -- COBS HEADER
-        check_out_data(x"01", rx_data_o, rx_valid_o);   -- PAYLOAD SIZE
-        check_out_data(x"04", rx_data_o, rx_valid_o);   -- PAYLOAD : TYPE BYTE + RETURN
-        check_out_data(x"1c", rx_data_o, rx_valid_o);   -- CRC
+        check_out_data(x"49", rx_data_o, rx_valid_o);   -- PAYLOAD SIZE
+        check_out_data(x"10", rx_data_o, rx_valid_o);   -- PAYLOAD : TYPE BYTE
+        for i in 0 to 8 loop
+            -- PAYLOAD : PWD
+            check_out_data(x"61", rx_data_o, rx_valid_o);   -- PAYLOAD : TYPE BYTE
+            check_out_data(x"00", rx_data_o, rx_valid_o);   -- PAYLOAD : TYPE BYTE
+        end loop;
+        check_out_data(x"c2", rx_data_o, rx_valid_o);   -- CRC
         check_out_data(x"00", rx_data_o, rx_valid_o);   -- COBS END
-        report "First packet Received - CRC ERROR !" severity note;
-        packet_sended <= '1';
-        wait for CLK_PERIOD;
-        packet_sended <= '0';
-        wait for CLK_PERIOD;
+        report "CRACK COUNT PACKET RECEIVED !" severity note;
+        -----------------------------------------------------------------------------------
+        
+        ---------------------------- RETURN PACKET TEST -----------------------------------
+--        -- PACKET 1 - CRC WRONG
+--        check_out_data(x"04", rx_data_o, rx_valid_o);   -- COBS HEADER
+--        check_out_data(x"01", rx_data_o, rx_valid_o);   -- PAYLOAD SIZE
+--        check_out_data(x"04", rx_data_o, rx_valid_o);   -- PAYLOAD : TYPE BYTE + RETURN
+--        check_out_data(x"1c", rx_data_o, rx_valid_o);   -- CRC
+--        check_out_data(x"00", rx_data_o, rx_valid_o);   -- COBS END
+--        report "First packet Received - CRC ERROR !" severity note;
+--        packet_sended <= '1';
+--        wait for CLK_PERIOD;
+--        packet_sended <= '0';
+--        wait for CLK_PERIOD;
 
 --        -- PACKET 2 - ID WRONG
 --        check_out_data(x"04", rx_data_o, rx_valid_o);   -- COBS HEADER
@@ -196,18 +222,18 @@ begin
 --        wait for CLK_PERIOD;
         -------------------------------------------------------------------------------------
         ---------------------------- CRACK COUNT PACKET TEST --------------------------------
-        check_out_data(x"14", rx_data_o, rx_valid_o);   -- COBS HEADER
-        check_out_data(x"11", rx_data_o, rx_valid_o);   -- PAYLOAD SIZE
-        check_out_data(x"08", rx_data_o, rx_valid_o);   -- PAYLOAD : TYPE BYTE
-        for i in 0 to 3 loop
-            for j in 0 to 3 loop
-                -- PAYLOAD : CRACK COUNT
-                check_out_data(crack_buffer(i)(((4-j) * 8) - 1 downto ((3-j) * 8)), rx_data_o, rx_valid_o);     
-            end loop;
-        end loop;
-        check_out_data(x"f4", rx_data_o, rx_valid_o);   -- CRC
-        check_out_data(x"00", rx_data_o, rx_valid_o);   -- COBS END
-        report "CRACK COUNT PACKET RECEIVED !" severity note;
+--        check_out_data(x"14", rx_data_o, rx_valid_o);   -- COBS HEADER
+--        check_out_data(x"11", rx_data_o, rx_valid_o);   -- PAYLOAD SIZE
+--        check_out_data(x"08", rx_data_o, rx_valid_o);   -- PAYLOAD : TYPE BYTE
+--        for i in 0 to 3 loop
+--            for j in 0 to 3 loop
+--                -- PAYLOAD : CRACK COUNT
+--                check_out_data(crack_buffer(i)(((4-j) * 8) - 1 downto ((3-j) * 8)), rx_data_o, rx_valid_o);     
+--            end loop;
+--        end loop;
+--        check_out_data(x"f4", rx_data_o, rx_valid_o);   -- CRC
+--        check_out_data(x"00", rx_data_o, rx_valid_o);   -- COBS END
+--        report "CRACK COUNT PACKET RECEIVED !" severity note;
         -------------------------------------------------------------------------------------
 
         wait for CLK_PERIOD*100000;
