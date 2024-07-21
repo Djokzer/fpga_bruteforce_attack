@@ -146,7 +146,16 @@ begin
         tx_busy             => tx_busy_o,
         -- PACKET RETURN
         packet_processed    => output_en,
-        error_code          => error_status     
+        error_code          => error_status,   
+		-- BCRYPT CRACKER INTERFACE
+        -- STATUS INTERFACE
+        crack_count_index   => crack_count_index,
+        crack_count         => crack_count,
+        -- PWD FOUND INTERFACE
+        done                => done,
+        success             => success,
+        dout_we             => dout_we,
+        dout                => dout  
     );
 
 	-- BCRPYT CRACKER
