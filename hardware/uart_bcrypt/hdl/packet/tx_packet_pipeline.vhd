@@ -332,13 +332,16 @@ begin
 
         case current_state_stat is
             when S_RESET =>
-                --next_state_stat <= RESTART;
+                next_state_stat <= RESTART;
             when RESTART =>
                 -- RESTART COUNTER
                 quadcore_count_load <= '1';
                 quadcore_count_in <= 0;
                 next_state_stat <= FILL_BUFFER;
             when FILL_BUFFER =>
+                -- INIT COUNTER FOR WAITING
+                stat_0_count_load <= '1';
+                stat_0_count_in <= 0;
                 -- ENABLE COUNTER TO FILL THE BUFFER
                 quadcore_count_en <= '1';
                 if quadcore_count = NUMBER_OF_QUADCORES-1 then
@@ -346,7 +349,12 @@ begin
                     next_state_stat <= WAIT_FOR_READY;
                 end if;
             when WAIT_FOR_READY =>
-                status_rts <= '1';
+                -- ENABLE COUNTER FOR WAITING
+                stat_0_count_en <= '1';
+                -- WHEN 1 SECOND PASSED
+                if stat_0_count >= 100000000 then
+                    status_rts <= '1';
+                end if;
                 if select_status = '1' then
                     next_state_stat <= SEND_CTRL;
                 end if;
@@ -459,7 +467,7 @@ begin
     end process;
 
     -- FSM LOGIC
-    fsm_ctrl_pwd : process(current_state_pwd, dout_we, select_pwd, pwd_0_count, pwd_1_count)
+    fsm_ctrl_pwd : process(current_state_pwd, dout_we, pwd_count, select_pwd, pwd_0_count, pwd_1_count)
 	begin
         -- Defaults
         next_state_pwd <= current_state_pwd;
@@ -543,7 +551,8 @@ begin
         end if; -- clk
     end process;
     
-    output_ctrl : process(current_state_global, return_rts, status_rts, pwd_rts, return_valid, status_valid, pwd_valid, tx_busy, crack_count_buffer, stat_0_count, stat_1_count, return_finish, status_finish, pwd_finish, pwd_0_count, pwd_1_count)
+    output_ctrl : process(current_state_global, return_rts, status_rts, pwd_rts, return_valid, status_valid, pwd_valid, tx_busy, 
+    crack_count_buffer, stat_0_count, stat_1_count, return_finish, status_finish, pwd_finish, pwd_0_count, pwd_1_count, pwd_buffer, return_buff)
     begin
         -- DEFAULTS
         next_state_global <= current_state_global;

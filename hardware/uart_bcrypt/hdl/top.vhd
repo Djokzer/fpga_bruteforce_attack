@@ -136,6 +136,9 @@ begin
 	);
 
 	tx_pckt_pipeline : entity work.tx_packet_pipeline
+    generic map(
+		NUMBER_OF_QUADCORES => NUMBER_OF_QUADCORES
+	)
     port map(
         -- GENERAL
         clk                 => clk,
