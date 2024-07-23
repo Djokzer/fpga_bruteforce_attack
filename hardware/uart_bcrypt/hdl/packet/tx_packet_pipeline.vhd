@@ -214,6 +214,7 @@ begin
 			when SEND_CTRL =>
                 -- WAIT ONE CYCLE FOR CTRL SETUP
                 return_rts <= '1';
+                return_valid <= '1';
 				next_state_ret <= SEND_DATA;
 			when SEND_DATA =>
                 return_rts <= '1';
