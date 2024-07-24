@@ -10,16 +10,50 @@ def print_ports():
         print(p)
 
 if __name__ == "__main__":
-
     #print_ports()
 
-    packet = easy_attack()
-    print(f"PACKET TO SEND : {packet}")
+    # OPEN SERIAL PORT
+    ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=0.01)
+
+    # for i in range(50):
+    #     print(list(ser.read(1)))    
 
     # SEND UART PACKET    
-    #ser = serial.Serial('/dev/ttyUSB0', 115200)
-    ser = serial.Serial('COM4', 115200, timeout=5.0)
-    ser.write(packet)
-    return_val = list(ser.read(5))
-    print(', '.join([hex(i) for i in return_val]))
-    ser.close()
+    # packet = hard_attack()
+    # print(f"PACKET TO SEND : {packet}")
+    # ser.write(packet)
+    for i in range(4):
+        packet = easy_attack(i)
+        ser.write(packet)
+
+    return_packet = []
+    while(True):
+        return_val = list(ser.read(1))
+        if len(return_val) > 0:
+            return_packet.append(return_val[0])
+            if return_val[0] == 0:
+                print("RECEIVED PACKET")
+                print(return_packet)
+                # if return_packet[2] == 0x10:
+                #     break
+                return_packet.clear()
+
+
+    # # CLOSE SERIAL PORT
+    # ser.close()
+
+
+    # while(True):
+    #     print(ser.read(1))
+
+    # data_buffer = []
+    # for i in range(100):
+    #     data_buffer.append(list(ser.read(1)))
+
+    # data = []
+    # for i in range(100):
+    #     if len(data_buffer[i]) > 0:
+    #         data.append(data_buffer[i][0])
+    # print("RECEIVED DATA ")
+    # print(', '.join([hex(i) for i in data]))
+

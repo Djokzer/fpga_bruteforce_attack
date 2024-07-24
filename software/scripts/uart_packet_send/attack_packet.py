@@ -11,9 +11,9 @@ def format_to_pwd_init(init):
     return out
 
 ## WORKING PACKETS
-def easy_attack():
+def easy_attack(id = 0):
     # QUADCORE PACKET VALUE
-    q_id = 0
+    q_id = id
     q_crack_max = 100
     q_salt = 0x7e949a07e88186c649bbeb0a9740c5e0
     q_hash = bcrypt_hash(q_salt, b'z')
@@ -38,10 +38,10 @@ def easy_attack():
     packet = gen_packet(b_q_data)
     return packet
 
-def hard_attack():
+def hard_attack(id = 0):
     # QUADCORE PACKET VALUE
-    q_id = 0
-    q_crack_max = 10000
+    q_id = id
+    q_crack_max = 100000
     q_salt = 0x7e949a07e88186c649bbeb0a9740c5e0
     q_hash = bcrypt_hash(q_salt, b'aaa')
     #q_hash = 0x1982ade712f9ec3d3a57ce85adf7fc3e2b43d7d89f90d3
