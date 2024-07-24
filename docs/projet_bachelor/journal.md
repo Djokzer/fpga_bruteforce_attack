@@ -409,3 +409,15 @@ Afin que le PC puisse identifier le type de paquet recu, il va falloir ajouter u
 
 Pour le retour de status, j'ai decidé pour l'instant de renvoyé le nombre de crack qui a été fait par chaque quadcore. Pour ce faire, je dois modifier toute la partie cracker, afin d'y ajouter une interface pour le crack_count.
 
+
+# Semaine 11 - (22.07.2024 - 24.07.2024)
+
+Le système avec UART semble marche mais il y a toutefois des problème de timings.
+
+J'ai donc pipeliné certaines parties dans le transmitter, afin d'éviter les longs chemin combinatoires.
+
+Le système est de nouveau fonctionnel avec la version modifié du transmitter, toutefois après quelques test, j'ai remarqué que avec plusieurs quadcore le système marchait plus.
+
+J'ai ensuite constaté qu'au niveau du bcrypt cracker que l'initialisation de la mémoire des différents coeurs bcrypt est supposé être fait en même temps. Donc, j'ai du ajouter une synchronisation afin que tous les quadcores commencent leurs calculs en même temps. Donc pour l'instant il est pas possible de faire plusieurs attaques sur la même carte.
+
+Après toutes ces modifications, le système est enfin entièrement fonctionnel. Dorénavent, lorsque l'on souhaite lancer une attaque, il faudra tout d'abord initialiser tous les quadcores. Lorsque tous les quadcores seront initialisés, l'attaque se lancera. Et si l'on souhaite faire une nouvelle attaque pour l'instant il va falloir reset le système entier à l'aide d'un switch présent sur la board.
