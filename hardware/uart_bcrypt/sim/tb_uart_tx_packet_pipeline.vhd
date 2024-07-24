@@ -174,10 +174,10 @@ begin
         check_out_data(x"04", rx_data_o, rx_valid_o);   -- COBS HEADER
         check_out_data(x"49", rx_data_o, rx_valid_o);   -- PAYLOAD SIZE
         check_out_data(x"10", rx_data_o, rx_valid_o);   -- PAYLOAD : TYPE BYTE
-        for i in 0 to 8 loop
+        for i in 0 to 35 loop
             -- PAYLOAD : PWD
             check_out_data(x"61", rx_data_o, rx_valid_o);   -- PAYLOAD : TYPE BYTE
-            check_out_data(x"00", rx_data_o, rx_valid_o);   -- PAYLOAD : TYPE BYTE
+            check_out_data(x"02", rx_data_o, rx_valid_o);   -- PAYLOAD : TYPE BYTE
         end loop;
         check_out_data(x"c2", rx_data_o, rx_valid_o);   -- CRC
         check_out_data(x"00", rx_data_o, rx_valid_o);   -- COBS END

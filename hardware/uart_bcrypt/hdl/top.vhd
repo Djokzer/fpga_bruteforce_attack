@@ -45,7 +45,7 @@ end top;
 
 architecture Behavioral of top is
 	-- CONSTANTS
-	constant NUMBER_OF_QUADCORES : integer := 1;
+	constant NUMBER_OF_QUADCORES : integer := 4;
 	
 	-- UART SIGNALS
 	signal resetn  : std_logic;
