@@ -66,7 +66,10 @@ entity bcrypt_quad_core is
         dout    : out std_logic_vector (31 downto 0);
         
         -- STATUS RETURN
-        crack_count  : out std_logic_vector (31 downto 0)
+        crack_count  : out std_logic_vector (31 downto 0);
+        
+        ready        : out std_logic;
+        start_attack : in std_logic
     );
 end bcrypt_quad_core;
 
@@ -436,7 +439,7 @@ begin
 
     -- FSM: control logic
     fsm_ctrl : process (
-			current_state, pwd_gen_done, snd_iteration, finished, bcrypt_core_key_done, pwd_addr_cnt_dout, cracks_cnt_dout, success_int, number_of_cracks_reg
+			current_state, pwd_gen_done, snd_iteration, finished, bcrypt_core_key_done, pwd_addr_cnt_dout, cracks_cnt_dout, success_int, number_of_cracks_reg, start_attack
 		)
     begin
         -- default values
@@ -449,6 +452,7 @@ begin
         -- Added
         bcrypt_core_success_rst <= '0';
         hashcnt_sr <= '0';
+        ready <= '0';
 
         mem_access_pwd_gen  <= '0';
         mem_access_cores01  <= '0';
@@ -489,8 +493,12 @@ begin
                 snd_iteration_sr    <= '1';
 
                 cracks_cnt_sr <= '1';
+                
+                ready <= '1';
 
-                next_state <= INIT;
+                if start_attack = '1' then
+                    next_state <= INIT;
+                end if;
 
 			-- wait for password generator to generate 4 passwords (two iterations)
             when INIT =>

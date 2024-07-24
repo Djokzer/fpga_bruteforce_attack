@@ -99,6 +99,8 @@ architecture Behavioral of bcrypt_cracker is
 
     -- config signals
     signal config         : std_logic_vector(NUMBER_OF_QUADCORES-1 downto 0);
+    signal start_attack   : std_logic := '0';
+    signal ready          : std_logic_vector(NUMBER_OF_QUADCORES-1 downto 0);
 begin
 
     -- --------------------------------------------------------------------- --
@@ -319,7 +321,9 @@ begin
                 dout_we => bcrypt_dout_we(i),
                 dout    => bcrypt_dout(i),
                 -- STATUS RETURN
-                crack_count => crack_count_all(i)
+                crack_count => crack_count_all(i),
+                ready       => ready(i),
+                start_attack => start_attack
             );
 		-- generate reduction input
 		reduction_ctrl(i) <= bcrypt_success(i) and bcrypt_dout_we(i);
@@ -366,7 +370,19 @@ begin
         end if;
     end process;
 
-	-- pass the initial memory init request to the global memory
+	-- check if all quadcore are ready
+    check_all_ready : process(ready)
+    begin
+        start_attack <= '1';
+        for i in ready'range loop
+            if ready(i) = '0' then
+                start_attack <= '0';
+                exit;
+            end if;
+        end loop;
+    end process;
+    
+    -- init memory of bcrypt cores
     memory_init <= bcrypt_mem_init(0);
 	
 	-- store success flag

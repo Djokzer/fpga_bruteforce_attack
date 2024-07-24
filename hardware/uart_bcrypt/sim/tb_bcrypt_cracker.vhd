@@ -22,7 +22,7 @@ architecture Behavioral of tb_bcrypt_cracker is
     constant CLK_PERIOD : time := 10 ns;
     signal PWD : std_logic_vector(95 downto 0) := x"616161616200616161616200";
     
-    constant NUMBER_OF_QUADCORES : integer := 1;
+    constant NUMBER_OF_QUADCORES : integer := 2;
     constant C_VEC_INIT : std_logic_vector (PWD_LENGTH*CHARSET_OF_BIT-1 downto 0)
     := const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
        const_slv(0,CHARSET_OF_BIT) & const_slv(0,CHARSET_OF_BIT) &
@@ -154,9 +154,35 @@ begin
         rst <= '0';
         wait for 2*CLK_PERIOD;
 
-        report "Config Quadcore" severity note;
+        report "Config Quadcore 0" severity note;
         config_enable    <= '1';
         quadcore_id      <= std_logic_vector(to_unsigned(0, quadcore_id'length));
+        number_of_cracks <= std_logic_vector(to_unsigned(10, number_of_cracks'length));
+        vec_init         <= C_VEC_INIT;
+        vec_length       <= std_logic_vector(to_unsigned(C_VEC_LENGTH, vec_length'length));
+
+        -- SALT
+        t_salt <= x"7e949a07e88186c649bbeb0a9740c5e0";
+        
+        -- PASSWORD
+        -- one character password
+        --t_hash <= x"1982ade712f9ec3d3a57ce85adf7fc3e2b43d7d89f90d3";    -- a cost 4
+        --t_hash <= x"37d085c7d8b559b151ce4e6f9ce2e7b0a1678b26a2517d";    -- b cost 4
+        --t_hash <= x"f31c6c5da150c28ada3fe7566bcdf35314de5b8825dd23";    -- c cost 4
+        t_hash <= x"a2a4f09f9ed6d6f9f0e1747dd709f95809f27129279c92";    -- z cost 4
+        
+
+        -- 5 character password - Change VEC_INIT and VEC_LENGTH for faster results
+        --t_hash <= x"f900c98260aa954ca16bb5708de618104871d8c8f5e773";    -- aaaaa cost 4
+        --t_hash <= x"d86d48abc6671334fd1fba805ee98b4841ce9ec37096d0";    -- aaaab cost 4
+        wait for CLK_PERIOD;
+        config_enable    <= '0';
+        wait for CLK_PERIOD;
+        
+        
+        report "Config Quadcore 1" severity note;
+        config_enable    <= '1';
+        quadcore_id      <= std_logic_vector(to_unsigned(1, quadcore_id'length));
         number_of_cracks <= std_logic_vector(to_unsigned(10, number_of_cracks'length));
         vec_init         <= C_VEC_INIT;
         vec_length       <= std_logic_vector(to_unsigned(C_VEC_LENGTH, vec_length'length));
@@ -175,17 +201,19 @@ begin
         -- 5 character password - Change VEC_INIT and VEC_LENGTH for faster results
         --t_hash <= x"f900c98260aa954ca16bb5708de618104871d8c8f5e773";    -- aaaaa cost 4
         --t_hash <= x"d86d48abc6671334fd1fba805ee98b4841ce9ec37096d0";    -- aaaab cost 4
-
         wait for CLK_PERIOD;
         config_enable    <= '0';
+        wait for CLK_PERIOD;
+        
 
         report "Check Results" severity note;
         wait until success = '1';
         for i in 0 to 17 loop
-            wait for CLK_PERIOD;
+            --wait for CLK_PERIOD;
             report integer'image(i) severity note;
             --assert dout = PWD(95 - (32 * (i mod 3)) downto 64 - (32 * (i mod 3))) report "checking dout" severity failure;
             assert dout = x"61006100" report "checking dout" severity failure;  -- a cost 4
+            wait for CLK_PERIOD;
             --assert dout = x"62006200" report "checking dout" severity failure;    -- b cost 4
             --assert dout = x"63006300" report "checking dout" severity failure;    -- c cost 4
             --assert dout = x"7a007a00" report "checking dout" severity failure;    -- z cost 4

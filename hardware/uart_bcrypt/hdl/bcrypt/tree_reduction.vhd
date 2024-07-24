@@ -136,7 +136,8 @@ begin
 			-- map input to tree input
 			map_input : if i = 0 generate
 				tree_ctrl_in(0)(j) <= ctrl(j);
-				tree_data_in(0)(j) <= din( (N-j)*M-1 downto (N-j-1)*M );
+				--tree_data_in(0)(j) <= din( (N-j)*M-1 downto (N-j-1)*M );
+				tree_data_in(0)(j) <= din((j+1) * M - 1 downto j *M);
 			end generate; 
 
 			-- map tree buffers
