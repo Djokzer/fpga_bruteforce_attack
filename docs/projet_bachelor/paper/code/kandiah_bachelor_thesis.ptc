@@ -1,0 +1,63 @@
+\babel@toc {french}{}\relax 
+\ttl@starttoc {default@1}
+\ttl@starttoc {annexes@1}
+\ttl@stoptoc {annexes@1}
+\contentsline {chapter}{Remerciements}{vi}{chapter*.2}%
+\contentsline {chapter}{Énoncé du sujet}{vii}{chapter*.3}%
+\contentsline {chapter}{Résumé}{viii}{chapter*.4}%
+\contentsline {chapter}{Liste de acronymes}{ix}{section*.5}%
+\contentsline {chapter}{Liste des illustrations}{x}{chapter*.7}%
+\contentsline {paragraph}{Références des URL}{x}{chapter*.7}%
+\contentsline {chapter}{Liste des tableaux}{xi}{chapter*.8}%
+\contentsline {paragraph}{Références des URL}{xi}{chapter*.8}%
+\contentsline {chapter}{Liste des annexes}{xii}{chapter*.9}%
+\contentsline {chapter}{Introduction}{1}{chapter*.10}%
+\contentsline {chapter}{\numberline {1}Chapitre 0 : Base Technique}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}FPGA}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Fonction de hachage}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {a}Salt}{4}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {b}Attaque par bruteforce}{5}{subsection.1.2.2}%
+\contentsline {chapter}{\numberline {2}Chapitre 1 : Analyse}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Description du projet}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Méthodes de communication}{6}{section.2.2}%
+\contentsline {subsection}{\numberline {a}UART}{6}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {b}PCIe}{6}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {c}Ethernet}{6}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Bcrypt}{6}{section.2.3}%
+\contentsline {subsection}{\numberline {a}Algorithme}{6}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {b}Format du Hash}{8}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Projet de semestre}{9}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Chapitre 2 : Solution UART}{10}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Système de paquet}{10}{section.3.1}%
+\contentsline {subsection}{\numberline {a}Encodage Cobs}{10}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {b}CRC}{10}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {c}Transmission et Réception de Paquet}{10}{subsection.3.1.3}%
+\contentsline {section}{\numberline {3.2}Implémentation sur FPGA}{12}{section.3.2}%
+\contentsline {subsection}{\numberline {a}Architecture Logique}{12}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {b}UART}{13}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {c}Modifications Bcrypt Cracker}{13}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {d}Implémentation - MOSI}{13}{subsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {d.1}Module - Packet Receiver}{13}{subsubsection.3.2.4.1}%
+\contentsline {subsubsection}{\numberline {d.2}Module - RX Packet Process}{13}{subsubsection.3.2.4.2}%
+\contentsline {subsubsection}{\numberline {d.3}Module - RX Packet Pipeline}{13}{subsubsection.3.2.4.3}%
+\contentsline {subsection}{\numberline {e}Implémentation - MISO}{13}{subsection.3.2.5}%
+\contentsline {subsubsection}{\numberline {e.1}Module - Packet Transmitter}{13}{subsubsection.3.2.5.1}%
+\contentsline {subsubsection}{\numberline {e.2}Module - TX Packet Pipeline}{13}{subsubsection.3.2.5.2}%
+\contentsline {subsection}{\numberline {f}Tests}{13}{subsection.3.2.6}%
+\contentsline {subsubsection}{\numberline {f.1}Simulations}{13}{subsubsection.3.2.6.1}%
+\contentsline {subsubsection}{\numberline {f.2}Vérification Hardware}{13}{subsubsection.3.2.6.2}%
+\contentsline {section}{\numberline {3.3}Interface Utilisateur}{13}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Chapitre 3 : Solution PCIe}{14}{chapter.4}%
+\contentsline {chapter}{\numberline {5}Chapitre 4 : Mesures et Performances}{15}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Mesures FPGA}{15}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Mesures CPU}{15}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Mesures GPU}{15}{section.5.3}%
+\contentsline {chapter}{Conclusion}{16}{chapter*.20}%
+\contentsline {chapter}{Annexes}{16}{chapter*.20}%
+\ttl@stoptoc {default@1}
+\ttl@starttoc {annexes@1}
+\contentsline {chapter}{Annexe 1}{18}{chapter*.22}%
+\ttl@stoptoc {annexes@1}
+\ttl@starttoc {default@1}
+\contentsline {chapter}{Références documentaires}{19}{chapter*.23}%
+\contentsfinish 

@@ -1,0 +1,97 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{noauthor_blowfish_2019}{misc}{}
+      \list{language}{1}{%
+        {en-US}%
+      }
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A Computer Science portal for geeks. It contains well written, well thought and well explained computer science and programming articles, quizzes and practice/competitive programming/company interview Questions.}
+      \field{journaltitle}{GeeksforGeeks}
+      \field{month}{10}
+      \field{note}{Section: Algorithms}
+      \field{title}{Blowfish {Algorithm} with {Examples}}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb Snapshot:C\:\\Users\\abiva\\Zotero\\storage\\PPJFRTEQ\\blowfish-algorithm-with-examples.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://www.geeksforgeeks.org/blowfish-algorithm-with-examples/
+      \endverb
+      \verb{url}
+      \verb https://www.geeksforgeeks.org/blowfish-algorithm-with-examples/
+      \endverb
+    \endentry
+    \entry{josefsson_base16_2006}{report}{}
+      \name{author}{1}{}{%
+        {{hash=97ec76c57a8640354d28158df00f4d85}{%
+           family={Josefsson},
+           familyi={J\bibinitperiod},
+           given={Simon},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Internet Engineering Task Force}%
+      }
+      \strng{namehash}{97ec76c57a8640354d28158df00f4d85}
+      \strng{fullhash}{97ec76c57a8640354d28158df00f4d85}
+      \strng{bibnamehash}{97ec76c57a8640354d28158df00f4d85}
+      \strng{authorbibnamehash}{97ec76c57a8640354d28158df00f4d85}
+      \strng{authornamehash}{97ec76c57a8640354d28158df00f4d85}
+      \strng{authorfullhash}{97ec76c57a8640354d28158df00f4d85}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This document describes the commonly used base 64, base 32, and base 16 encoding schemes. It also discusses the use of line-feeds in encoded data, use of padding in encoded data, use of non-alphabet characters in encoded data, use of different encoding alphabets, and canonical encodings. [STANDARDS-TRACK]}
+      \field{month}{10}
+      \field{note}{Num Pages: 18}
+      \field{number}{RFC 4648}
+      \field{title}{The {Base16}, {Base32}, and {Base64} {Data} {Encodings}}
+      \field{type}{Request for {Comments}}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2006}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.17487/RFC4648
+      \endverb
+      \verb{file}
+      \verb Full Text PDF:C\:\\Users\\abiva\\Zotero\\storage\\4VNHYZRT\\Josefsson - 2006 - The Base16, Base32, and Base64 Data Encodings.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://datatracker.ietf.org/doc/rfc4648
+      \endverb
+      \verb{url}
+      \verb https://datatracker.ietf.org/doc/rfc4648
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
