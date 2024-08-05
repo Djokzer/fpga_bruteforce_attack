@@ -421,3 +421,29 @@ Le système est de nouveau fonctionnel avec la version modifié du transmitter, 
 J'ai ensuite constaté qu'au niveau du bcrypt cracker que l'initialisation de la mémoire des différents coeurs bcrypt est supposé être fait en même temps. Donc, j'ai du ajouter une synchronisation afin que tous les quadcores commencent leurs calculs en même temps. Donc pour l'instant il est pas possible de faire plusieurs attaques sur la même carte.
 
 Après toutes ces modifications, le système est enfin entièrement fonctionnel. Dorénavent, lorsque l'on souhaite lancer une attaque, il faudra tout d'abord initialiser tous les quadcores. Lorsque tous les quadcores seront initialisés, l'attaque se lancera. Et si l'on souhaite faire une nouvelle attaque pour l'instant il va falloir reset le système entier à l'aide d'un switch présent sur la board.
+
+# Semaine 12 - (05.08.2024 - 09.08.2024)
+
+TO DO :
+- Identifier les optimisations pour le timing
+- Script python pour attaque par UART
+- Faire une introduction, bien complète
+- Architecture PCIe
+- Identification consommation par attaque
+- Faire un schéma clair avec les différents domaines d'horloges
+
+## Système UART
+
+J'ai tenté de faire un design avec 22 Quadcores, le design a été réussi mais il semble encore avoir des problèmes de timings. En effet, il y a toujours un Worst negative slack de **-0.053**.
+
+Pour l'instant je vais le laisser comme ceci et je vais entamer la partie PCIe.
+
+## Système PCIe
+
+Pour le système PCIe, on souhaite fournir les mots de passes depuis le PC, plutot qu'on les générent dans le FPGA directement.
+
+Au niveau du fpga, j'ai pensé utilisé l'Ultraram en tant que buffer pour stocker des mots de passes.
+
+Ainsi, le PC va pouvoir envoyer les mots de passes de manière continue et derrière les mots de passes vont pouvoir être distribué à chaque quadcores.
+
+![](assets/pcie_communication_protocol_top.png)

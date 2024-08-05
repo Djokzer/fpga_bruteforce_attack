@@ -1,0 +1,70 @@
+<mxfile host="app.diagrams.net" modified="2024-08-05T14:51:36.696Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="pbRsnp8aBhsp_mrMjSSW" version="24.6.5" type="device">
+  <diagram name="top" id="GRUUTA0gV6LxYn7Zt5F0">
+    <mxGraphModel dx="1195" dy="722" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="0ogfYETZy73DbSy3bl0p-6" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="320" y="120" width="190" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-1" value="XDMA" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="120" width="80" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-2" value="PASSWORD BUFFER" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="195" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-3" value="BCRYPT CRACKER" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="120" width="80" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-4" value="ATTACK REGISTERS" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="130" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-5" value="PASSWORD FOUND" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="260" width="80" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-8" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;startArrow=block;fillColor=#4D4D4D;strokeColor=none;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="0ogfYETZy73DbSy3bl0p-1" target="0ogfYETZy73DbSy3bl0p-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="180" y="245" as="sourcePoint" />
+            <mxPoint x="230" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-10" value="AXI-4" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="200" y="180" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-12" value="AXI4&lt;div&gt;INTERFACE&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="130" width="80" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-13" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;startArrow=none;fillColor=#4D4D4D;strokeColor=none;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startFill=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="510" y="220" as="sourcePoint" />
+            <mxPoint x="630" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-14" value="PWD" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="510" y="180" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-17" value="" style="shape=flexArrow;endArrow=none;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;startArrow=block;fillColor=#4D4D4D;strokeColor=none;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endFill=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="510" y="290" as="sourcePoint" />
+            <mxPoint x="630" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-18" value="CORRECT PWD" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="510" y="250" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-19" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;startArrow=none;fillColor=#4D4D4D;strokeColor=none;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startFill=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="510" y="150" as="sourcePoint" />
+            <mxPoint x="630" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-20" value="CTRL" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="510" y="110" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="0ogfYETZy73DbSy3bl0p-21" value="axi4_attack_ctrl" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;fillColor=none;fontStyle=3;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="320" y="80" width="190" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
