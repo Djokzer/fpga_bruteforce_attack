@@ -447,3 +447,10 @@ Au niveau du fpga, j'ai pensé utilisé l'Ultraram en tant que buffer pour stock
 Ainsi, le PC va pouvoir envoyer les mots de passes de manière continue et derrière les mots de passes vont pouvoir être distribué à chaque quadcores.
 
 ![](assets/pcie_communication_protocol_top.png)
+
+
+Pour le système PCIe, il y a concrétement 4 étapes à faire :
+- Modifier le bcrypt cracker, afin d'y retirer les générateurs de mots de passe et ajouter des interfaces de controle
+- Faire toute la partie axi4_attack_ctrl
+- Tester les modifications à l'aide d'un microblaze au lieu du PCIe
+- Mettre en place le PCIe, à l'aide d'un driver
