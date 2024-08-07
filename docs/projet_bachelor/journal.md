@@ -454,3 +454,19 @@ Pour le système PCIe, il y a concrétement 4 étapes à faire :
 - Faire toute la partie axi4_attack_ctrl
 - Tester les modifications à l'aide d'un microblaze au lieu du PCIe
 - Mettre en place le PCIe, à l'aide d'un driver
+
+## Modification Bcrypt
+
+Avant de modifier le bcrypt cracker, je vais d'abord modifier le module quadcore. Je vais y ajouter des ports afin de pouvoir lui transmettre les mots de passes à cracker.
+
+### Modification de Bcrypt quadcore
+
+Afin d'éviter à avoir a trop modifier la logique interne du quadcore, je vais tenter d'imiter le comportement du générateur de mots de passe sur les ports ajoutés.
+
+La BRAM qui va stocker les 4 mots de passe, à deux ports d'écritures. Je peux donc transmettre deux mots de passe à la fois.
+
+Pour ce faire, j'aurai besoin de 2 interfaces 32 bits de data permettant l'écritue du mots de passe, une interface 5 bits afin de pouvoir adresser la BRAM, un port de write enable et un port de done qui va informer la fin du transfert. Pour chaque quadcore, on va transferer 2 mots de passe puis mettre le done à 1 pendant 1 cycle, puis retransferer 2 autres mots de passe puis remettre le done 1.
+
+J'ai pu tester et valider le fonctionnement du nouveau bcrypt quadcore à l'aide d'un testbench.
+
+### Modification de Bcrypt cracker
