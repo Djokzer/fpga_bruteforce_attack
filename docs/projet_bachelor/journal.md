@@ -455,11 +455,7 @@ Pour le système PCIe, il y a concrétement 4 étapes à faire :
 - Tester les modifications à l'aide d'un microblaze au lieu du PCIe
 - Mettre en place le PCIe, à l'aide d'un driver
 
-## Modification Bcrypt
-
-Avant de modifier le bcrypt cracker, je vais d'abord modifier le module quadcore. Je vais y ajouter des ports afin de pouvoir lui transmettre les mots de passes à cracker.
-
-### Modification de Bcrypt quadcore
+## Modification de Bcrypt quadcore
 
 Afin d'éviter à avoir a trop modifier la logique interne du quadcore, je vais tenter d'imiter le comportement du générateur de mots de passe sur les ports ajoutés.
 
@@ -469,4 +465,20 @@ Pour ce faire, j'aurai besoin de 2 interfaces 32 bits de data permettant l'écri
 
 J'ai pu tester et valider le fonctionnement du nouveau bcrypt quadcore à l'aide d'un testbench.
 
-### Modification de Bcrypt cracker
+## Modification à faire Bcrypt cracker
+
+Pour le bcrypt cracker, il va falloir ajouter une interface de controle, qui va dicter le demarrage de l'attaque. Il faut aussi ajouter une interface qui va permettre au bcrypt cracker d'aller récupérer les mots de passes du buffer. Il faut donc comme pour le bcrypt quadcore, 2 interfaces 32 bits pour les mots de passe et une interface pour l'adressage.
+
+Pour l'instant, je ne vais pas directement faire ces modifications. Je vais d'abord entamer la partie axi4_attack_ctrl, pour avoir une meilleure idée de l'interface nécessaire au cracker.
+
+## axi4_attack_ctrl
+
+Pour cette partie après réflexion, j'ai décidé de changer un peu la méthode.
+
+Je n'avais initiallement pas prévu comment j'allais faire la partie AXI4.
+
+Après quelques recherches, j'ai trouvé dans l'outil block design l'existence d'une IP AXI BRAM CTRL et une IP BRAM qui peut aussi étre reglé en tant que ULTRARAM.
+
+Le problème étant que l'AXI BRAM CTRL a besoin des deux ports de la RAM pour que l'on puissent transférer les mots de passes du PC le plus vite possible et j'ai aussi besoin des deux ports pour lire les mots de passes pour le bcrypt cracker. Ils me faut donc un module intérmediaire qui va s'occuper de multiplexer les lignes d'adresses entre l'AXI BRAM CTRL et le bcrypt cracker. C'est aussi dans ce bloc que je vais gérer les différents registres de CTRL pour le cracker.
+
+![](assets/pcie_communication_protocol_axi4_attack_ctrl.png)
