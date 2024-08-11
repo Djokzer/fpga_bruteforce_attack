@@ -19,6 +19,81 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{noauthor_5_nodate}{misc}{}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labeltitlesource}{title}
+      \field{title}{5. {Accessing} {PCI} device resources through sysfs — {The} {Linux} {Kernel} documentation}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb 5. Accessing PCI device resources through sysfs — The Linux Kernel documentation:C\:\\Users\\abiva\\Zotero\\storage\\XSNSRN4I\\sysfs-pci.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://docs.kernel.org/PCI/sysfs-pci.html
+      \endverb
+      \verb{url}
+      \verb https://docs.kernel.org/PCI/sysfs-pci.html
+      \endverb
+    \endentry
+    \entry{noauthor_attaque_2021}{misc}{}
+      \list{language}{1}{%
+        {fr}%
+      }
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labeltitlesource}{title}
+      \field{abstract}{L'attaque par dictionnaire est une méthode utilisée en cryptanalyse pour trouver un mot de passe ou une clé. Elle consiste à tester une série de mots de passe potentiels, les uns à la suite des autres, en espérant que le mot de passe utilisé pour le chiffrement soit contenu dans le dictionnaire. Si ce n'est pas le cas, l'attaque échouera. Cette méthode repose sur le fait que de nombreuses personnes utilisent des mots de passe courants (par exemple : un prénom, une couleur ou le nom d'un animal). C'est pour cette raison qu'il est toujours conseillé de ne pas utiliser de mot de passe comprenant un mot ou un nom. L'attaque par dictionnaire est une méthode souvent utilisée en complément de l'attaque par force brute qui consiste à tester, de manière exhaustive, les différentes possibilités de mots de passe. Cette dernière est particulièrement efficace pour des mots de passe n'excédant pas 5 ou 6 caractères.}
+      \field{journaltitle}{Wikipédia}
+      \field{month}{11}
+      \field{note}{Page Version ID: 188231625}
+      \field{title}{Attaque par dictionnaire}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb Snapshot:C\:\\Users\\abiva\\Zotero\\storage\\HJ9YBYBW\\Attaque_par_dictionnaire.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://fr.wikipedia.org/w/index.php?title=Attaque_par_dictionnaire&oldid=188231625
+      \endverb
+      \verb{url}
+      \verb https://fr.wikipedia.org/w/index.php?title=Attaque_par_dictionnaire&oldid=188231625
+      \endverb
+    \endentry
+    \entry{noauthor_bcrypt_2024}{misc}{}
+      \list{language}{1}{%
+        {en}%
+      }
+      \field{sortinit}{b}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labeltitlesource}{title}
+      \field{abstract}{bcrypt is a password-hashing function designed by Niels Provos and David Mazières, based on the Blowfish cipher and presented at USENIX in 1999. Besides incorporating a salt to protect against rainbow table attacks, bcrypt is an adaptive function: over time, the iteration count can be increased to make it slower, so it remains resistant to brute-force search attacks even with increasing computation power. The bcrypt function is the default password hash algorithm for OpenBSD, and was the default for some Linux distributions such as SUSE Linux.There are implementations of bcrypt in C, C++, C\#, Embarcadero Delphi, Elixir, Go, Java, JavaScript, Perl, PHP, Ruby, and other languages.}
+      \field{journaltitle}{Wikipedia}
+      \field{month}{2}
+      \field{note}{Page Version ID: 1210874707}
+      \field{title}{bcrypt}
+      \field{urlday}{10}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb Snapshot:C\:\\Users\\abiva\\Zotero\\storage\\MI35BZRE\\Bcrypt.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://en.wikipedia.org/w/index.php?title=Bcrypt&oldid=1210874707
+      \endverb
+      \verb{url}
+      \verb https://en.wikipedia.org/w/index.php?title=Bcrypt&oldid=1210874707
+      \endverb
+    \endentry
     \entry{noauthor_blowfish_2019}{misc}{}
       \list{language}{1}{%
         {en-US}%
@@ -44,6 +119,118 @@
       \endverb
       \verb{url}
       \verb https://www.geeksforgeeks.org/blowfish-algorithm-with-examples/
+      \endverb
+    \endentry
+    \entry{by_all_2020}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=53e5aa2c97fef1555d2511de8218c544}{%
+           family={By},
+           familyi={B\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en-US}%
+      }
+      \strng{namehash}{53e5aa2c97fef1555d2511de8218c544}
+      \strng{fullhash}{53e5aa2c97fef1555d2511de8218c544}
+      \strng{bibnamehash}{53e5aa2c97fef1555d2511de8218c544}
+      \strng{authorbibnamehash}{53e5aa2c97fef1555d2511de8218c544}
+      \strng{authornamehash}{53e5aa2c97fef1555d2511de8218c544}
+      \strng{authorfullhash}{53e5aa2c97fef1555d2511de8218c544}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{When used for cracking passwords, a modern high-end graphics card will absolutely chew through “classic” hashing algorithms like SHA-1 and SHA-2. When a single desktop machine can run t…}
+      \field{journaltitle}{Hackaday}
+      \field{month}{5}
+      \field{title}{All {Your} {Passwords} {Are} {Belong} {To} {FPGA}}
+      \field{urlday}{11}
+      \field{urlmonth}{8}
+      \field{urlyear}{2024}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb Snapshot:C\:\\Users\\abiva\\Zotero\\storage\\ZJQIRTU2\\all-your-passwords-are-belong-to-fpga.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://hackaday.com/2020/05/15/all-your-passwords-are-belong-to-fpga/
+      \endverb
+      \verb{url}
+      \verb https://hackaday.com/2020/05/15/all-your-passwords-are-belong-to-fpga/
+      \endverb
+    \endentry
+    \entry{gillela_parallelization_2019}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=84a47140d987aac40d3f5a4828503758}{%
+           family={Gillela},
+           familyi={G\bibinitperiod},
+           given={Maruthi},
+           giveni={M\bibinitperiod}}}%
+        {{hash=cd31d615eaaeccb4bba910b7a2ca8ea5}{%
+           family={Prenosil},
+           familyi={P\bibinitperiod},
+           given={Vaclav},
+           giveni={V\bibinitperiod}}}%
+        {{hash=f2a05d49b5c424a4654f7fd70644858b}{%
+           family={Ginjala},
+           familyi={G\bibinitperiod},
+           given={Venkat\bibnamedelima Reddy},
+           giveni={V\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \strng{namehash}{c11276710fb9594229c97e0d65ac3ff2}
+      \strng{fullhash}{c11276710fb9594229c97e0d65ac3ff2}
+      \strng{bibnamehash}{c11276710fb9594229c97e0d65ac3ff2}
+      \strng{authorbibnamehash}{c11276710fb9594229c97e0d65ac3ff2}
+      \strng{authornamehash}{c11276710fb9594229c97e0d65ac3ff2}
+      \strng{authorfullhash}{c11276710fb9594229c97e0d65ac3ff2}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{FPGA implementation of MD5 hash algorithm is faster than its software counterpart, but a pre-image brute-force attack on MD5 hash still needs 2{\textasciicircum}(128) iterations theoretically. This work attempts to improve the speed of the brute-force attack on the MD5 algorithm using hardware implementation. A full 64-stage pipelining is done for MD5 hash generation and three architectures are presented for guess password generation. A 32/34/26-instance parallelization of MD5 hash generator and password generator pair is done to search for a password that was hashed using the MD5 algorithm. Total performance of about 6G trials/second has been achieved using a single Virtex-7 FPGA device.}
+      \field{booktitle}{2019 32nd {International} {Conference} on {VLSI} {Design} and 2019 18th {International} {Conference} on {Embedded} {Systems} ({VLSID})}
+      \field{month}{1}
+      \field{note}{ISSN: 2380-6923}
+      \field{title}{Parallelization of {Brute}-{Force} {Attack} on {MD5} {Hash} {Algorithm} on {FPGA}}
+      \field{urlday}{10}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2019}
+      \field{urldateera}{ce}
+      \field{pages}{88\bibrangedash 93}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1109/VLSID.2019.00034
+      \endverb
+      \verb{file}
+      \verb IEEE Xplore Full Text PDF:C\:\\Users\\abiva\\Zotero\\storage\\TQRS4J77\\Gillela et al. - 2019 - Parallelization of Brute-Force Attack on MD5 Hash .pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/8710753
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/8710753
+      \endverb
+      \keyw{Field programmable gate arrays,Hardware,Computer architecture,Generators,GPU,Hardware design languages,HDL,IP core,LUT,Password,Pipeline processing}
+    \endentry
+    \entry{noauthor_introduction_nodate}{misc}{}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{labeltitlesource}{title}
+      \field{title}{Introduction • {DMA}/{Bridge} {Subsystem} for {PCI} {Express} {Product} {Guide} ({PG195}) • {Reader} • {AMD} {Technical} {Information} {Portal}}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb Introduction • DMA/Bridge Subsystem for PCI Express Product Guide (PG195) • Reader • AMD Technical Information Portal:C\:\\Users\\abiva\\Zotero\\storage\\NBXRRACN\\pg195-pcie-dma.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://docs.amd.com/r/en-US/pg195-pcie-dma
+      \endverb
+      \verb{url}
+      \verb https://docs.amd.com/r/en-US/pg195-pcie-dma
       \endverb
     \endentry
     \entry{josefsson_base16_2006}{report}{}
@@ -90,6 +277,140 @@
       \verb{url}
       \verb https://datatracker.ietf.org/doc/rfc4648
       \endverb
+    \endentry
+    \entry{noauthor_openwalljohn_2024}{misc}{}
+      \list{publisher}{1}{%
+        {Openwall}%
+      }
+      \field{sortinit}{o}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{labeltitlesource}{title}
+      \field{abstract}{John the Ripper jumbo - advanced offline password cracker, which supports hundreds of hash and cipher types, and runs on many operating systems, CPUs, GPUs, and even some FPGAs}
+      \field{month}{3}
+      \field{note}{original-date: 2011-12-16T19:43:47Z}
+      \field{title}{openwall/john}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://github.com/openwall/john
+      \endverb
+      \verb{url}
+      \verb https://github.com/openwall/john
+      \endverb
+      \keyw{assembler,c,cracker,crypt,fpga,gpgpu,gpu,hash,john,jtr,mpi,opencl,openmp,password,ripper,simd}
+    \endentry
+    \entry{noauthor_rub-hgihigh-speed_bcrypt_nodate}{misc}{}
+      \field{sortinit}{r}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labeltitlesource}{title}
+      \field{title}{rub-hgi/high-speed\_bcrypt: {VHDL} implementation and {LaTeX} source of "{High}-{Speed} {Implementation} of bcrypt {Password} {Search} using {Special}-{Purpose} {Hardware}", published at {ReConFig}'14}
+      \field{urlday}{21}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb rub-hgi/high-speed_bcrypt\: VHDL implementation and LaTeX source of "High-Speed Implementation of bcrypt Password Search using Special-Purpose Hardware", published at ReConFig'14:C\:\\Users\\abiva\\Zotero\\storage\\P62BEU6V\\high-speed_bcrypt.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://github.com/rub-hgi/high-speed_bcrypt
+      \endverb
+      \verb{url}
+      \verb https://github.com/rub-hgi/high-speed_bcrypt
+      \endverb
+    \endentry
+    \entry{scatteredsecretscom_bcrypt_2020}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=1be542c0656579ca2b3e9b06a1edf23b}{%
+           family={ScatteredSecrets.com},
+           familyi={S\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{1be542c0656579ca2b3e9b06a1edf23b}
+      \strng{fullhash}{1be542c0656579ca2b3e9b06a1edf23b}
+      \strng{bibnamehash}{1be542c0656579ca2b3e9b06a1edf23b}
+      \strng{authorbibnamehash}{1be542c0656579ca2b3e9b06a1edf23b}
+      \strng{authornamehash}{1be542c0656579ca2b3e9b06a1edf23b}
+      \strng{authorfullhash}{1be542c0656579ca2b3e9b06a1edf23b}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Building custom FPGA-based hardware to crack bcrypt passwords.}
+      \field{journaltitle}{Medium}
+      \field{month}{9}
+      \field{shorttitle}{Bcrypt password cracking extremely slow?}
+      \field{title}{Bcrypt password cracking extremely slow? {Not} if you are using hundreds of {FPGAs}!}
+      \field{urlday}{20}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \true{nocite}
+      \verb{file}
+      \verb Snapshot:C\:\\Users\\abiva\\Zotero\\storage\\QPIR9U5N\\bcrypt-password-cracking-extremely-slow-not-if-you-are-using-hundreds-of-fpgas-7ae42e3272f6.html:text/html
+      \endverb
+      \verb{urlraw}
+      \verb https://scatteredsecrets.medium.com/bcrypt-password-cracking-extremely-slow-not-if-you-are-using-hundreds-of-fpgas-7ae42e3272f6
+      \endverb
+      \verb{url}
+      \verb https://scatteredsecrets.medium.com/bcrypt-password-cracking-extremely-slow-not-if-you-are-using-hundreds-of-fpgas-7ae42e3272f6
+      \endverb
+    \endentry
+    \entry{wiemer_high-speed_2014}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=e113620b9e3de33e0c5ca03c093a8803}{%
+           family={Wiemer},
+           familyi={W\bibinitperiod},
+           given={Friedrich},
+           giveni={F\bibinitperiod}}}%
+        {{hash=0c35a91031f1f54a9cb80a485ed87191}{%
+           family={Zimmermann},
+           familyi={Z\bibinitperiod},
+           given={Ralf},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{e5751fa9ddb75028b9fb64ca78f4dfa8}
+      \strng{fullhash}{e5751fa9ddb75028b9fb64ca78f4dfa8}
+      \strng{bibnamehash}{e5751fa9ddb75028b9fb64ca78f4dfa8}
+      \strng{authorbibnamehash}{e5751fa9ddb75028b9fb64ca78f4dfa8}
+      \strng{authornamehash}{e5751fa9ddb75028b9fb64ca78f4dfa8}
+      \strng{authorfullhash}{e5751fa9ddb75028b9fb64ca78f4dfa8}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Using passwords for user authentication is still the most common method for many internet services and attacks on the password databases pose a severe threat. To reduce this risk, servers store password hashes, which were generated using special password-hashing functions, to slow down guessing attacks. The most frequently used functions of this type are PBKDF2, bcrypt and scrypt. In this paper, we present a novel, flexible, high-speed implementation of a bcrypt password search system on a low-power Xilinx Zynq 7020 FPGA. The design consists of 40 parallel bcrypt cores running at 100 MHz. Our implementation outperforms all currently available implementations and improves password attacks on the same platform by at least 42\%, computing 6,511 passwords per second for a cost parameter of 5.}
+      \field{booktitle}{2014 {International} {Conference} on {ReConFigurable} {Computing} and {FPGAs} ({ReConFig14})}
+      \field{month}{12}
+      \field{note}{ISSN: 2325-6532}
+      \field{title}{High-speed implementation of bcrypt password search using special-purpose hardware}
+      \field{urlday}{10}
+      \field{urlmonth}{3}
+      \field{urlyear}{2024}
+      \field{year}{2014}
+      \field{urldateera}{ce}
+      \field{pages}{1\bibrangedash 6}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1109/ReConFig.2014.7032529
+      \endverb
+      \verb{file}
+      \verb IEEE Xplore Abstract Record:C\:\\Users\\abiva\\Zotero\\storage\\25YDEWC8\\7032529.html:text/html;IEEE Xplore Full Text PDF:C\:\\Users\\abiva\\Zotero\\storage\\53GMCTXS\\Wiemer et Zimmermann - 2014 - High-speed implementation of bcrypt password searc.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://ieeexplore.ieee.org/document/7032529
+      \endverb
+      \verb{url}
+      \verb https://ieeexplore.ieee.org/document/7032529
+      \endverb
+      \keyw{Clocks,Cryptography,Fabrics,Field programmable gate arrays,Hardware,Power demand,Registers}
     \endentry
   \enddatalist
 \endrefsection

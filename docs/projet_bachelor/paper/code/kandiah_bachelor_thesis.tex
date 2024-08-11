@@ -15,6 +15,9 @@
 \usepackage[style=verbose]{biblatex}
 \addbibresource{biblio/these_bachelor.bib}
 
+% To add a pdf file
+\usepackage{pdfpages}
+
 \input{config/thesis}
 
 %% To fill up by the student
@@ -74,7 +77,8 @@
 %\clearpage
 \cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% STATEMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{chapters/statements}
+%\input{chapters/statements}
+\includepdf[pages=-]{figures/enonce.pdf}
 %\clearpage
 \cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ABSTRACT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

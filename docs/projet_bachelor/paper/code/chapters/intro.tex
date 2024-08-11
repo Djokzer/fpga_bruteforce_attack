@@ -2,4 +2,36 @@
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction} % Adding toc entry
 
-Votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte.
+% Mise en contexte
+
+Ce travail s'inscrit dans le cadre de mon travail de bachelor, réalisé en réponse à une demande d'ELCA Security, une entreprise spécialisée dans la cyber-sécurité. 
+Le projet a pris comme source d'inspiration un article hackaday\footcite{by_all_2020}, qui parle de l'utilisation de \gls{fpga} pour une attaque par bruteforce de mots de passe.
+Le projet présenté ici vise à explorer une approche peu commune pour attaquer des mots de passe protégés par l'algorithme bcrypt en utilisant un \gls{fpga}. 
+Lorsque l'on souhaite faire une attaque pour casser des mots de passe protégés par un hash, la solution habituelle est l'utilisation d'un \gls{gpu}.
+Le problème est que généralement un \gls{gpu} est une solution plutot énergivores et ce genre d'attaque peut prendre énormément de temps.
+L'interet dans l'utilisation d'un \gls{fpga} plutôt qu'un \gls{gpu} dans ce cas précis est la possiblité d'avoir une solution beaucoup moins énergivores.
+Ce projet a pour objectif final de fournir une solution extensible et performante qui puisse être utilisable lors d'une attaque par bruteforce. 
+
+% Méthodologie de travail
+
+Ce projet a été entamé avec le travail de semestre.
+Après une recherche approfondie des implémentations existantes du bcrypt sur FPGA, le projet de semestre a débuté par une analyse du papier\footcite{wiemer_high-speed_2014} concernant une implémentation déjà existante. 
+En parallèle, une page Wikipédia détaillant le fonctionnement de bcrypt\footcite{noauthor_bcrypt_2024} a été utilisée comme ressource principale pour comprendre les spécificités de cet algorithme. 
+De plus, un papier sur une attaque MD5\footcite{gillela_parallelization_2019} sur FPGA a été consulté pour enrichir la compréhension des techniques d'attaque sur des dispositifs matériels. 
+Ces ressources documentaires ont été cruciales pour comprendre les différents concepts, orienter les choix de conception et résoudre les problèmes techniques rencontrés.
+
+Suite à ces recherches, j'ai pu reprendre l'implémentation existante en \gls{vhdl} d'un programme d'attaque par bruteforce de mot de passe bcrypt. 
+Après avoir étudié le papier associé et constaté des incohérences dans les testbenches, j'ai refait ces derniers pour valider le programme. 
+Par la suite, j'ai identifié et corrigé des erreurs dans le code afin d'obtenir un programme fonctionnel. 
+En parallèle, j'ai brièvement étudié le fonctionnement du \gls{pcie} afin d'y mettre en place une simple interface entre une carte \gls{fpga} et un ordinateur.
+
+Poursuivant ce travail dans le cadre de mon projet de bachelor, j'ai développé une interface UART afin de pouvoir initialiser les différents cœurs de calcul bcrypt.
+Cette solution a nécessité la mise en place d'un système de paquets utilisant un système d'encodage COBS. 
+Ce système permet non seulement de recevoir des confirmations ou des erreurs en cas de problème avec les paquets reçus, mais également de renvoyer le mot de passe une fois celui-ci trouvé.
+
+% Annonce du plan
+
+Dans ce rapport, je vais commencer par brièvement expliquer les différents notions clés de ce projet, afin de poser une base technique. 
+Je vais par la suite vous présenter une analyse du projet, afin d'y décrire le projet de manière détaillé, expliquer le fonctionnement du Bcrypt et les recherches qui ont été faites afin de trouver une implémentation existante. 
+Puis, je vais détailler la méthodologie de travail, en exposant les différentes étapes de mise en œuvre du projet, les simulations qui ont été faites et les différentes difficultés rencontrées. 
+Enfin, je vais décrire les résultats obtenus lors des différents tests et mesures qui ont été faits.

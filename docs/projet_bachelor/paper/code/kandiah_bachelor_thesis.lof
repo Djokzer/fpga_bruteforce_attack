@@ -1,16 +1,24 @@
 \babel@toc {french}{}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Fonction de hachage}}{4}{figure.caption.11}%
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Salt}}{4}{figure.caption.12}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Fonction de hachage}}{5}{figure.caption.10}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Salt}}{5}{figure.caption.11}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Algorithme Bcrypt}}{7}{figure.caption.13}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Format du hash Bcrypt}}{8}{figure.caption.14}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Différence Base 64}}{8}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Algorithme Bcrypt}}{8}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Format du hash Bcrypt}}{9}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Différence Base 64}}{9}{figure.caption.14}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Format de paquet - MOSI}}{10}{figure.caption.16}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Format de paquet - MISO}}{11}{figure.caption.17}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Schéma système UART - FPGA}}{12}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Architecture Bcrypt sur FPGA}}{11}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Interface du Bcrypt core}}{12}{figure.caption.16}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Schéma Bcrypt core simplifié}}{13}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Machine d'état Bcrypt core simplifié}}{14}{figure.caption.18}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Timing du bcrypt}}{15}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Table de conversion}}{16}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Machine d'état Bcrypt quadcore simplifié}}{18}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Timing du bcrypt cracker}}{19}{figure.caption.22}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Format de paquet - MOSI}}{20}{figure.caption.23}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Format de paquet - MISO}}{21}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Schéma système UART - FPGA}}{22}{figure.caption.25}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Mesures Bcrypt CPU}}{15}{figure.caption.19}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Mesures Bcrypt CPU}}{25}{figure.caption.26}%
 \contentsfinish 
