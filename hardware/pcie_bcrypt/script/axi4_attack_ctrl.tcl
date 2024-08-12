@@ -20,18 +20,12 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2024.1
+set scripts_vivado_version 2019.2
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
    puts ""
-   if { [string compare $scripts_vivado_version $current_vivado_version] > 0 } {
-      catch {common::send_gid_msg -ssname BD::TCL -id 2042 -severity "ERROR" " This script was generated using Vivado <$scripts_vivado_version> and is being run in <$current_vivado_version> of Vivado. Sourcing the script failed since it was created with a future version of Vivado."}
-
-   } else {
-     catch {common::send_gid_msg -ssname BD::TCL -id 2041 -severity "ERROR" "This script was generated using Vivado <$scripts_vivado_version> and is being run in <$current_vivado_version> of Vivado. Please run the script in Vivado <$scripts_vivado_version> then open the design in Vivado <$current_vivado_version>. Upgrade the design by running \"Tools => Report => Report IP Status...\", then run write_bd_tcl to create an updated script."}
-
-   }
+   catch {common::send_msg_id "BD_TCL-109" "ERROR" "This script was generated using Vivado <$scripts_vivado_version> and is being run in <$current_vivado_version> of Vivado. Please run the script in Vivado <$scripts_vivado_version> then open the design in Vivado <$current_vivado_version>. Upgrade the design by running \"Tools => Report => Report IP Status...\", then run write_bd_tcl to create an updated script."}
 
    return 1
 }
@@ -57,7 +51,7 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 set list_projs [get_projects -quiet]
 if { $list_projs eq "" } {
    create_project project_1 myproj -part xcku5p-ffvb676-2-e
-   set_property BOARD_PART xilinx.com:kcu116:part0:1.5 [current_project]
+   set_property BOARD_PART xilinx.com:kcu116:part0:1.4 [current_project]
 }
 
 
@@ -90,10 +84,10 @@ if { ${design_name} eq "" } {
    #    4): Current design opened AND is empty AND names diff; design_name exists in project.
 
    if { $cur_design ne $design_name } {
-      common::send_gid_msg -ssname BD::TCL -id 2001 -severity "INFO" "Changing value of <design_name> from <$design_name> to <$cur_design> since current design is empty."
+      common::send_msg_id "BD_TCL-001" "INFO" "Changing value of <design_name> from <$design_name> to <$cur_design> since current design is empty."
       set design_name [get_property NAME $cur_design]
    }
-   common::send_gid_msg -ssname BD::TCL -id 2002 -severity "INFO" "Constructing design in IPI design <$cur_design>..."
+   common::send_msg_id "BD_TCL-002" "INFO" "Constructing design in IPI design <$cur_design>..."
 
 } elseif { ${cur_design} ne "" && $list_cells ne "" && $cur_design eq $design_name } {
    # USE CASES:
@@ -114,19 +108,19 @@ if { ${design_name} eq "" } {
    #    8) No opened design, design_name not in project.
    #    9) Current opened design, has components, but diff names, design_name not in project.
 
-   common::send_gid_msg -ssname BD::TCL -id 2003 -severity "INFO" "Currently there is no design <$design_name> in project, so creating one..."
+   common::send_msg_id "BD_TCL-003" "INFO" "Currently there is no design <$design_name> in project, so creating one..."
 
    create_bd_design $design_name
 
-   common::send_gid_msg -ssname BD::TCL -id 2004 -severity "INFO" "Making design <$design_name> as current_bd_design."
+   common::send_msg_id "BD_TCL-004" "INFO" "Making design <$design_name> as current_bd_design."
    current_bd_design $design_name
 
 }
 
-common::send_gid_msg -ssname BD::TCL -id 2005 -severity "INFO" "Currently the variable <design_name> is equal to \"$design_name\"."
+common::send_msg_id "BD_TCL-005" "INFO" "Currently the variable <design_name> is equal to \"$design_name\"."
 
 if { $nRet != 0 } {
-   catch {common::send_gid_msg -ssname BD::TCL -id 2006 -severity "ERROR" $errMsg}
+   catch {common::send_msg_id "BD_TCL-114" "ERROR" $errMsg}
    return $nRet
 }
 
@@ -142,7 +136,7 @@ xilinx.com:ip:blk_mem_gen:8.4\
 "
 
    set list_ips_missing ""
-   common::send_gid_msg -ssname BD::TCL -id 2011 -severity "INFO" "Checking if the following IPs exist in the project's IP catalog: $list_check_ips ."
+   common::send_msg_id "BD_TCL-006" "INFO" "Checking if the following IPs exist in the project's IP catalog: $list_check_ips ."
 
    foreach ip_vlnv $list_check_ips {
       set ip_obj [get_ipdefs -all $ip_vlnv]
@@ -152,7 +146,7 @@ xilinx.com:ip:blk_mem_gen:8.4\
    }
 
    if { $list_ips_missing ne "" } {
-      catch {common::send_gid_msg -ssname BD::TCL -id 2012 -severity "ERROR" "The following IPs are not found in the IP Catalog:\n  $list_ips_missing\n\nResolution: Please add the repository containing the IP(s) to the project." }
+      catch {common::send_msg_id "BD_TCL-115" "ERROR" "The following IPs are not found in the IP Catalog:\n  $list_ips_missing\n\nResolution: Please add the repository containing the IP(s) to the project." }
       set bCheckIPsPassed 0
    }
 
@@ -168,7 +162,7 @@ cracker_regs\
 "
 
    set list_mods_missing ""
-   common::send_gid_msg -ssname BD::TCL -id 2020 -severity "INFO" "Checking if the following modules exist in the project's sources: $list_check_mods ."
+   common::send_msg_id "BD_TCL-006" "INFO" "Checking if the following modules exist in the project's sources: $list_check_mods ."
 
    foreach mod_vlnv $list_check_mods {
       if { [can_resolve_reference $mod_vlnv] == 0 } {
@@ -177,14 +171,14 @@ cracker_regs\
    }
 
    if { $list_mods_missing ne "" } {
-      catch {common::send_gid_msg -ssname BD::TCL -id 2021 -severity "ERROR" "The following module(s) are not found in the project: $list_mods_missing" }
-      common::send_gid_msg -ssname BD::TCL -id 2022 -severity "INFO" "Please add source files for the missing module(s) above."
+      catch {common::send_msg_id "BD_TCL-115" "ERROR" "The following module(s) are not found in the project: $list_mods_missing" }
+      common::send_msg_id "BD_TCL-008" "INFO" "Please add source files for the missing module(s) above."
       set bCheckIPsPassed 0
    }
 }
 
 if { $bCheckIPsPassed != 1 } {
-  common::send_gid_msg -ssname BD::TCL -id 2023 -severity "WARNING" "Will not continue with creation of design due to the error(s) above."
+  common::send_msg_id "BD_TCL-1003" "WARNING" "Will not continue with creation of design due to the error(s) above."
   return 3
 }
 
@@ -208,14 +202,14 @@ proc create_root_design { parentCell } {
   # Get object for parentCell
   set parentObj [get_bd_cells $parentCell]
   if { $parentObj == "" } {
-     catch {common::send_gid_msg -ssname BD::TCL -id 2090 -severity "ERROR" "Unable to find parent cell <$parentCell>!"}
+     catch {common::send_msg_id "BD_TCL-100" "ERROR" "Unable to find parent cell <$parentCell>!"}
      return
   }
 
   # Make sure parentObj is hier blk
   set parentType [get_property TYPE $parentObj]
   if { $parentType ne "hier" } {
-     catch {common::send_gid_msg -ssname BD::TCL -id 2091 -severity "ERROR" "Parent <$parentObj> has TYPE = <$parentType>. Expected to be <hier>."}
+     catch {common::send_msg_id "BD_TCL-101" "ERROR" "Parent <$parentObj> has TYPE = <$parentType>. Expected to be <hier>."}
      return
   }
 
@@ -262,41 +256,40 @@ proc create_root_design { parentCell } {
   # Create ports
   set s_axi_aclk_0 [ create_bd_port -dir I -type clk s_axi_aclk_0 ]
   set s_axi_aresetn_0 [ create_bd_port -dir I -type rst s_axi_aresetn_0 ]
-  set cracker_addra [ create_bd_port -dir I -from 31 -to 0 cracker_addra ]
-  set cracker_addrb [ create_bd_port -dir I -from 31 -to 0 cracker_addrb ]
-  set cracker_cycle [ create_bd_port -dir I cracker_cycle ]
-  set cracker_douta [ create_bd_port -dir O -from 31 -to 0 cracker_douta ]
-  set cracker_doutb [ create_bd_port -dir O -from 31 -to 0 cracker_doutb ]
-  set cracker_start [ create_bd_port -dir O cracker_start ]
+
+  # Create instance: axi_bram_ctrl_0, and set properties
+  set axi_bram_ctrl_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_0 ]
+
+  # Create instance: axi_bram_ctrl_0_bram, and set properties
+  set axi_bram_ctrl_0_bram [ create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 axi_bram_ctrl_0_bram ]
+  set_property -dict [ list \
+   CONFIG.Assume_Synchronous_Clk {true} \
+   CONFIG.EN_SAFETY_CKT {false} \
+   CONFIG.Memory_Type {True_Dual_Port_RAM} \
+   CONFIG.Operating_Mode_A {NO_CHANGE} \
+   CONFIG.Operating_Mode_B {NO_CHANGE} \
+   CONFIG.PRIM_type_to_Implement {URAM} \
+ ] $axi_bram_ctrl_0_bram
 
   # Create instance: cracker_regs_0, and set properties
   set block_name cracker_regs
   set block_cell_name cracker_regs_0
   if { [catch {set cracker_regs_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
-     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     catch {common::send_msg_id "BD_TCL-105" "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    } elseif { $cracker_regs_0 eq "" } {
-     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     catch {common::send_msg_id "BD_TCL-106" "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    }
   
-  # Create instance: axi_bram_ctrl_0, and set properties
-  set axi_bram_ctrl_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_0 ]
-
-  # Create instance: blk_mem_gen_0, and set properties
-  set blk_mem_gen_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:blk_mem_gen:8.4 blk_mem_gen_0 ]
-  set_property -dict [list \
-    CONFIG.Memory_Type {True_Dual_Port_RAM} \
-    CONFIG.PRIM_type_to_Implement {URAM} \
-  ] $blk_mem_gen_0
-
-
   # Create interface connections
   connect_bd_intf_net -intf_net S_AXI_0_1 [get_bd_intf_ports S_AXI_0] [get_bd_intf_pins axi_bram_ctrl_0/S_AXI]
 
   # Create port connections
   connect_bd_net -net axi_bram_ctrl_0_bram_addr_a [get_bd_pins axi_bram_ctrl_0/bram_addr_a] [get_bd_pins cracker_regs_0/axi_ctrl_addra]
   connect_bd_net -net axi_bram_ctrl_0_bram_addr_b [get_bd_pins axi_bram_ctrl_0/bram_addr_b] [get_bd_pins cracker_regs_0/axi_ctrl_addrb]
+  connect_bd_net -net axi_bram_ctrl_0_bram_douta [get_bd_pins axi_bram_ctrl_0_bram/douta] [get_bd_pins cracker_regs_0/bram_rddata_a]
+  connect_bd_net -net axi_bram_ctrl_0_bram_doutb [get_bd_pins axi_bram_ctrl_0_bram/doutb] [get_bd_pins cracker_regs_0/bram_rddata_b]
   connect_bd_net -net axi_bram_ctrl_0_bram_en_a [get_bd_pins axi_bram_ctrl_0/bram_en_a] [get_bd_pins cracker_regs_0/axi_ctrl_ena]
   connect_bd_net -net axi_bram_ctrl_0_bram_en_b [get_bd_pins axi_bram_ctrl_0/bram_en_b] [get_bd_pins cracker_regs_0/axi_ctrl_enb]
   connect_bd_net -net axi_bram_ctrl_0_bram_rst_a [get_bd_pins axi_bram_ctrl_0/bram_rst_a] [get_bd_pins cracker_regs_0/axi_ctrl_rsta]
@@ -305,31 +298,22 @@ proc create_root_design { parentCell } {
   connect_bd_net -net axi_bram_ctrl_0_bram_we_b [get_bd_pins axi_bram_ctrl_0/bram_we_b] [get_bd_pins cracker_regs_0/axi_ctrl_web]
   connect_bd_net -net axi_bram_ctrl_0_bram_wrdata_a [get_bd_pins axi_bram_ctrl_0/bram_wrdata_a] [get_bd_pins cracker_regs_0/axi_ctrl_dina]
   connect_bd_net -net axi_bram_ctrl_0_bram_wrdata_b [get_bd_pins axi_bram_ctrl_0/bram_wrdata_b] [get_bd_pins cracker_regs_0/axi_ctrl_dinb]
-  connect_bd_net -net blk_mem_gen_0_douta [get_bd_pins blk_mem_gen_0/douta] [get_bd_pins cracker_regs_0/bram_rddata_a]
-  connect_bd_net -net blk_mem_gen_0_doutb [get_bd_pins blk_mem_gen_0/doutb] [get_bd_pins cracker_regs_0/bram_rddata_b]
-  connect_bd_net -net cracker_addra_0_1 [get_bd_ports cracker_addra] [get_bd_pins cracker_regs_0/cracker_addra]
-  connect_bd_net -net cracker_addrb_0_1 [get_bd_ports cracker_addrb] [get_bd_pins cracker_regs_0/cracker_addrb]
-  connect_bd_net -net cracker_cycle_0_1 [get_bd_ports cracker_cycle] [get_bd_pins cracker_regs_0/cracker_cycle]
-  connect_bd_net -net cracker_regs_0_axi_ctrl_douta [get_bd_pins cracker_regs_0/axi_ctrl_douta] [get_bd_pins axi_bram_ctrl_0/bram_rddata_a]
-  connect_bd_net -net cracker_regs_0_axi_ctrl_doutb [get_bd_pins cracker_regs_0/axi_ctrl_doutb] [get_bd_pins axi_bram_ctrl_0/bram_rddata_b]
-  connect_bd_net -net cracker_regs_0_bram_addr_a [get_bd_pins cracker_regs_0/bram_addr_a] [get_bd_pins blk_mem_gen_0/addra]
-  connect_bd_net -net cracker_regs_0_bram_addr_b [get_bd_pins cracker_regs_0/bram_addr_b] [get_bd_pins blk_mem_gen_0/addrb]
-  connect_bd_net -net cracker_regs_0_bram_en_a [get_bd_pins cracker_regs_0/bram_en_a] [get_bd_pins blk_mem_gen_0/ena]
-  connect_bd_net -net cracker_regs_0_bram_en_b [get_bd_pins cracker_regs_0/bram_en_b] [get_bd_pins blk_mem_gen_0/enb]
-  connect_bd_net -net cracker_regs_0_bram_rst_a [get_bd_pins cracker_regs_0/bram_rst_a] [get_bd_pins blk_mem_gen_0/rsta]
-  connect_bd_net -net cracker_regs_0_bram_rst_b [get_bd_pins cracker_regs_0/bram_rst_b] [get_bd_pins blk_mem_gen_0/rstb]
-  connect_bd_net -net cracker_regs_0_bram_we_a [get_bd_pins cracker_regs_0/bram_we_a] [get_bd_pins blk_mem_gen_0/wea]
-  connect_bd_net -net cracker_regs_0_bram_we_b [get_bd_pins cracker_regs_0/bram_we_b] [get_bd_pins blk_mem_gen_0/web]
-  connect_bd_net -net cracker_regs_0_bram_wrdata_a [get_bd_pins cracker_regs_0/bram_wrdata_a] [get_bd_pins blk_mem_gen_0/dina]
-  connect_bd_net -net cracker_regs_0_bram_wrdata_b [get_bd_pins cracker_regs_0/bram_wrdata_b] [get_bd_pins blk_mem_gen_0/dinb]
-  connect_bd_net -net cracker_regs_0_cracker_douta [get_bd_pins cracker_regs_0/cracker_douta] [get_bd_ports cracker_douta]
-  connect_bd_net -net cracker_regs_0_cracker_doutb [get_bd_pins cracker_regs_0/cracker_doutb] [get_bd_ports cracker_doutb]
-  connect_bd_net -net cracker_regs_0_cracker_start [get_bd_pins cracker_regs_0/cracker_start] [get_bd_ports cracker_start]
-  connect_bd_net -net s_axi_aclk_0_1 [get_bd_ports s_axi_aclk_0] [get_bd_pins axi_bram_ctrl_0/s_axi_aclk] [get_bd_pins blk_mem_gen_0/clka] [get_bd_pins blk_mem_gen_0/clkb] [get_bd_pins cracker_regs_0/clk]
+  connect_bd_net -net cracker_regs_0_axi_ctrl_douta [get_bd_pins axi_bram_ctrl_0/bram_rddata_a] [get_bd_pins cracker_regs_0/axi_ctrl_douta]
+  connect_bd_net -net cracker_regs_0_axi_ctrl_doutb [get_bd_pins axi_bram_ctrl_0/bram_rddata_b] [get_bd_pins cracker_regs_0/axi_ctrl_doutb]
+  connect_bd_net -net cracker_regs_0_bram_addr_a [get_bd_pins axi_bram_ctrl_0_bram/addra] [get_bd_pins cracker_regs_0/bram_addr_a]
+  connect_bd_net -net cracker_regs_0_bram_addr_b [get_bd_pins axi_bram_ctrl_0_bram/addrb] [get_bd_pins cracker_regs_0/bram_addr_b]
+  connect_bd_net -net cracker_regs_0_bram_en_a [get_bd_pins axi_bram_ctrl_0_bram/ena] [get_bd_pins cracker_regs_0/bram_en_a]
+  connect_bd_net -net cracker_regs_0_bram_en_b [get_bd_pins axi_bram_ctrl_0_bram/enb] [get_bd_pins cracker_regs_0/bram_en_b]
+  connect_bd_net -net cracker_regs_0_bram_rst_a [get_bd_pins axi_bram_ctrl_0_bram/rsta] [get_bd_pins cracker_regs_0/bram_rst_a]
+  connect_bd_net -net cracker_regs_0_bram_rst_b [get_bd_pins axi_bram_ctrl_0_bram/rstb] [get_bd_pins cracker_regs_0/bram_rst_b]
+  connect_bd_net -net cracker_regs_0_bram_we_a [get_bd_pins axi_bram_ctrl_0_bram/wea] [get_bd_pins cracker_regs_0/bram_we_a]
+  connect_bd_net -net cracker_regs_0_bram_we_b [get_bd_pins axi_bram_ctrl_0_bram/web] [get_bd_pins cracker_regs_0/bram_we_b]
+  connect_bd_net -net cracker_regs_0_bram_wrdata_a [get_bd_pins axi_bram_ctrl_0_bram/dina] [get_bd_pins cracker_regs_0/bram_wrdata_a]
+  connect_bd_net -net cracker_regs_0_bram_wrdata_b [get_bd_pins axi_bram_ctrl_0_bram/dinb] [get_bd_pins cracker_regs_0/bram_wrdata_b]
+  connect_bd_net -net s_axi_aclk_0_1 [get_bd_ports s_axi_aclk_0] [get_bd_pins axi_bram_ctrl_0/s_axi_aclk] [get_bd_pins axi_bram_ctrl_0_bram/clka] [get_bd_pins axi_bram_ctrl_0_bram/clkb] [get_bd_pins cracker_regs_0/clk]
   connect_bd_net -net s_axi_aresetn_0_1 [get_bd_ports s_axi_aresetn_0] [get_bd_pins axi_bram_ctrl_0/s_axi_aresetn] [get_bd_pins cracker_regs_0/rst]
 
   # Create address segments
-  assign_bd_address -offset 0x00000000 -range 0x00001000 -target_address_space [get_bd_addr_spaces S_AXI_0] [get_bd_addr_segs axi_bram_ctrl_0/S_AXI/Mem0] -force
 
 
   # Restore current instance

@@ -59,12 +59,12 @@ entity cracker_regs is
     bram_rst_b      : out STD_LOGIC;
     bram_we_b       : out STD_LOGIC_VECTOR ( 3 downto 0 );
 
-    -- BCRYPT CRACKER INTERFACE
-    -- (FOR PASSWORD)
-    cracker_addra   : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    cracker_douta   : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    cracker_addrb   : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    cracker_doutb   : out STD_LOGIC_VECTOR ( 31 downto 0 );
+--    -- BCRYPT CRACKER INTERFACE
+--    -- (FOR PASSWORD)
+--    cracker_addra   : in STD_LOGIC_VECTOR ( 31 downto 0 );
+--    cracker_douta   : out STD_LOGIC_VECTOR ( 31 downto 0 );
+--    cracker_addrb   : in STD_LOGIC_VECTOR ( 31 downto 0 );
+--    cracker_doutb   : out STD_LOGIC_VECTOR ( 31 downto 0 );
     -- (CTRL)
     cracker_start   : out STD_LOGIC;
     cracker_cycle   : in STD_LOGIC
@@ -74,7 +74,7 @@ end cracker_regs;
 
 architecture Behavioral of cracker_regs is
 	-- START ATTACK REGISTER ADRESS
-	constant START_REG_ADDR : STD_LOGIC_VECTOR(14 downto 0) := "101000100000";  -- Address 2592 in binary
+	constant START_REG_ADDR : STD_LOGIC_VECTOR(14 downto 0) := "000101000100000";  -- Address 2592 in binary
 	-- START ATTACK REGISTER
     signal start_attack : STD_LOGIC := '0';  -- '0' for AXI BRAM controller, '1' for bcrypt cracker
 	signal start_read_reg : std_logic_vector(31 downto 0) := (others => '0');
@@ -87,9 +87,9 @@ begin
         start_attack <= '0';  -- Reset to AXI BRAM controller access
     elsif rising_edge(clk) then
 		-- If start register is written (implies AXI controller initiates the cracker)
-		if (axi_ctrl_wea and "0001") = "0001" and axi_ctrl_ena = '1' and (axi_ctrl_dina and x"00000001") = x"00000001" and axi_ctrl_addra = START_REG_ADDR then
+		if (axi_ctrl_wea and "0001") = "0001" and axi_ctrl_ena = '1' and axi_ctrl_addra = START_REG_ADDR then
 			start_attack <= '1';  -- Give control to bcrypt cracker
-		elsif (axi_ctrl_web and "0001") = "0001" and  axi_ctrl_enb = '1' and (axi_ctrl_dinb and x"00000001") = x"00000001" and axi_ctrl_addrb = START_REG_ADDR then
+		elsif (axi_ctrl_web and "0001") = "0001" and  axi_ctrl_enb = '1' and axi_ctrl_addrb = START_REG_ADDR then
 			start_attack <= '1';  -- Give control to bcrypt cracker
 		end if;
 				
@@ -108,19 +108,21 @@ begin
 	cracker_start <= start_attack;
     
     -- MUX for BRAM port A
-    bram_addr_a <= axi_ctrl_addra when start_attack = '0' else cracker_addra;
+    --bram_addr_a <= axi_ctrl_addra when start_attack = '0' else cracker_addra;
+    bram_addr_a <= "00000000000000000" & axi_ctrl_addra when start_attack = '0' else x"00000000";
     bram_wrdata_a <= axi_ctrl_dina when start_attack = '0' else (others => '0');
     axi_ctrl_douta <= bram_rddata_a when start_attack = '0' else start_read_reg;
-    cracker_douta <= bram_rddata_a when start_attack = '1' else (others => '0');
+    --cracker_douta <= bram_rddata_a when start_attack = '1' else (others => '0');
     bram_en_a <= axi_ctrl_ena when start_attack = '0' else '1';
     bram_rst_a <= axi_ctrl_rsta when start_attack = '0' else rst;
     bram_we_a <= axi_ctrl_wea when start_attack = '0' else (others => '0');
     
     -- MUX for BRAM port B
-    bram_addr_b <= axi_ctrl_addrb when start_attack = '0' else cracker_addrb;
+    --bram_addr_b <= axi_ctrl_addrb when start_attack = '0' else cracker_addrb;
+    bram_addr_b <= "00000000000000000" & axi_ctrl_addrb when start_attack = '0' else x"00000000";
     bram_wrdata_b <= axi_ctrl_dinb when start_attack = '0' else (others => '0');
     axi_ctrl_doutb <= bram_rddata_b when start_attack = '0' else start_read_reg;
-    cracker_doutb <= bram_rddata_b when start_attack = '1' else (others => '0');
+    --cracker_doutb <= bram_rddata_b when start_attack = '1' else (others => '0');
     bram_en_b <= axi_ctrl_enb when start_attack = '0' else '1';
     bram_rst_b <= axi_ctrl_rstb when start_attack = '0' else rst;
     bram_we_b <= axi_ctrl_web when start_attack = '0' else (others => '0');
