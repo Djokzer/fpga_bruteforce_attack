@@ -37,10 +37,23 @@ entity bcrypt_cracker is
         INITIALIZATION_LATENCY  : positive := INIT_PIPELINE;
         NUMBER_OF_QUADCORES     : positive := CORE_INSTANCES);
     port (
+        -- General
         clk     : in  std_logic;
         rst     : in  std_logic;
+        
+        -- CRACKER REGS
+        --(TO GET PASSWORDS)
+        pwd_regs_addra   : out std_logic_vector ( 31 downto 0 );
+        pwd_regs_douta   : in std_logic_vector ( 31 downto 0 );
+        pwd_regs_addrb   : out std_logic_vector ( 31 downto 0 );
+        pwd_regs_doutb   : in std_logic_vector ( 31 downto 0 );
+        -- (CTRL)
+        cracker_start   : in std_logic;
+        cracker_cycle   : out std_logic;
+        --(FOR ATTACK)
         t_hash  : in  std_logic_vector(HASH_LENGTH-1 downto 0);
         t_salt  : in  std_logic_vector(SALT_LENGTH-1 downto 0);
+        --(WHEN PASSWORD IS FOUND)
         done    : out std_logic;
         success : out std_logic;
         dout_we : out std_logic;
@@ -57,6 +70,12 @@ architecture Behavioral of bcrypt_cracker is
            x"082EFA98_EC4E6C89_452821E6_38D01377_BE5466CF_34E90C6C" &
            x"C0AC29B7_C97C50DD_3F84D5B5_B5470917_9216D5D9_8979FB1B";
 
+	constant TOTAL_CORES : integer := NUMBER_OF_QUADCORES*4;
+	constant PWD_WORD_SIZE : integer := 18;
+	constant TOTAL_PWD_WORD_SIZE : integer := PWD_WORD_SIZE * TOTAL_CORES;
+
+	constant PWD_A_START : integer := 0;
+	constant PWD_B_START : integer := TOTAL_PWD_WORD_SIZE / 2;
     -- --------------------------------------------------------------------- --
     -- Signals
     -- --------------------------------------------------------------------- --
@@ -104,6 +123,21 @@ architecture Behavioral of bcrypt_cracker is
 	signal reduction_din  : std_logic_vector((NUMBER_OF_QUADCORES)*32 - 1 downto 0);
 	signal reduction_dout : std_logic_vector(31 downto 0);
 	signal reduction_valid: std_logic;
+
+    -- ready signals for the quadcores
+    signal start_attack   : std_logic := '0';
+    signal ready          : std_logic_vector(NUMBER_OF_QUADCORES-1 downto 0);
+
+    -- pwd distribution signals
+	signal pwd_request: std_logic_vector(NUMBER_OF_QUADCORES-1 downto 0);
+    signal pwd_addr   : std_logic_vector(4 downto 0);
+    signal pwd_we     : std_logic_vector(NUMBER_OF_QUADCORES-1 downto 0);
+    signal pwd_done   : std_logic_vector(NUMBER_OF_QUADCORES-1 downto 0);
+	signal quadcore_counter	: integer := 0;
+	signal pwd_counter		: integer := 0;
+	signal pwd_a_counter	: integer := PWD_A_START;
+	signal pwd_b_counter	: integer := PWD_B_START;
+	signal quadcore_transfert_counter : integer := 0;
 begin
 
     -- --------------------------------------------------------------------- --
@@ -297,10 +331,25 @@ begin
                 NUMBER_OF_CRACKS => 5000--pass_to_crack(CHARSET_LEN)
             )
             port map (
+                -- GENERAL
                 clk     => clk,
                 rst     => rst,
+
+                -- ATTACK PARAMETERS
                 t_salt  => t_salt,
                 t_hash  => t_hash,
+                ready   => ready(i),
+                start_attack => start_attack,
+
+                -- PASSWORD TRANSFER
+				pwd_request=> pwd_request(i),
+                pwd_data_a => pwd_regs_douta,
+                pwd_data_b => pwd_regs_doutb,
+                pwd_addr   => pwd_addr,
+                pwd_we     => pwd_we(i),
+                pwd_done   => pwd_done(i),
+
+                -- BCRYPT CORE INIT
                 memory_init     => bcrypt_mem_init(i),
                 pipeline_full   => pipeline_full,
                 sbox_init_addr  => sbox_addr_cnt_pipe_dout,
@@ -309,6 +358,8 @@ begin
                 sbox2_init_dout => sbox_pipe_dout(2),
                 sbox3_init_dout => sbox_pipe_dout(3),
                 skinit_dout     => skinit_pipe_dout,
+
+                -- ATTACK RESULT
                 done    => bcrypt_done(i),
                 success => bcrypt_success(i),
                 dout_we => bcrypt_dout_we(i),
@@ -319,6 +370,82 @@ begin
 		reduction_din((i+1)*32 - 1 downto i*32) <= bcrypt_dout(i);
 
     end generate bcrypt_quad_cores;
+
+    -- All the quadcore need to init in the same time, so need to wait the last one
+    start_attack <= ready(NUMBER_OF_QUADCORES-1);
+
+    -- Password distribution logic
+    pwd_distribution : process(clk)
+    begin
+        if rst = '1' then
+			-- COUNTER RESET
+			quadcore_counter <= 0;
+			pwd_counter		 <= 0;
+			pwd_a_counter	 <= PWD_A_START;
+			pwd_b_counter	 <= PWD_B_START;
+			quadcore_transfert_counter <= 0;
+
+			-- CRACKER_REGS LOGIC RESET
+			cracker_cycle <= '0';
+			pwd_regs_addra <= x"00000000";
+			pwd_regs_addrb <= x"00000000";
+
+			-- QUADCORE LOGIC RESET
+			pwd_we(NUMBER_OF_QUADCORES-1 downto 0) <= (others => '0');
+
+        elsif rising_edge(clk) then
+			-- PASSWORD TRANSFERT FROM ULTRARAM TO QUADCORES
+			if cracker_start <= '1' and pwd_request(NUMBER_OF_QUADCORES-1) = '1' then
+				-- UPDATE ULTRARAM FETCH ADDRESS
+				pwd_regs_addra <= std_logic_vector(to_unsigned(pwd_a_counter, pwd_regs_addra'length));
+				pwd_regs_addrb <= std_logic_vector(to_unsigned(pwd_b_counter, pwd_regs_addrb'length));
+
+				-- WHEN PASSWORDS HAVE BEEN FETCHED FOR A QUADCORE
+				if pwd_counter = PWD_WORD_SIZE-1 then
+					-- IF 4 PASSWORDS HAVE BEEN FETCHED (1 TRANSFER => 2 PASSWORDS)
+					if quadcore_transfert_counter = 1 then
+						-- WRITE DISABLE ON THE CURRENT QUADCORE
+						pwd_we(quadcore_counter) <= '0';
+
+						-- CHECK IF LAST QUADCORE
+						if quadcore_counter = NUMBER_OF_QUADCORES-1 then
+							quadcore_counter <= 0;
+						else
+							quadcore_counter <= quadcore_counter + 1;
+						end if;
+
+						-- RESET TRANSFERT COUNT
+						quadcore_transfert_counter <= 0;
+					else
+						-- INCREMENT PASSWORD TRANSFERT COUNT
+						quadcore_transfert_counter <= quadcore_transfert_counter + 1;
+					end if;
+					-- RESET COUNTER
+					pwd_counter <= 0;
+				else
+					-- WRITE ENABLE ON THE CURRENT QUADCORE
+					pwd_we(quadcore_counter) <= '1';
+					-- INCREMENT PASSWORD WORD COUNT
+					pwd_counter <= pwd_counter + 1;
+				end if;
+
+				-- WHEN ALL PASSWORDS HAVE BEEN FETCHED
+				if pwd_a_counter = PWD_B_START-1 and pwd_b_counter = TOTAL_PWD_WORD_SIZE-1 then
+					-- SIGNAL PASSWORD FETCHING IS OVER
+					cracker_cycle <= '1';
+					-- RESET COUNTERS
+					pwd_a_counter	 <= PWD_A_START;
+					pwd_b_counter	 <= PWD_B_START;
+				else
+					-- INCREMENT ADDRESS COUNTER
+					pwd_a_counter <= pwd_a_counter + 1;
+					pwd_b_counter <= pwd_b_counter + 1;
+				end if;
+			else
+				cracker_cycle <= '0';
+			end if;
+        end if;
+    end process;
 
 	-- generate a buffered tree reduction of the result
 	result_reduction_buffer : entity work.tree_buffer

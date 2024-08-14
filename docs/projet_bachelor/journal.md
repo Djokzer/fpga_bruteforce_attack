@@ -482,3 +482,11 @@ Après quelques recherches, j'ai trouvé dans l'outil block design l'existence d
 Le problème étant que l'AXI BRAM CTRL a besoin des deux ports de la RAM pour que l'on puissent transférer les mots de passes du PC le plus vite possible et j'ai aussi besoin des deux ports pour lire les mots de passes pour le bcrypt cracker. Ils me faut donc un module intérmediaire qui va s'occuper de multiplexer les lignes d'adresses entre l'AXI BRAM CTRL et le bcrypt cracker. C'est aussi dans ce bloc que je vais gérer les différents registres de CTRL pour le cracker.
 
 ![](assets/pcie_communication_protocol_axi4_attack_ctrl.png)
+
+# Semaine 13 - (12.08.2024 - 16.08.2024)
+
+## cracker_regs
+
+J'ai pu faire le bloc cracker regs, qui s'occupe de faire le multiplexer entre la BRAM CTRL et le cracker. Par la suite, j'ai pu adapter le bcrypt cracker afin q'il puisse interfacer avec le cracker regs et qu'il puisse récuperer les mots de passe pour les distribuer au quadcore. Maintenant, je dois modifier le cracker_regs, pour qu'il puissent s'occuper du cas ou le mot de passe est trouvé.
+
+J'ai pu initiallement testé le cracker regs avec le microblaze, mais toutes les modifications qui ont été faites par la suite du premier test, n'ont pas été tester.

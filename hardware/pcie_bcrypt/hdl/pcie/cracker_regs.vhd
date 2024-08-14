@@ -23,108 +23,179 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
+library work;
+use work.pkg_bcrypt.all;
+
 entity cracker_regs is
   port (
     -- General
-    clk              : STD_LOGIC;
-    rst              : STD_LOGIC;
+    clk              : std_logic;
+    rst              : std_logic;
 
     -- AXI BRAM CONTROLLER INTERFACE
-    axi_ctrl_addra   : in STD_LOGIC_VECTOR ( 15 downto 0 );
-    axi_ctrl_dina    : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    axi_ctrl_douta   : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    axi_ctrl_ena     : in STD_LOGIC;
-    axi_ctrl_rsta    : in STD_LOGIC;
-    axi_ctrl_wea     : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    axi_ctrl_addra   : in std_logic_vector ( 15 downto 0 );
+    axi_ctrl_dina    : in std_logic_vector ( 31 downto 0 );
+    axi_ctrl_douta   : out std_logic_vector ( 31 downto 0 );
+    axi_ctrl_ena     : in std_logic;
+    axi_ctrl_rsta    : in std_logic;
+    axi_ctrl_wea     : in std_logic_vector ( 3 downto 0 );
 
-    axi_ctrl_addrb   : in STD_LOGIC_VECTOR ( 15 downto 0 );
-    axi_ctrl_doutb   : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    axi_ctrl_dinb    : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    axi_ctrl_enb     : in STD_LOGIC;
-    axi_ctrl_rstb    : in STD_LOGIC;
-    axi_ctrl_web     : in STD_LOGIC_VECTOR ( 3 downto 0 );
+    axi_ctrl_addrb   : in std_logic_vector ( 15 downto 0 );
+    axi_ctrl_doutb   : out std_logic_vector ( 31 downto 0 );
+    axi_ctrl_dinb    : in std_logic_vector ( 31 downto 0 );
+    axi_ctrl_enb     : in std_logic;
+    axi_ctrl_rstb    : in std_logic;
+    axi_ctrl_web     : in std_logic_vector ( 3 downto 0 );
 
     -- BRAM INTERFACE
-    bram_addr_a     : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    bram_wrdata_a   : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    bram_rddata_a   : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    bram_en_a       : out STD_LOGIC;
-    bram_rst_a      : out STD_LOGIC;
-    bram_we_a       : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    bram_addr_a     : out std_logic_vector ( 31 downto 0 );
+    bram_wrdata_a   : out std_logic_vector ( 31 downto 0 );
+    bram_rddata_a   : in std_logic_vector ( 31 downto 0 );
+    bram_en_a       : out std_logic;
+    bram_rst_a      : out std_logic;
+    bram_we_a       : out std_logic_vector ( 3 downto 0 );
     
-    bram_addr_b     : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    bram_wrdata_b   : out STD_LOGIC_VECTOR ( 31 downto 0 );
-    bram_rddata_b   : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    bram_en_b       : out STD_LOGIC;
-    bram_rst_b      : out STD_LOGIC;
-    bram_we_b       : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    bram_addr_b     : out std_logic_vector ( 31 downto 0 );
+    bram_wrdata_b   : out std_logic_vector ( 31 downto 0 );
+    bram_rddata_b   : in std_logic_vector ( 31 downto 0 );
+    bram_en_b       : out std_logic;
+    bram_rst_b      : out std_logic;
+    bram_we_b       : out std_logic_vector ( 3 downto 0 );
 
---    -- BCRYPT CRACKER INTERFACE
---    -- (FOR PASSWORD)
---    cracker_addra   : in STD_LOGIC_VECTOR ( 31 downto 0 );
---    cracker_douta   : out STD_LOGIC_VECTOR ( 31 downto 0 );
---    cracker_addrb   : in STD_LOGIC_VECTOR ( 31 downto 0 );
---    cracker_doutb   : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    -- BCRYPT CRACKER INTERFACE
+    -- (FOR PASSWORD)
+    cracker_addra   : in std_logic_vector ( 31 downto 0 );
+    cracker_douta   : out std_logic_vector ( 31 downto 0 );
+    cracker_addrb   : in std_logic_vector ( 31 downto 0 );
+    cracker_doutb   : out std_logic_vector ( 31 downto 0 );
+    -- (FOR ATTACK)
+    cracker_hash    : out std_logic_vector(HASH_LENGTH-1 downto 0);
+    cracker_salt    : out std_logic_vector(SALT_LENGTH-1 downto 0);
     -- (CTRL)
-    cracker_start   : out STD_LOGIC;
-    cracker_cycle   : in STD_LOGIC
+    cracker_start   : out std_logic;
+    cracker_cycle   : in std_logic;
+    -- (PASSWORD FOUND)
+    done    : in std_logic;
+    success : in std_logic;
+    dout_we : in std_logic;
+    dout    : in std_logic_vector (31 downto 0)
 
   );
 end cracker_regs;
 
 architecture Behavioral of cracker_regs is
-	-- START ATTACK REGISTER ADRESS
-	constant START_REG_ADDR : STD_LOGIC_VECTOR(15 downto 0) := std_logic_vector(to_unsigned(10368, axi_ctrl_addra'length));  -- Address just after passwords
-	-- START ATTACK REGISTER
-    signal start_attack : STD_LOGIC := '0';  -- '0' for AXI BRAM controller, '1' for bcrypt cracker
-	signal start_read_reg : std_logic_vector(31 downto 0) := (others => '0');
+	-- REGISTER ADRESSES
+	constant PASSWORD_REG_ADDR : integer := 0;  -- PASSWORDS START ADDRESS
+	constant HASH_REG_ADDR : integer := 10368;  -- HASH ADDRESS
+	constant SALT_REG_ADDR : integer := 10391;  -- SALT ADDRESS
+	constant START_ATTACK_REG_ADDR : integer := 10407;  -- START ATTACK REGISTER ADDRESS
+	constant CRACKER_STATE_REG_ADDR : integer := 10411;  -- CRACKER STATE REGISTER ADDRESS
+	constant FOUND_PASSWORD_REG_ADDR : integer := 10415;  -- FOUND PASSWORD REGISTER ADDRESS
+	-- REGISTERS
+	signal hash_reg : std_logic_vector(HASH_LENGTH-1 downto 0);
+	signal salt_reg : std_logic_vector(SALT_LENGTH-1 downto 0);
+    signal start_attack_reg : std_logic := '0';  -- '0' for AXI BRAM controller, '1' for bcrypt cracker
+	signal start_attack_reg_word : std_logic_vector(31 downto 0) := (others => '0'); -- Same register but in 32 bits format
+	signal cracker_state_reg	 : std_logic_vector(31 downto 0) := (others => '0'); -- BIT 0 : PWD_FOUND, BIT 1 : DONE, BIT 2 - 31 : NOT USED
+	
+	-- AXI ADDRESSES IN INTEGER
+	signal axi_addr_a_int : integer;
+	signal axi_addr_b_int : integer;
 begin
+    
+    -- Get AXI addresses in integer
+    axi_addr_a_int <= to_integer(unsigned(axi_ctrl_addra));
+    axi_addr_b_int <= to_integer(unsigned(axi_ctrl_addrb));
 
     -- Control Logic: Determines who has access to the BRAM
     process(clk)
     begin
     if rst = '0' then
-        start_attack <= '0';  -- Reset to AXI BRAM controller access
+        start_attack_reg <= '0';  -- Reset to AXI BRAM controller access
     elsif rising_edge(clk) then
-		-- If start register is written (implies AXI controller initiates the cracker)
-		if (axi_ctrl_wea and "0001") = "0001" and axi_ctrl_addra = START_REG_ADDR then
-			start_attack <= '1';  -- Give control to bcrypt cracker
-		elsif (axi_ctrl_web and "0001") = "0001" and axi_ctrl_addrb = START_REG_ADDR then
-			start_attack <= '1';  -- Give control to bcrypt cracker
-		end if;
+        -- If writing in Port A from AXI
+        if axi_ctrl_ena = '1' and axi_ctrl_wea /= "0000" then
+            for i in 0 to 3 loop
+                if axi_ctrl_wea(i) = '1' then
+                    case axi_addr_a_int is
+                        -- ADDRESS RANGE FOR PASSWORDS
+                        when PASSWORD_REG_ADDR to HASH_REG_ADDR-1 =>
+                            -- DO NOTHING
+                        
+                        -- ADDRESS RANGE FOR HASH
+                        when HASH_REG_ADDR to SALT_REG_ADDR-1 =>
+                            hash_reg(8*(axi_addr_a_int-HASH_REG_ADDR+1) downto 8*(axi_addr_a_int-HASH_REG_ADDR)) <= axi_ctrl_dina(8*(i+1)-1 downto 8*i);
+                        
+                        -- ADDRESS RANGE FOR SALT
+                        when SALT_REG_ADDR to START_ATTACK_REG_ADDR-1 =>
+                            salt_reg(8*(axi_addr_a_int-SALT_REG_ADDR+1) downto 8*(axi_addr_a_int-SALT_REG_ADDR)) <= axi_ctrl_dina(8*(i+1)-1 downto 8*i);
+                        
+                        -- ADDRESS FOR START ATTACK
+                        when START_ATTACK_REG_ADDR =>
+                            start_attack_reg <= '1';  -- Give URAM control to bcrypt cracker
+                    end case;
+                end if;
+            end loop;
+        end if;
+        
+        -- If writing in Port B from AXI
+        if axi_ctrl_enb = '1' and axi_ctrl_web /= "0000" then
+            for i in 0 to 3 loop
+                if axi_ctrl_web(i) = '1' then
+                    case axi_addr_b_int is
+                        -- ADDRESS RANGE FOR PASSWORDS
+                        when PASSWORD_REG_ADDR to HASH_REG_ADDR-1 =>
+                            -- DO NOTHING
+                        
+                        -- ADDRESS RANGE FOR HASH
+                        when HASH_REG_ADDR to SALT_REG_ADDR-1 =>
+                            hash_reg(8*(axi_addr_b_int-HASH_REG_ADDR+1) downto 8*(axi_addr_b_int-HASH_REG_ADDR)) <= axi_ctrl_dinb(8*(i+1)-1 downto 8*i);
+                        
+                        -- ADDRESS RANGE FOR SALT
+                        when SALT_REG_ADDR to START_ATTACK_REG_ADDR-1 =>
+                            salt_reg(8*(axi_addr_b_int-SALT_REG_ADDR+1) downto 8*(axi_addr_b_int-SALT_REG_ADDR)) <= axi_ctrl_dinb(8*(i+1)-1 downto 8*i);
+                        
+                        -- ADDRESS FOR START ATTACK
+                        when START_ATTACK_REG_ADDR =>
+                            start_attack_reg <= '1';  -- Give URAM control to bcrypt cracker
+                    end case;
+                end if;
+            end loop;
+        end if;
 				
 		-- If bcrypt cracker completes its operation
 		if cracker_cycle = '1' then
-			start_attack <= '0';  -- Return control to AXI BRAM controller
+			start_attack_reg <= '0';  -- Return control to AXI BRAM controller
 		end if;
     end if;
     end process;
 
 	-- Read register when cracker initiated
-	start_read_reg(31 downto 1) <= (others => '0');
-	start_read_reg(0) <= start_attack;
+	start_attack_reg_word(31 downto 1) <= (others => '0');
+	start_attack_reg_word(0) <= start_attack_reg;
 
-	-- Output attack
-	cracker_start <= start_attack;
-    
+	-- Output for bcrypt cracker attack
+    cracker_hash <= hash_reg;
+    cracker_salt <= salt_reg;
+	cracker_start <= start_attack_reg;
+	
+	
     -- MUX for BRAM port A
-    --bram_addr_a <= axi_ctrl_addra when start_attack = '0' else cracker_addra;
-    bram_addr_a <= "0000000000000000" & axi_ctrl_addra when start_attack = '0' else x"00000000";
-    bram_wrdata_a <= axi_ctrl_dina when start_attack = '0' and axi_ctrl_addra /= START_REG_ADDR else (others => '0');
-    axi_ctrl_douta <= bram_rddata_a when start_attack = '0' else start_read_reg;
-    --cracker_douta <= bram_rddata_a when start_attack = '1' else (others => '0');
-    bram_en_a <= axi_ctrl_ena when start_attack = '0' else '1';
-    bram_rst_a <= axi_ctrl_rsta when start_attack = '0' else rst;
-    bram_we_a <= axi_ctrl_wea when start_attack = '0' else (others => '0');
+    bram_addr_a <= "0000000000000000" & axi_ctrl_addra when start_attack_reg = '0' else cracker_addra;
+    bram_wrdata_a <= axi_ctrl_dina when start_attack_reg = '0' else (others => '0');
+    axi_ctrl_douta <= bram_rddata_a when start_attack_reg = '0' else start_attack_reg_word;
+    cracker_douta <= bram_rddata_a when start_attack_reg = '1' else (others => '0');
+    bram_en_a <= axi_ctrl_ena when start_attack_reg = '0' else '1';
+    bram_rst_a <= axi_ctrl_rsta when start_attack_reg = '0' else rst;
+    bram_we_a <= axi_ctrl_wea when start_attack_reg = '0' else (others => '0');
     
     -- MUX for BRAM port B
-    --bram_addr_b <= axi_ctrl_addrb when start_attack = '0' else cracker_addrb;
-    bram_addr_b <= "0000000000000000" & axi_ctrl_addrb when start_attack = '0' else x"00000000";
-    bram_wrdata_b <= axi_ctrl_dinb when start_attack = '0' and axi_ctrl_addrb /= START_REG_ADDR else (others => '0');
-    axi_ctrl_doutb <= bram_rddata_b when start_attack = '0' else start_read_reg;
-    --cracker_doutb <= bram_rddata_b when start_attack = '1' else (others => '0');
-    bram_en_b <= axi_ctrl_enb when start_attack = '0' else '1';
-    bram_rst_b <= axi_ctrl_rstb when start_attack = '0' else rst;
-    bram_we_b <= axi_ctrl_web when start_attack = '0' else (others => '0');
+    bram_addr_b <= "0000000000000000" & axi_ctrl_addrb when start_attack_reg = '0' else cracker_addrb;
+    bram_wrdata_b <= axi_ctrl_dinb when start_attack_reg = '0' else (others => '0');
+    axi_ctrl_doutb <= bram_rddata_b when start_attack_reg = '0' else start_attack_reg_word;
+    cracker_doutb <= bram_rddata_b when start_attack_reg = '1' else (others => '0');
+    bram_en_b <= axi_ctrl_enb when start_attack_reg = '0' else '1';
+    bram_rst_b <= axi_ctrl_rstb when start_attack_reg = '0' else rst;
+    bram_we_b <= axi_ctrl_web when start_attack_reg = '0' else (others => '0');
 
 end Behavioral;

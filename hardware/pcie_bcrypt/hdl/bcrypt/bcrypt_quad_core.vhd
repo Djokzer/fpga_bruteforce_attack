@@ -43,10 +43,13 @@ entity bcrypt_quad_core is
         rst     : in  std_logic;
         
         -- ATTACK PARAMETERS
-        t_salt  : in  std_logic_vector (SALT_LENGTH-1 downto 0);
-        t_hash  : in  std_logic_vector (HASH_LENGTH-1 downto 0);
+        t_salt          : in  std_logic_vector (SALT_LENGTH-1 downto 0);
+        t_hash          : in  std_logic_vector (HASH_LENGTH-1 downto 0);
+        ready           : out std_logic;
+        start_attack    : in std_logic;
 
         -- PASSWORD TRANSFER
+        pwd_request: out std_logic;
         pwd_data_a : in std_logic_vector (31 downto 0);
         pwd_data_b : in std_logic_vector (31 downto 0);
         pwd_addr   : in std_logic_vector (4 downto 0);
@@ -366,7 +369,7 @@ begin
 
     -- FSM: control logic
     fsm_ctrl : process (
-			current_state, pwd_done, snd_iteration, finished, bcrypt_core_key_done, pwd_addr_cnt_dout, cracks_cnt_dout, success_int
+			current_state, pwd_done, snd_iteration, finished, bcrypt_core_key_done, pwd_addr_cnt_dout, cracks_cnt_dout, success_int, start_attack
 		)
     begin
         -- default values
@@ -377,6 +380,8 @@ begin
         -- Added
         bcrypt_core_success_rst <= '0';
         hashcnt_sr <= '0';
+        ready <= '0';
+        pwd_request <= '0';
 
         mem_access_pwd_gen  <= '0';
         mem_access_cores01  <= '0';
@@ -412,6 +417,7 @@ begin
 
 			-- wait for password generator to generate 4 passwords (two iterations)
             when INIT =>
+                pwd_request <= '1';
                 mem_access_pwd_gen <= '1';
 
                 if pwd_done = '1' then
@@ -477,7 +483,12 @@ begin
                 bcrypt_core_success_rst <= '1';
                 hashcnt_sr <= '1';
 
-				next_state <= INIT;
+                ready <= '1';
+
+                -- wait for the other quadcores
+                if start_attack = '1' then
+                    next_state <= INIT;
+                end if;
 
 			-- output password
 			when OUTPUT_PASSWORD =>
