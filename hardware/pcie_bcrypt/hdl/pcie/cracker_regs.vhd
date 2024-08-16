@@ -27,70 +27,78 @@ library work;
 use work.pkg_bcrypt.all;
 
 entity cracker_regs is
-  port (
-    -- General
-    clk              : std_logic;
-    rst              : std_logic;
+	generic (
+		NUMBER_OF_QUADCORES     : positive := 1);
+	port (
+		-- General
+		clk              : std_logic;
+		rst              : std_logic;
 
-    -- AXI BRAM CONTROLLER INTERFACE
-    axi_ctrl_addra   : in std_logic_vector ( 15 downto 0 );
-    axi_ctrl_dina    : in std_logic_vector ( 31 downto 0 );
-    axi_ctrl_douta   : out std_logic_vector ( 31 downto 0 );
-    axi_ctrl_ena     : in std_logic;
-    axi_ctrl_rsta    : in std_logic;
-    axi_ctrl_wea     : in std_logic_vector ( 3 downto 0 );
+		-- AXI BRAM CONTROLLER INTERFACE
+		axi_ctrl_addra   : in std_logic_vector ( 15 downto 0 );
+		axi_ctrl_dina    : in std_logic_vector ( 31 downto 0 );
+		axi_ctrl_douta   : out std_logic_vector ( 31 downto 0 );
+		axi_ctrl_ena     : in std_logic;
+		axi_ctrl_rsta    : in std_logic;
+		axi_ctrl_wea     : in std_logic_vector ( 3 downto 0 );
 
-    axi_ctrl_addrb   : in std_logic_vector ( 15 downto 0 );
-    axi_ctrl_doutb   : out std_logic_vector ( 31 downto 0 );
-    axi_ctrl_dinb    : in std_logic_vector ( 31 downto 0 );
-    axi_ctrl_enb     : in std_logic;
-    axi_ctrl_rstb    : in std_logic;
-    axi_ctrl_web     : in std_logic_vector ( 3 downto 0 );
+		axi_ctrl_addrb   : in std_logic_vector ( 15 downto 0 );
+		axi_ctrl_doutb   : out std_logic_vector ( 31 downto 0 );
+		axi_ctrl_dinb    : in std_logic_vector ( 31 downto 0 );
+		axi_ctrl_enb     : in std_logic;
+		axi_ctrl_rstb    : in std_logic;
+		axi_ctrl_web     : in std_logic_vector ( 3 downto 0 );
 
-    -- BRAM INTERFACE
-    bram_addr_a     : out std_logic_vector ( 31 downto 0 );
-    bram_wrdata_a   : out std_logic_vector ( 31 downto 0 );
-    bram_rddata_a   : in std_logic_vector ( 31 downto 0 );
-    bram_en_a       : out std_logic;
-    bram_rst_a      : out std_logic;
-    bram_we_a       : out std_logic_vector ( 3 downto 0 );
-    
-    bram_addr_b     : out std_logic_vector ( 31 downto 0 );
-    bram_wrdata_b   : out std_logic_vector ( 31 downto 0 );
-    bram_rddata_b   : in std_logic_vector ( 31 downto 0 );
-    bram_en_b       : out std_logic;
-    bram_rst_b      : out std_logic;
-    bram_we_b       : out std_logic_vector ( 3 downto 0 );
+		-- BRAM INTERFACE
+		bram_addr_a     : out std_logic_vector ( 31 downto 0 );
+		bram_wrdata_a   : out std_logic_vector ( 31 downto 0 );
+		bram_rddata_a   : in std_logic_vector ( 31 downto 0 );
+		bram_en_a       : out std_logic;
+		bram_rst_a      : out std_logic;
+		bram_we_a       : out std_logic_vector ( 3 downto 0 );
 
-    -- BCRYPT CRACKER INTERFACE
-    -- (FOR PASSWORD)
-    cracker_addra   : in std_logic_vector ( 31 downto 0 );
-    cracker_douta   : out std_logic_vector ( 31 downto 0 );
-    cracker_addrb   : in std_logic_vector ( 31 downto 0 );
-    cracker_doutb   : out std_logic_vector ( 31 downto 0 );
-    -- (FOR ATTACK)
-    cracker_hash    : out std_logic_vector(HASH_LENGTH-1 downto 0);
-    cracker_salt    : out std_logic_vector(SALT_LENGTH-1 downto 0);
-    -- (CTRL)
-    cracker_start   : out std_logic;
-    cracker_cycle   : in std_logic;
-    -- (PASSWORD FOUND)
-    done    : in std_logic;
-    success : in std_logic;
-    dout_we : in std_logic;
-    dout    : in std_logic_vector (31 downto 0)
+		bram_addr_b     : out std_logic_vector ( 31 downto 0 );
+		bram_wrdata_b   : out std_logic_vector ( 31 downto 0 );
+		bram_rddata_b   : in std_logic_vector ( 31 downto 0 );
+		bram_en_b       : out std_logic;
+		bram_rst_b      : out std_logic;
+		bram_we_b       : out std_logic_vector ( 3 downto 0 );
 
-  );
+		-- BCRYPT CRACKER INTERFACE
+		-- (FOR PASSWORD)
+		cracker_addra   : in std_logic_vector ( 31 downto 0 );
+		cracker_douta   : out std_logic_vector ( 31 downto 0 );
+		cracker_addrb   : in std_logic_vector ( 31 downto 0 );
+		cracker_doutb   : out std_logic_vector ( 31 downto 0 );
+		-- (FOR ATTACK)
+		cracker_hash    : out std_logic_vector(HASH_LENGTH-1 downto 0);
+		cracker_salt    : out std_logic_vector(SALT_LENGTH-1 downto 0);
+		-- (CTRL)
+		cracker_start   : out std_logic;
+		cracker_cycle   : in std_logic
+		-- (PASSWORD FOUND)
+		-- done    		: in std_logic;
+		-- success 		: in std_logic;
+		-- dout_we 		: in std_logic;
+		-- dout    		: in std_logic_vector (31 downto 0)
+	);
 end cracker_regs;
 
 architecture Behavioral of cracker_regs is
+	-- ATTACK SPECIFIC
+	constant PASSWORD_COUNT : integer := NUMBER_OF_QUADCORES * 4 * PWD_LENGTH;
+	constant HASH_BYTE_LENGTH : integer := 24; -- IT SHOULD BE 23, BUT PUT 24 TO ALIGN WITH 32 BITS TRANSFERT
+	constant HASH_BYTE_REAL_LENGTH : integer := 23; -- IT SHOULD BE 23, BUT PUT 24 TO ALIGN WITH 32 BITS TRANSFERT
+	constant SALT_BYTE_LENGTH : integer := 16;
+
 	-- REGISTER ADRESSES
-	constant PASSWORD_REG_ADDR : integer := 0;  -- PASSWORDS START ADDRESS
-	constant HASH_REG_ADDR : integer := 10368;  -- HASH ADDRESS
-	constant SALT_REG_ADDR : integer := 10391;  -- SALT ADDRESS
-	constant START_ATTACK_REG_ADDR : integer := 10407;  -- START ATTACK REGISTER ADDRESS
-	constant CRACKER_STATE_REG_ADDR : integer := 10411;  -- CRACKER STATE REGISTER ADDRESS
-	constant FOUND_PASSWORD_REG_ADDR : integer := 10415;  -- FOUND PASSWORD REGISTER ADDRESS
+	constant PASSWORD_REG_ADDR : integer := 0;  									-- PASSWORDS START ADDRESS
+	constant HASH_REG_ADDR : integer := PASSWORD_COUNT;  							-- HASH ADDRESS
+	constant HASH_END_REG_ADDR : integer := HASH_REG_ADDR + HASH_BYTE_REAL_LENGTH;  -- HASH END ADDRESS
+	constant SALT_REG_ADDR : integer := HASH_REG_ADDR + HASH_BYTE_LENGTH;  			-- SALT ADDRESS
+	constant START_ATTACK_REG_ADDR : integer := SALT_REG_ADDR + SALT_BYTE_LENGTH;  	-- START ATTACK REGISTER ADDRESS
+	constant CRACKER_STATE_REG_ADDR : integer := START_ATTACK_REG_ADDR + 4;  		-- CRACKER STATE REGISTER ADDRESS
+	constant FOUND_PASSWORD_REG_ADDR : integer := CRACKER_STATE_REG_ADDR + 4;  		-- FOUND PASSWORD REGISTER ADDRESS
 	-- REGISTERS
 	signal hash_reg : std_logic_vector(HASH_LENGTH-1 downto 0);
 	signal salt_reg : std_logic_vector(SALT_LENGTH-1 downto 0);
@@ -101,6 +109,10 @@ architecture Behavioral of cracker_regs is
 	-- AXI ADDRESSES IN INTEGER
 	signal axi_addr_a_int : integer;
 	signal axi_addr_b_int : integer;
+
+	-- FOUND PASSWORD SIGNAL
+	signal pwd_found : std_logic := '0';
+	signal pwd_stored : std_logic := '0';
 begin
     
     -- Get AXI addresses in integer
@@ -123,16 +135,19 @@ begin
                             -- DO NOTHING
                         
                         -- ADDRESS RANGE FOR HASH
-                        when HASH_REG_ADDR to SALT_REG_ADDR-1 =>
-                            hash_reg(8*(axi_addr_a_int-HASH_REG_ADDR+1) downto 8*(axi_addr_a_int-HASH_REG_ADDR)) <= axi_ctrl_dina(8*(i+1)-1 downto 8*i);
+                        when HASH_REG_ADDR to HASH_END_REG_ADDR-1 =>
+                            hash_reg(8*(axi_addr_a_int-HASH_REG_ADDR+1)-1 downto 8*(axi_addr_a_int-HASH_REG_ADDR)) <= axi_ctrl_dina(8*(i+1)-1 downto 8*i);
                         
                         -- ADDRESS RANGE FOR SALT
                         when SALT_REG_ADDR to START_ATTACK_REG_ADDR-1 =>
-                            salt_reg(8*(axi_addr_a_int-SALT_REG_ADDR+1) downto 8*(axi_addr_a_int-SALT_REG_ADDR)) <= axi_ctrl_dina(8*(i+1)-1 downto 8*i);
+                            salt_reg(8*(axi_addr_a_int-SALT_REG_ADDR+1)-1 downto 8*(axi_addr_a_int-SALT_REG_ADDR)) <= axi_ctrl_dina(8*(i+1)-1 downto 8*i);
                         
                         -- ADDRESS FOR START ATTACK
                         when START_ATTACK_REG_ADDR =>
                             start_attack_reg <= '1';  -- Give URAM control to bcrypt cracker
+
+						when others =>
+							-- DO NOTHING
                     end case;
                 end if;
             end loop;
@@ -148,16 +163,19 @@ begin
                             -- DO NOTHING
                         
                         -- ADDRESS RANGE FOR HASH
-                        when HASH_REG_ADDR to SALT_REG_ADDR-1 =>
-                            hash_reg(8*(axi_addr_b_int-HASH_REG_ADDR+1) downto 8*(axi_addr_b_int-HASH_REG_ADDR)) <= axi_ctrl_dinb(8*(i+1)-1 downto 8*i);
+                        when HASH_REG_ADDR to HASH_END_REG_ADDR-1 =>
+                            hash_reg(8*(axi_addr_b_int-HASH_REG_ADDR+1)-1 downto 8*(axi_addr_b_int-HASH_REG_ADDR)) <= axi_ctrl_dinb(8*(i+1)-1 downto 8*i);
                         
                         -- ADDRESS RANGE FOR SALT
                         when SALT_REG_ADDR to START_ATTACK_REG_ADDR-1 =>
-                            salt_reg(8*(axi_addr_b_int-SALT_REG_ADDR+1) downto 8*(axi_addr_b_int-SALT_REG_ADDR)) <= axi_ctrl_dinb(8*(i+1)-1 downto 8*i);
+                            salt_reg(8*(axi_addr_b_int-SALT_REG_ADDR+1)-1 downto 8*(axi_addr_b_int-SALT_REG_ADDR)) <= axi_ctrl_dinb(8*(i+1)-1 downto 8*i);
                         
                         -- ADDRESS FOR START ATTACK
                         when START_ATTACK_REG_ADDR =>
                             start_attack_reg <= '1';  -- Give URAM control to bcrypt cracker
+
+						when others =>
+							-- DO NOTHING
                     end case;
                 end if;
             end loop;

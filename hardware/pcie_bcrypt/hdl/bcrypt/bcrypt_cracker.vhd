@@ -377,7 +377,7 @@ begin
     -- Password distribution logic
     pwd_distribution : process(clk)
     begin
-        if rst = '1' then
+        if rst = '0' then
 			-- COUNTER RESET
 			quadcore_counter <= 0;
 			pwd_counter		 <= 0;
