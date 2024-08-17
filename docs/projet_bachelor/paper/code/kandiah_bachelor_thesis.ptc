@@ -13,58 +13,56 @@
 \contentsline {chapter}{Introduction}{1}{chapter*.9}%
 \contentsline {chapter}{\numberline {1}Chapitre 0 : Base Technique}{3}{chapter.1}%
 \contentsline {section}{\numberline {1.1}FPGA}{3}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Fonction de hachage}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.2}Fonction de hachage}{5}{section.1.2}%
 \contentsline {subsection}{\numberline {a}Salt}{5}{subsection.1.2.1}%
 \contentsline {subsection}{\numberline {b}Attaque par bruteforce}{6}{subsection.1.2.2}%
 \contentsline {chapter}{\numberline {2}Chapitre 1 : Analyse}{7}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Description du projet}{7}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Méthodes de communication}{7}{section.2.2}%
-\contentsline {subsection}{\numberline {a}UART}{7}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {b}PCIe}{7}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {c}Ethernet}{7}{subsection.2.2.3}%
-\contentsline {section}{\numberline {2.3}Bcrypt}{7}{section.2.3}%
-\contentsline {subsection}{\numberline {a}Algorithme}{7}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {b}Format du Hash}{9}{subsection.2.3.2}%
-\contentsline {section}{\numberline {2.4}Projet de semestre}{10}{section.2.4}%
-\contentsline {chapter}{\numberline {3}Chapitre 2 : Bcrypt}{11}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Bcrypt sur FPGA}{11}{section.3.1}%
-\contentsline {subsection}{\numberline {a}Bcrypt Core}{11}{subsection.3.1.1}%
-\contentsline {subsection}{\numberline {b}Password Generator}{16}{subsection.3.1.2}%
-\contentsline {subsection}{\numberline {c}Bcrypt Quadcore}{17}{subsection.3.1.3}%
-\contentsline {subsection}{\numberline {d}Bcrypt Cracker}{18}{subsection.3.1.4}%
-\contentsline {chapter}{\numberline {4}Chapitre 3 : Communication PC - FPGA}{20}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Description Solution UART}{20}{section.4.1}%
-\contentsline {subsection}{\numberline {a}Encodage Cobs}{20}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {b}CRC}{20}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {c}Transmission et Réception de Paquet}{20}{subsection.4.1.3}%
-\contentsline {section}{\numberline {4.2}Implémentation Solution UART}{22}{section.4.2}%
-\contentsline {subsection}{\numberline {a}Architecture Logique}{22}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {b}UART}{23}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {c}Modifications Bcrypt Cracker}{23}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {d}Implémentation - MOSI}{23}{subsection.4.2.4}%
-\contentsline {subsubsection}{\numberline {d.1}Module - Packet Receiver}{23}{subsubsection.4.2.4.1}%
-\contentsline {subsubsection}{\numberline {d.2}Module - RX Packet Process}{23}{subsubsection.4.2.4.2}%
-\contentsline {subsubsection}{\numberline {d.3}Module - RX Packet Pipeline}{23}{subsubsection.4.2.4.3}%
-\contentsline {subsection}{\numberline {e}Implémentation - MISO}{23}{subsection.4.2.5}%
-\contentsline {subsubsection}{\numberline {e.1}Module - Packet Transmitter}{23}{subsubsection.4.2.5.1}%
-\contentsline {subsubsection}{\numberline {e.2}Module - TX Packet Pipeline}{23}{subsubsection.4.2.5.2}%
-\contentsline {subsection}{\numberline {f}Tests}{23}{subsection.4.2.6}%
-\contentsline {subsubsection}{\numberline {f.1}Simulations}{23}{subsubsection.4.2.6.1}%
-\contentsline {subsubsection}{\numberline {f.2}Vérification Hardware}{23}{subsubsection.4.2.6.2}%
-\contentsline {section}{\numberline {4.3}Interfacage Solution UART}{23}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Description Solution PCIe}{24}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Implémentation Solution PCIe}{24}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Interfacage Solution PCIe}{24}{section.4.6}%
-\contentsline {chapter}{\numberline {5}Chapitre 4 : Mesures et Performances}{25}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Mesures FPGA}{25}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Mesures CPU}{25}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Mesures GPU}{25}{section.5.3}%
-\contentsline {chapter}{Conclusion}{26}{chapter*.27}%
-\contentsline {chapter}{Annexes}{26}{chapter*.27}%
+\contentsline {section}{\numberline {2.2}Méthodes de communication}{8}{section.2.2}%
+\contentsline {subsection}{\numberline {a}UART}{8}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {b}PCIe}{9}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Bcrypt}{10}{section.2.3}%
+\contentsline {subsection}{\numberline {a}Algorithme}{10}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {b}Format du Hash}{11}{subsection.2.3.2}%
+\contentsline {chapter}{\numberline {3}Chapitre 2 : Bcrypt}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Bcrypt sur FPGA}{13}{section.3.1}%
+\contentsline {subsection}{\numberline {a}Bcrypt Core}{13}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {b}Password Generator}{18}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {c}Bcrypt Quadcore}{19}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {d}Bcrypt Cracker}{20}{subsection.3.1.4}%
+\contentsline {chapter}{\numberline {4}Chapitre 3 : Communication PC - FPGA}{22}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Description Solution UART}{22}{section.4.1}%
+\contentsline {subsection}{\numberline {a}Encodage Cobs}{22}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {b}CRC}{22}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {c}Transmission et Réception de Paquet}{22}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Implémentation Solution UART}{24}{section.4.2}%
+\contentsline {subsection}{\numberline {a}Architecture Logique}{24}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {b}UART}{25}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {c}Modifications Bcrypt Cracker}{25}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {d}Implémentation - MOSI}{25}{subsection.4.2.4}%
+\contentsline {subsubsection}{\numberline {d.1}Module - Packet Receiver}{25}{subsubsection.4.2.4.1}%
+\contentsline {subsubsection}{\numberline {d.2}Module - RX Packet Process}{25}{subsubsection.4.2.4.2}%
+\contentsline {subsubsection}{\numberline {d.3}Module - RX Packet Pipeline}{25}{subsubsection.4.2.4.3}%
+\contentsline {subsection}{\numberline {e}Implémentation - MISO}{25}{subsection.4.2.5}%
+\contentsline {subsubsection}{\numberline {e.1}Module - Packet Transmitter}{25}{subsubsection.4.2.5.1}%
+\contentsline {subsubsection}{\numberline {e.2}Module - TX Packet Pipeline}{25}{subsubsection.4.2.5.2}%
+\contentsline {subsection}{\numberline {f}Tests}{25}{subsection.4.2.6}%
+\contentsline {subsubsection}{\numberline {f.1}Simulations}{25}{subsubsection.4.2.6.1}%
+\contentsline {subsubsection}{\numberline {f.2}Vérification Hardware}{25}{subsubsection.4.2.6.2}%
+\contentsline {section}{\numberline {4.3}Interfacage Solution UART}{25}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Description Solution PCIe}{26}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Implémentation Solution PCIe}{26}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Interfacage Solution PCIe}{26}{section.4.6}%
+\contentsline {chapter}{\numberline {5}Chapitre 4 : Mesures et Performances}{27}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Mesures FPGA}{27}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Mesures CPU}{27}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Mesures GPU}{27}{section.5.3}%
+\contentsline {chapter}{Conclusion}{28}{chapter*.31}%
+\contentsline {chapter}{Annexes}{28}{chapter*.31}%
 \ttl@stoptoc {default@1}
 \ttl@starttoc {annexes@1}
-\contentsline {chapter}{Annexe 1}{28}{chapter*.29}%
+\contentsline {chapter}{Annexe 1}{30}{chapter*.33}%
 \ttl@stoptoc {annexes@1}
 \ttl@starttoc {default@1}
-\contentsline {chapter}{Références documentaires}{29}{chapter*.30}%
+\contentsline {chapter}{Références documentaires}{31}{chapter*.34}%
 \contentsfinish 

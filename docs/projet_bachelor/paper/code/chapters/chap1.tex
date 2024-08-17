@@ -2,13 +2,70 @@
 \chapter{Chapitre 1 : Analyse}
 
 \section{Description du projet}
-Votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte.
+L'objectif principal de ce projet est d'exploiter le parallélisme offert par les \gls{fpga}, afin de calculer les fonctions de hachage nécessitant beaucoup de temps de calculs. 
+Le but étant d'avoir au final un système plus efficient que les solutions actuelles sur \gls{gpu} et de la rendre la plus scalable possible.
+Il est aussi nécessaire d'avoir une certaine communication entre le \gls{pc} de l'attaquant et le \gls{fpga}, afin que l'attaquant puisse fournir les informations nécessaires au cassage du mot de passe.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{objectif}
+	\caption[Diagramme général]{Diagramme général. Source : réalisé par Kandiah Abivarman}
+	\label{fig:objectif}
+\end{figure}
+
+L'idéal serait d'avoir deux solutions, une première qui consiste à simplifier le système en générant directement les mots de passe dans le \gls{fpga} à l'aide de système de compteur.
+Puis la deuxième solution, serait de générer les mots de passe sur le \gls{pc} et d'ensuite les transférer au \gls{fpga} pour qu'il puisse faire les calculs.
+La première solution sera plus simple à mettre en place, car ne nécessite pas de communication rapide entre le \gls{pc} et le \gls{fpga}
+et la deuxième solution sera plus complexe à mettre en place, mais nous apportera une plus grande flexibilité au niveau de la génération de mots de passe, nous permettant notamment une attaque par dictionnaire\footcite{noauthor_attaque_2021}.
 
 \section{Méthodes de communication}
-Votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte.
+
+Pour la communication entre le \gls{pc} et la carte \gls{fpga}, j'ai pu identifier trois méthodes :
+\begin{enumerate}
+	\item L'\gls{uart} qui est la méthode la plus simple à mettre en place
+	\item Le \gls{pcie} qui est la méthode de communication la plus rapide
+	\item Le Ethernet qui est la méthode la plus scalable.
+\end{enumerate}
+
+Dans ce projet, j'ai décidé de travailler avec l'\gls{uart} et le \gls{pcie}. 
+Toutefois, même si je n'ai pas utilisé l'Ethernet durant ce projet, cette méthode reste intéressante pour une solution nécessitant un grand nombre de \gls{fpga}.
+
 \subsection{UART}
+
+L'\gls{uart} est une méthode de communication avec laquelle je suis déjà familier. Il est assez simple de le mettre en place côté \gls{pc}, notamment en Python.
+Pour ce qui est de l'\gls{uart} côté \gls{fpga}, j'ai déjà en ma possession du code \gls{vhdl} qui nous a été donné durant nos cours qui me permet aisément d'en faire.
+Cette méthode est idéale pour le premier système dont la génération des mots de passe est faite directement dans le \gls{fpga}.
+En effet, la communication servira seulement à configurer le système au début de l'attaque puis recevoir le résultat lorsque le bon mot de passe a été trouvé.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.8\linewidth]{general_uart}
+	\caption[Diagramme général avec UART]{Diagramme général avec UART. Source : réalisé par Kandiah Abivarman}
+	\label{fig:general_uart}
+\end{figure}
+
+Toutefois, afin d'avoir une communication robuste, il est nécessaire de mettre en place un système de paquet.
+Le système de paquet devrait avoir un moyen de synchronisation et une vérification d'erreurs.
+
+
 \subsection{PCIe}
-\subsection{Ethernet}
+
+Le \gls{pcie} est une méthode qui permet de transférer beaucoup de données à très haute vitesse.
+Cette méthode de communication va être utilisé pour le deuxième système, celui-ci va nous permettre de transmettre les mots de passe depuis le \gls{pc} au \gls{fpga}.
+En effet, il nous faut une communication rapide, car il faudrait pas que la communication soit le goulot d'étranglement de notre système.
+
+Pour ce faire, du côté de l'\gls{fpga} il y a un bloc \gls{ip} qui est fourni qui permet d'interfacer avec le \gls{pcie}.
+La difficulté provient majoritairement du \gls{pc}, car il va falloir mettre en place le driver \gls{pcie} nous-même.
+Evidemment, il n'y a pas besoin de partir de zéro non plus, on peut retrouver des exemples de driver linux \gls{pcie} sur internet.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.8\linewidth]{general_pcie}
+	\caption[Diagramme général avec PCIe]{Diagramme général avec PCIe. Source : réalisé par Kandiah Abivarman}
+	\label{fig:general_pcie}
+\end{figure}
+
+\newpage
 
 \section{Bcrypt}
 
@@ -59,6 +116,3 @@ Le salt et le hash sont en base 64, mais il faut faire attention, car c'est une 
 	\caption[Différence Base 64]{Différence Base 64. Source : réalisé par Kandiah Abivarman}
 	\label{fig:base_64}
 \end{figure}
-
-\section{Projet de semestre}
-Votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte.
