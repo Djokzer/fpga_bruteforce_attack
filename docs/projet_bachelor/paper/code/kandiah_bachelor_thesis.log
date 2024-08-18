@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.20)  17 AUG 2024 16:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.20)  18 AUG 2024 19:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1468,12 +1468,12 @@ Package hyperref Info: Link coloring OFF on input line 50.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<template/images/title/hepia_logo.jpg, id=233, 456.70625pt x 119.44624pt>
+<template/images/title/hepia_logo.jpg, id=241, 456.70625pt x 119.44624pt>
 File: template/images/title/hepia_logo.jpg Graphic file (type jpg)
 <use template/images/title/hepia_logo.jpg>
 Package pdftex.def Info: template/images/title/hepia_logo.jpg  used on input line 15.
 (pdftex.def)             Requested size: 140.33702pt x 36.70386pt.
-<template/images/title/hes-so_geneve_logo.png, id=234, 492.33937pt x 141.52875pt>
+<template/images/title/hes-so_geneve_logo.png, id=242, 492.33937pt x 141.52875pt>
 File: template/images/title/hes-so_geneve_logo.png Graphic file (type png)
 <use template/images/title/hes-so_geneve_logo.png>
 Package pdftex.def Info: template/images/title/hes-so_geneve_logo.png  used on input line 18.
@@ -1482,7 +1482,7 @@ LaTeX Font Info:    Trying to load font information for T1+phv on input line 22.
  (C:\Users\abiva\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 )
-<figures/fpga_cluster.jpg, id=236, 873.2625pt x 655.44875pt>
+<figures/fpga_cluster.jpg, id=244, 873.2625pt x 655.44875pt>
 File: figures/fpga_cluster.jpg Graphic file (type jpg)
 <use figures/fpga_cluster.jpg>
 Package pdftex.def Info: figures/fpga_cluster.jpg  used on input line 32.
@@ -1567,7 +1567,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 ]
 
 pdfTeX warning: pdflatex (file ./figures/enonce.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figures/enonce.pdf, id=382, 597.55246pt x 845.07718pt>
+<figures/enonce.pdf, id=394, 597.55246pt x 845.07718pt>
 File: figures/enonce.pdf Graphic file (type pdf)
 <use figures/enonce.pdf>
 Package pdftex.def Info: figures/enonce.pdf  used on input line 81.
@@ -1585,7 +1585,7 @@ pdfTeX warning: pdflatex (file ./figures/enonce.pdf): PDF inclusion: found PDF v
 
 
 pdfTeX warning: pdflatex (file ./figures/enonce.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figures/enonce.pdf, id=385, page=1, 597.55246pt x 845.07718pt>
+<figures/enonce.pdf, id=397, page=1, 597.55246pt x 845.07718pt>
 File: figures/enonce.pdf Graphic file (type pdf)
 <use figures/enonce.pdf, page 1>
 Package pdftex.def Info: figures/enonce.pdf , page1 used on input line 81.
@@ -1627,10 +1627,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--10
 []\T1/ptm/m/n/12 URL01 []https://towardsdatascience.com/introduction-to-fpga-and-its-architecture-
  []
 
-) [10
+[10
 
 
-] (chapters/tableslist.tex (kandiah_bachelor_thesis.lot)
+]
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
+[]\T1/ptm/m/n/12 URL02 []https://blog.mbedded.ninja/programming/serialization-formats/consistent-
+ []
+
+) [11] (chapters/tableslist.tex (kandiah_bachelor_thesis.lot)
 \tf@lot=\write7
 \openout7 = `kandiah_bachelor_thesis.lot'.
 
@@ -1639,10 +1644,10 @@ Overfull \hbox (17.13472pt too wide) in paragraph at lines 16--17
 []\T1/ptm/m/n/12 URL05 []ce-site.ch/publications/documents/rapports/rapportsdestage/monrapportdestage.pdf[] 
  []
 
-) [11
+) [12
 
 
-] (chapters/annexestoc.tex (kandiah_bachelor_thesis.ptc)) [12
+] (chapters/annexestoc.tex (kandiah_bachelor_thesis.ptc)) [13
 
 
 ] (chapters/intro.tex
@@ -1659,7 +1664,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 
 ]) [2] (chapters/chap0.tex
 Chapitre 1.
-<figures/inside_fpga.png, id=591, 1286.8075pt x 941.5175pt>
+<figures/inside_fpga.png, id=625, 1286.8075pt x 941.5175pt>
 File: figures/inside_fpga.png Graphic file (type png)
 <use figures/inside_fpga.png>
 Package pdftex.def Info: figures/inside_fpga.png  used on input line 13.
@@ -1668,19 +1673,19 @@ Package pdftex.def Info: figures/inside_fpga.png  used on input line 13.
 
 
  <./figures/inside_fpga.png (PNG copy)>] [4]
-<figures/hash_function.png, id=609, 550.6974pt x 268.8444pt>
+<figures/hash_function.png, id=643, 550.6974pt x 268.8444pt>
 File: figures/hash_function.png Graphic file (type png)
 <use figures/hash_function.png>
 Package pdftex.def Info: figures/hash_function.png  used on input line 45.
 (pdftex.def)             Requested size: 318.66948pt x 155.57297pt.
-<figures/hash_salt.png, id=610, 680.7834pt x 326.6604pt>
+<figures/hash_salt.png, id=644, 680.7834pt x 326.6604pt>
 File: figures/hash_salt.png Graphic file (type png)
 <use figures/hash_salt.png>
 Package pdftex.def Info: figures/hash_salt.png  used on input line 57.
 (pdftex.def)             Requested size: 318.66948pt x 152.90236pt.
  [5 <./figures/hash_function.png>]) (chapters/chap1.tex [6 <./figures/hash_salt.png>]
 Chapitre 2.
-<figures/objectif.png, id=625, 405.4347pt x 203.0787pt>
+<figures/objectif.png, id=660, 405.4347pt x 203.0787pt>
 File: figures/objectif.png Graphic file (type png)
 <use figures/objectif.png>
 Package pdftex.def Info: figures/objectif.png  used on input line 11.
@@ -1688,120 +1693,142 @@ Package pdftex.def Info: figures/objectif.png  used on input line 11.
 [7
 
  <./figures/objectif.png>]
-<figures/general_uart.png, id=656, 318.7107pt x 203.0787pt>
+<figures/general_uart.png, id=690, 318.7107pt x 203.0787pt>
 File: figures/general_uart.png Graphic file (type png)
 <use figures/general_uart.png>
 Package pdftex.def Info: figures/general_uart.png  used on input line 42.
 (pdftex.def)             Requested size: 364.19667pt x 232.07608pt.
  [8 <./figures/general_uart.png>]
-<figures/general_pcie.png, id=674, 318.7107pt x 203.0787pt>
+<figures/general_pcie.png, id=708, 318.7107pt x 203.0787pt>
 File: figures/general_pcie.png Graphic file (type png)
 <use figures/general_pcie.png>
 Package pdftex.def Info: figures/general_pcie.png  used on input line 63.
 (pdftex.def)             Requested size: 364.19667pt x 232.07608pt.
  [9 <./figures/general_pcie.png>]
-<figures/bcrypt_algo.png, id=683, 492.1587pt x 289.8027pt>
+<figures/bcrypt_algo.png, id=717, 492.1587pt x 289.8027pt>
 File: figures/bcrypt_algo.png Graphic file (type png)
 <use figures/bcrypt_algo.png>
 Package pdftex.def Info: figures/bcrypt_algo.png  used on input line 92.
 (pdftex.def)             Requested size: 318.66948pt x 187.6443pt.
  [10]
-<figures/bcrypt_hash_format.png, id=691, 362.0727pt x 181.3977pt>
+<figures/bcrypt_hash_format.png, id=725, 362.0727pt x 181.3977pt>
 File: figures/bcrypt_hash_format.png Graphic file (type png)
 <use figures/bcrypt_hash_format.png>
 Package pdftex.def Info: figures/bcrypt_hash_format.png  used on input line 105.
 (pdftex.def)             Requested size: 318.66948pt x 159.65536pt.
-<figures/base_64.png, id=695, 348.3414pt x 188.6247pt>
+<figures/base_64.png, id=729, 348.3414pt x 188.6247pt>
 File: figures/base_64.png Graphic file (type png)
 <use figures/base_64.png>
 Package pdftex.def Info: figures/base_64.png  used on input line 115.
 (pdftex.def)             Requested size: 318.66948pt x 172.56975pt.
-) (chapters/chap2.tex [11 <./figures/bcrypt_algo.png> <./figures/bcrypt_hash_format.png>] [12 <./figures/base_64.png>]
+ [11 <./figures/bcrypt_algo.png> <./figures/bcrypt_hash_format.png>]) (chapters/chap2.tex [12 <./figures/base_64.png>]
 Chapitre 3.
-<figures/bcrypt_architecture.png, id=710, 606.3453pt x 304.2567pt>
+<figures/bcrypt_architecture.png, id=763, 606.3453pt x 304.2567pt>
 File: figures/bcrypt_architecture.png Graphic file (type png)
 <use figures/bcrypt_architecture.png>
-Package pdftex.def Info: figures/bcrypt_architecture.png  used on input line 14.
+Package pdftex.def Info: figures/bcrypt_architecture.png  used on input line 13.
 (pdftex.def)             Requested size: 409.71692pt x 205.58725pt.
 [13
 
  <./figures/bcrypt_architecture.png>]
-<figures/bcrypt_core_interface.png, id=720, 463.2507pt x 246.4407pt>
+<figures/bcrypt_core_interface.png, id=772, 463.2507pt x 246.4407pt>
 File: figures/bcrypt_core_interface.png Graphic file (type png)
 <use figures/bcrypt_core_interface.png>
-Package pdftex.def Info: figures/bcrypt_core_interface.png  used on input line 38.
+Package pdftex.def Info: figures/bcrypt_core_interface.png  used on input line 37.
 (pdftex.def)             Requested size: 409.71692pt x 217.97403pt.
  [14 <./figures/bcrypt_core_interface.png>]
-<figures/bcrypt_core_simplified.png, id=728, 787.743pt x 348.3414pt>
+<figures/bcrypt_core_simplified.png, id=780, 787.743pt x 348.3414pt>
 File: figures/bcrypt_core_simplified.png Graphic file (type png)
 <use figures/bcrypt_core_simplified.png>
-Package pdftex.def Info: figures/bcrypt_core_simplified.png  used on input line 51.
+Package pdftex.def Info: figures/bcrypt_core_simplified.png  used on input line 50.
 (pdftex.def)             Requested size: 409.71692pt x 181.18109pt.
  [15 <./figures/bcrypt_core_simplified.png>]
-<figures/bcrypt_core_simplified_fsm.png, id=735, 336.0555pt x 405.4347pt>
+<figures/bcrypt_core_simplified_fsm.png, id=787, 336.0555pt x 405.4347pt>
 File: figures/bcrypt_core_simplified_fsm.png Graphic file (type png)
 <use figures/bcrypt_core_simplified_fsm.png>
-Package pdftex.def Info: figures/bcrypt_core_simplified_fsm.png  used on input line 68.
+Package pdftex.def Info: figures/bcrypt_core_simplified_fsm.png  used on input line 67.
 (pdftex.def)             Requested size: 318.66948pt x 384.48027pt.
  [16 <./figures/bcrypt_core_simplified_fsm.png>]
-<figures/bcrypt_tb_timing.png, id=741, 766.62099pt x 339.35478pt>
+<figures/bcrypt_tb_timing.png, id=793, 766.62099pt x 339.35478pt>
 File: figures/bcrypt_tb_timing.png Graphic file (type png)
 <use figures/bcrypt_tb_timing.png>
-Package pdftex.def Info: figures/bcrypt_tb_timing.png  used on input line 80.
+Package pdftex.def Info: figures/bcrypt_tb_timing.png  used on input line 79.
 (pdftex.def)             Requested size: 409.71692pt x 181.36919pt.
  [17 <./figures/bcrypt_tb_timing.png>]
-<figures/conversion_table.png, id=748, 145.2627pt x 261.6174pt>
+<figures/conversion_table.png, id=800, 145.2627pt x 261.6174pt>
 File: figures/conversion_table.png Graphic file (type png)
 <use figures/conversion_table.png>
-Package pdftex.def Info: figures/conversion_table.png  used on input line 109.
+Package pdftex.def Info: figures/conversion_table.png  used on input line 108.
 (pdftex.def)             Requested size: 113.81102pt x 204.97888pt.
  [18 <./figures/conversion_table.png>] [19]
-<figures/bcrypt_quad_simplified_fsm.png, id=760, 541.3023pt x 348.3414pt>
+<figures/bcrypt_quad_simplified_fsm.png, id=812, 541.3023pt x 348.3414pt>
 File: figures/bcrypt_quad_simplified_fsm.png Graphic file (type png)
 <use figures/bcrypt_quad_simplified_fsm.png>
-Package pdftex.def Info: figures/bcrypt_quad_simplified_fsm.png  used on input line 139.
+Package pdftex.def Info: figures/bcrypt_quad_simplified_fsm.png  used on input line 138.
 (pdftex.def)             Requested size: 318.66948pt x 205.07848pt.
  [20 <./figures/bcrypt_quad_simplified_fsm.png>]
-<figures/bcrypt_cracker_tb_timing.png, id=768, 1164.35pt x 542.025pt>
+<figures/bcrypt_cracker_tb_timing.png, id=820, 1164.35pt x 542.025pt>
 File: figures/bcrypt_cracker_tb_timing.png Graphic file (type png)
 <use figures/bcrypt_cracker_tb_timing.png>
-Package pdftex.def Info: figures/bcrypt_cracker_tb_timing.png  used on input line 164.
+Package pdftex.def Info: figures/bcrypt_cracker_tb_timing.png  used on input line 163.
 (pdftex.def)             Requested size: 409.71692pt x 190.72887pt.
 ) (chapters/chap3.tex [21 <./figures/bcrypt_cracker_tb_timing.png>]
 Chapitre 4.
-<figures/communication_protocol_mosi_packet_format.png, id=774, 462.528pt x 296.307pt>
-File: figures/communication_protocol_mosi_packet_format.png Graphic file (type png)
-<use figures/communication_protocol_mosi_packet_format.png>
-Package pdftex.def Info: figures/communication_protocol_mosi_packet_format.png  used on input line 18.
-(pdftex.def)             Requested size: 318.66948pt x 204.15816pt.
+<figures/cobs_encoding.png, id=830, 808.01875pt x 646.415pt>
+File: figures/cobs_encoding.png Graphic file (type png)
+<use figures/cobs_encoding.png>
+Package pdftex.def Info: figures/cobs_encoding.png  used on input line 29.
+(pdftex.def)             Requested size: 318.66948pt x 254.93166pt.
 [22
 
- <./figures/communication_protocol_mosi_packet_format.png>]
-<figures/communication_protocol_miso_packet_format.png, id=780, 463.2507pt x 592.614pt>
-File: figures/communication_protocol_miso_packet_format.png Graphic file (type png)
-<use figures/communication_protocol_miso_packet_format.png>
-Package pdftex.def Info: figures/communication_protocol_miso_packet_format.png  used on input line 27.
-(pdftex.def)             Requested size: 318.66948pt x 407.68335pt.
- [23 <./figures/communication_protocol_miso_packet_format.png>]
-<figures/communication_protocol_top_rev2.png, id=786, 579.6054pt x 362.0727pt>
-File: figures/communication_protocol_top_rev2.png Graphic file (type png)
-<use figures/communication_protocol_top_rev2.png>
-Package pdftex.def Info: figures/communication_protocol_top_rev2.png  used on input line 40.
-(pdftex.def)             Requested size: 318.66948pt x 199.06877pt.
- [24 <./figures/communication_protocol_top_rev2.png>] [25]) (chapters/chap4.tex [26]
+] [23 <./figures/cobs_encoding.png>]
+<figures/uart_packet_format.png, id=852, 347.6187pt x 123.5817pt>
+File: figures/uart_packet_format.png Graphic file (type png)
+<use figures/uart_packet_format.png>
+Package pdftex.def Info: figures/uart_packet_format.png  used on input line 49.
+(pdftex.def)             Requested size: 273.14923pt x 97.11365pt.
+<figures/uart_mosi_payload_format.png, id=854, 462.528pt x 173.448pt>
+File: figures/uart_mosi_payload_format.png Graphic file (type png)
+<use figures/uart_mosi_payload_format.png>
+Package pdftex.def Info: figures/uart_mosi_payload_format.png  used on input line 62.
+(pdftex.def)             Requested size: 318.66948pt x 119.50722pt.
+ [24 <./figures/uart_packet_format.png> <./figures/uart_mosi_payload_format.png>]
+<figures/uart_return_payload_format.png, id=863, 376.5267pt x 158.994pt>
+File: figures/uart_return_payload_format.png Graphic file (type png)
+<use figures/uart_return_payload_format.png>
+Package pdftex.def Info: figures/uart_return_payload_format.png  used on input line 75.
+(pdftex.def)             Requested size: 318.66948pt x 134.57056pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 80--81
+
+ []
+
+[25 <./figures/uart_return_payload_format.png>]
+<figures/uart_miso_payload_format.png, id=871, 462.528pt x 325.9377pt>
+File: figures/uart_miso_payload_format.png Graphic file (type png)
+<use figures/uart_miso_payload_format.png>
+Package pdftex.def Info: figures/uart_miso_payload_format.png  used on input line 104.
+(pdftex.def)             Requested size: 318.66948pt x 224.57397pt.
+ [26 <./figures/uart_miso_payload_format.png>]
+<figures/uart_communication_protocol_top_rev2.png, id=880, 578.8827pt x 362.0727pt>
+File: figures/uart_communication_protocol_top_rev2.png Graphic file (type png)
+<use figures/uart_communication_protocol_top_rev2.png>
+Package pdftex.def Info: figures/uart_communication_protocol_top_rev2.png  used on input line 125.
+(pdftex.def)             Requested size: 318.66948pt x 199.31738pt.
+ [27 <./figures/uart_communication_protocol_top_rev2.png>] [28]) (chapters/chap4.tex [29]
 Chapitre 5.
-<figures/stats_cpu.png, id=801, 462.528pt x 346.896pt>
+<figures/stats_cpu.png, id=894, 462.528pt x 346.896pt>
 File: figures/stats_cpu.png Graphic file (type png)
 <use figures/stats_cpu.png>
 Package pdftex.def Info: figures/stats_cpu.png  used on input line 11.
 (pdftex.def)             Requested size: 318.66948pt x 239.01443pt.
-) (chapters/conclusion.tex [27
+) (chapters/conclusion.tex [30
 
- <./figures/stats_cpu.png>]) (chapters/annexes.tex [28
+ <./figures/stats_cpu.png>]) (chapters/annexes.tex [31
 
-] [29
+] [32
 
-]) (chapters/references.tex [30
+]) (chapters/references.tex [33
 
 ]
 
@@ -1811,13 +1838,13 @@ Package biblatex Warning: Option 'omitnumbers' requires 'defernumbers=true'.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 6.
 (C:\Users\abiva\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [31
+) [34
 
 ])
 \tf@ptc=\write8
 \openout8 = `kandiah_bachelor_thesis.ptc'.
 
- [32] (kandiah_bachelor_thesis.aux)
+ [35] (kandiah_bachelor_thesis.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-03-14>
@@ -1827,23 +1854,23 @@ L3 programming layer <2024-03-14>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `kandiah_bachelor_thesis.out' has not changed.
-(rerunfilecheck)             Checksum: D354864A7B65610A2433291B622359E5;8544.
+(rerunfilecheck)             Checksum: E375A34659AD539A7446E623FA95C869;9052.
 Package logreq Info: Writing requests to 'kandiah_bachelor_thesis.run.xml'.
 \openout1 = `kandiah_bachelor_thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 42699 strings out of 474424
- 819424 string characters out of 5741739
+ 42835 strings out of 474424
+ 822070 string characters out of 5741739
  1942496 words of memory out of 5000000
- 64098 multiletter control sequences out of 15000+600000
+ 64214 multiletter control sequences out of 15000+600000
  646875 words of font info for 124 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,17n,96p,2478b,2371s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,17n,96p,2478b,2372s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/bera/fvmr8a.pfb><C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on kandiah_bachelor_thesis.pdf (44 pages, 3156564 bytes).
+Output written on kandiah_bachelor_thesis.pdf (48 pages, 3168376 bytes).
 PDF statistics:
- 934 PDF objects out of 1000 (max. 8388607)
- 166 named destinations out of 1000 (max. 500000)
- 609 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1033 PDF objects out of 1200 (max. 8388607)
+ 186 named destinations out of 1000 (max. 500000)
+ 640 words of extra memory for PDF output out of 10000 (max. 10000000)
 

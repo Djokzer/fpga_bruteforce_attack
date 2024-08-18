@@ -2367,7 +2367,11 @@
     <bcf:citekey order="5" intorder="1">noauthor_attaque_2021</bcf:citekey>
     <bcf:citekey order="6" intorder="1">noauthor_blowfish_2019</bcf:citekey>
     <bcf:citekey order="7" intorder="1">josefsson_base16_2006</bcf:citekey>
-    <bcf:citekey order="8" intorder="1" nocite="1">*</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">noauthor_openwalljohn_2024</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">noauthor_rub-hgihigh-speed_bcrypt_nodate</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">wiemer_high-speed_2014</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">noauthor_generator_nodate</bcf:citekey>
+    <bcf:citekey order="12" intorder="1" nocite="1">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

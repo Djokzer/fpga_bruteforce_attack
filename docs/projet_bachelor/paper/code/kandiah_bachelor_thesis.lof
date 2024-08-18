@@ -20,9 +20,12 @@
 \contentsline {figure}{\numberline {3.7}{\ignorespaces Machine d'état Bcrypt quadcore simplifié}}{20}{figure.caption.25}%
 \contentsline {figure}{\numberline {3.8}{\ignorespaces Timing du bcrypt cracker}}{21}{figure.caption.26}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Format de paquet - MOSI}}{22}{figure.caption.27}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Format de paquet - MISO}}{23}{figure.caption.28}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Schéma système UART - FPGA}}{24}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Schéma Encodage COBS}}{23}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Format de paquet - UART}}{24}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Format de paquet - MOSI}}{24}{figure.caption.29}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Format de paquet - Retour}}{25}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Format de paquet - MISO}}{26}{figure.caption.32}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Schéma système UART - FPGA}}{27}{figure.caption.33}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Mesures Bcrypt CPU}}{27}{figure.caption.30}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Mesures Bcrypt CPU}}{30}{figure.caption.34}%
 \contentsfinish 

@@ -116,3 +116,16 @@ Le salt et le hash sont en base 64, mais il faut faire attention, car c'est une 
 	\caption[Différence Base 64]{Différence Base 64. Source : réalisé par Kandiah Abivarman}
 	\label{fig:base_64}
 \end{figure}
+
+\subsection{Implémentations Existantes}
+
+Afin d'éviter de réinventer la roue, la première tâche que j'ai entrepris est de chercher afin de voir s'il n'existe pas déjà des implémentations existantes sur \gls{fpga}. 
+
+D'après mes recherches, j'ai retrouvé seulement deux implémentations du Bcrypt sur FPGA. 
+La première se situe dans le répertoire github de JohnTheRipper\footcite{noauthor_openwalljohn_2024} qui est un logiciel de cyber-sécurité destiné au craquage de mot de passe, l'implémentation a été faite en Verilog et spécifiquement pour la Ztex 1.15y qui est une carte FPGA assez ancienne et difficilement retrouvable. 
+La deuxième est une implémentation faite en \gls{vhdl} que j'ai aussi retrouvé dans un répertoire github\footcite{noauthor_rub-hgihigh-speed_bcrypt_nodate}, accompagné d'un papier\footcite{wiemer_high-speed_2014} décrivant un travail de recherche effectué sur l'attaque de mot de passe sur FPGA. 
+Pour ma part, connaissant seulement le \gls{vhdl} et ne comprenant pas réellement la structure de code du premier et par manque d'informations, j'ai préféré reprendre le code du deuxième. 
+
+Le papier a été très instructif, j'ai pu notamment comprendre les différents choix qui ont été pris dans le code source. 
+Malheureusement, tout n'a pas été documenté et le répertoire n'a pas été mis en place correctement. 
+En effet, certains partie du code contenait des erreurs, les fichiers de tests étaient incomplets et des fichiers source semble avoir été retravaillé en aval.
