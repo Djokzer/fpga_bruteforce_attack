@@ -130,13 +130,73 @@ Les deux modules seront reliés de ce fait, lorsque il y aura un souci ou non av
 
 
 \subsection{Implémentation - MOSI}
+
+La gestion de la réception de paquet va être composée tout d’abord d’un module Packet Receiver qui va s’occuper de décoder et de calculer le \gls{crc} et vérifier le \gls{crc} du paquet reçu. 
+Ensuite, il y a le RX Packet Process qui va s’occuper de récupérer les données qui ont été décodées et de ressortir les données dans le bon format pour le bcrypt cracker. 
+Pour finir, il y a le RX Packet Pipeline qui va s’occuper d’instancier les deux modules et de récupérer les erreurs provenant de ceux-ci.
+
 \subsubsection{Module - Packet Receiver}
+
+Ce module s'occupe de récupérer byte par byte les données reçus par \gls{uart}, puis de les décoder immédiatement afin de les exposer en sortie.
+Suite au décodage, le \gls{crc} sera calculé afin qu'il puisse être comparé avec le \gls{crc} réceptionné à la fin du paquet.
+Après vérification du \gls{crc}, une sortie sera mis à un, afin de signaler le module qui va récupérer les données que ceux-ci sont bien valides.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{uart_packet_receiver}
+	\caption[Schéma Packet Receiver]{Schéma Packet Receiver. Source : réalisé par Kandiah Abivarman}
+	\label{fig:uart_packet_receiver}
+\end{figure}
+
+
 \subsubsection{Module - RX Packet Process}
+
+Ce module va récupérer les données décodées du Packet Receiver et les stockés.
+Lorsque le module a réceptionné le paquet entier, il va vérifier à l'aide d'un signal émis par le module précèdent si le paquet est valide.
+Si le paquet n'est pas valide, alors les données reçues seront ignorés et le module attendra un nouveau paquet.
+Toutefois si le paquet est bien valide, d'autres facteurs vont être vérifié, tels que la taille du paquet ou encore l'adressage du quadcore.
+En effet, si le paquet ne fait pas la taille attendu ou encore le quadcore ciblé n'est pas valide, alors le module va lui aussi signaler dans une sortie le type d'erreur.
+Au final, si tout est bon alors, le module va ressortir les données dans le bon format pour le bcrypt cracker et le bcrypt quadcore.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{uart_rx_packet_process}
+	\caption[Schéma RX Packet Process]{Schéma RX Packet Process. Source : réalisé par Kandiah Abivarman}
+	\label{fig:uart_rx_packet_process}
+\end{figure}
+
 \subsubsection{Module - RX Packet Pipeline}
 
+Le RX Packet Pipeline est un module qui sert principalement à instancier les deux modules précédemment vus.
+Le module va aussi s'occuper de recupérer les signaux d'erreurs provenant des deux autres modules et les exposer afin qu'elles puissent être utilisé pour le paquet de retour.   
+
 \subsection{Implémentation - MISO}
-\subsubsection{Module - Packet Transmitter}
+
+La gestion de la transmission des paquets va être scindée en deux modules.
+On a tout d'abord le TX Packet Pipeline qui est le module qui va décider quel type de paquets va être envoyé.
+Puis il y a le Packet Transmitter qui à l'inverse du Packet Receiver va s'occuper d'ajouter un \gls{crc} et d'encoder le paquet afin qu'il puisse être envoyé par \gls{uart}. 
+Le Packet Transmitter est instancié à l'intérieur du TX Packet Pipeline.
+
+Cette partie du travail, a été celui avec lequel j'ai eu le plus de difficultés dans le système au complet.
+
+\newpage
+
 \subsubsection{Module - TX Packet Pipeline}
+
+Ce module va permettre de former les différents type de paquets qui seront envoyés à l’ordinateur.
+
+La logique du module peut être séparée en quatre processus bien distincts :
+\begin{enumerate}
+	\item On a un processus qui s’occupe de récupérer le retour du RX Packet Pipeline afin de mettre en place un paquet de retours.
+	\item L’autre processus va s’occuper de récupérer chaque seconde le nombre d’attaques effectué par chaque quadcore pour en faire un paquet.
+	\item Ce processus, qui est le plus important, va attendre que le mot de passe soit trouvé puis récupérer le mot de passe afin d’en faire un paquet.
+	\item Le dernier processus est là pour sélectionner quel paquet va être envoyé, lorsque un ou plusieurs processus sont prêts à envoyer leur paquet.
+\end{enumerate}
+
+J’ai aussi mis en place un système de priorité, entre les différents type de paquet. 
+Le paquet de réussite a donc la plus grande priorité, suivi du paquet de retours puis pour finir le paquet de statuts.
+
+\subsubsection{Module - Packet Transmitter}
 
 \subsection{Modifications Bcrypt Cracker}
 

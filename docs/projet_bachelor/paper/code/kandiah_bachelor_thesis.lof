@@ -26,6 +26,8 @@
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Format de paquet - Retour}}{25}{figure.caption.30}%
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Format de paquet - MISO}}{26}{figure.caption.32}%
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Schéma système UART - FPGA}}{27}{figure.caption.33}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Schéma Packet Receiver}}{28}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Schéma RX Packet Process}}{29}{figure.caption.35}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Mesures Bcrypt CPU}}{30}{figure.caption.34}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Mesures Bcrypt CPU}}{32}{figure.caption.36}%
 \contentsfinish 

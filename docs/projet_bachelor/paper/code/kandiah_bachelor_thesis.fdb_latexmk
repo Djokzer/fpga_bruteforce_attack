@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber kandiah_bachelor_thesis"] 1723995061.15588 "kandiah_bachelor_thesis.bcf" "kandiah_bachelor_thesis.bbl" "kandiah_bachelor_thesis" 1724000982.1085 0
+["biber kandiah_bachelor_thesis"] 1723995061.15588 "kandiah_bachelor_thesis.bcf" "kandiah_bachelor_thesis.bbl" "kandiah_bachelor_thesis" 1724091532.84386 0
   "biblio/these_bachelor.bib" 1723994994 10983 d932a31ed3ff52959b21793f3bb40d36 ""
-  "kandiah_bachelor_thesis.bcf" 1724000981 108570 8803742bb30c2e1a56c660ca444ae6ad "pdflatex"
+  "kandiah_bachelor_thesis.bcf" 1724091532 108570 8803742bb30c2e1a56c660ca444ae6ad "pdflatex"
   (generated)
   "kandiah_bachelor_thesis.bbl"
   "kandiah_bachelor_thesis.blg"
   (rewritten before read)
-["pdflatex"] 1724000972.459 "c:/Users/abiva/Desktop/Projet_Bachelor/fpga_bruteforce_attack/docs/projet_bachelor/paper/code/kandiah_bachelor_thesis.tex" "kandiah_bachelor_thesis.pdf" "kandiah_bachelor_thesis" 1724000982.10941 0
+["pdflatex"] 1724091522.74601 "c:/Users/abiva/Desktop/Projet_Bachelor/fpga_bruteforce_attack/docs/projet_bachelor/paper/code/kandiah_bachelor_thesis.tex" "kandiah_bachelor_thesis.pdf" "kandiah_bachelor_thesis" 1724091532.84482 0
   "C:/Users/abiva/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1723401993 94020 9ed0ab87e461f08f93446ee0af10a288 ""
   "C:/Users/abiva/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1710942679 24236006 e3934fb442b78200ecf091cd522769c8 ""
   "C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -280,7 +280,7 @@
   "chapters/chap0.tex" 1723891025 4298 152f4c3ad6b49ac5c09ba37b4a1578ff ""
   "chapters/chap1.tex" 1723982572 8781 a6c4072f7668aa2fa5905063476751d8 ""
   "chapters/chap2.tex" 1723982955 13113 f11ea16151e9cf4d78ab88754a845e7c ""
-  "chapters/chap3.tex" 1724000962 7699 42855c17aa2e1ea9103daf601d4b99d4 ""
+  "chapters/chap3.tex" 1724091515 12071 952466bfd2b4acbf40a79f48fb914f01 ""
   "chapters/chap4.tex" 1723361176 365 8b46b4b01d09f54eaf292d548878e0d5 ""
   "chapters/conclusion.tex" 1722583969 345 12df1882f2bfabb1dee855e82c6f96d5 ""
   "chapters/dedication.tex" 1722583969 160 1bda2325dfdba840e0ae35603b315acd ""
@@ -316,15 +316,17 @@
   "figures/uart_miso_payload_format.png" 1723999539 172389 fd152115f5bbb415fa6d7207b273c900 ""
   "figures/uart_mosi_payload_format.png" 1723996681 91743 c69c63a49b4fe89df81805f1286fe11d ""
   "figures/uart_packet_format.png" 1723996656 50983 ab323dcaed0dfd75754ad9438331e395 ""
+  "figures/uart_packet_receiver.png" 1724084651 132073 a1b0d87ffbf1bdfe05a47c1e2e755fdb ""
   "figures/uart_return_payload_format.png" 1723998504 63357 acacba47719365c9b53a40837049499e ""
+  "figures/uart_rx_packet_process.png" 1724085832 260506 5e1d8676d6e85bf08304b06f7ce52bf8 ""
   "glossary/acronyms.tex" 1723994119 786 1efc9bb2839bfffbaaea30e47231a18f ""
-  "kandiah_bachelor_thesis.aux" 1724000981 23946 187d05c668cf2b87b481d6b5f5198b8b "pdflatex"
+  "kandiah_bachelor_thesis.aux" 1724091532 25073 a7c6f9e40e8a10c376081b2af38a8fad "pdflatex"
   "kandiah_bachelor_thesis.bbl" 1723995065 21435 e9d8f0266971260cc11d0280527739b8 "biber kandiah_bachelor_thesis"
-  "kandiah_bachelor_thesis.lof" 1724000981 2672 eb27ea0ce3b03157d6b032aefcf6499f "pdflatex"
-  "kandiah_bachelor_thesis.lot" 1724000981 146 4947ce262b634b187154316a999643c2 "pdflatex"
-  "kandiah_bachelor_thesis.out" 1724000981 9052 e375a34659ad539a7446e623fa95c869 "pdflatex"
-  "kandiah_bachelor_thesis.ptc" 1724000981 5074 b2fba5276b0523f61305640d5bd2cfd7 "pdflatex"
-  "kandiah_bachelor_thesis.run.xml" 1724000981 2483 554ddbc100f33c548a6b872cbf39a720 "pdflatex"
+  "kandiah_bachelor_thesis.lof" 1724091532 2884 035eb4708935f08e5384ad5d7648bbe8 "pdflatex"
+  "kandiah_bachelor_thesis.lot" 1724091532 146 4947ce262b634b187154316a999643c2 "pdflatex"
+  "kandiah_bachelor_thesis.out" 1724091532 9052 22f83d0c2b549ec4096b4e45c8cdbd8c "pdflatex"
+  "kandiah_bachelor_thesis.ptc" 1724091532 5075 366cd919d50c6b1d63a3275953b80c94 "pdflatex"
+  "kandiah_bachelor_thesis.run.xml" 1724091532 2483 554ddbc100f33c548a6b872cbf39a720 "pdflatex"
   "kandiah_bachelor_thesis.tex" 1723402501 4609 95aca0f7418beb6fa6aa86616bcd082c ""
   "template/header.tex" 1722583969 1274 43d90983137d5dbece51d661ad430e09 ""
   "template/images/title/hepia_logo.jpg" 1722583969 15264 004e105e3fff6fb0ec23c62668bb73de ""
