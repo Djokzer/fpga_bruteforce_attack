@@ -114,6 +114,7 @@ Puis, bien évidemment un paquet sera aussi envoyer lorsque le mot de passe cher
 
 Pour la partie implémentation, j’avais déjà un module \gls{uart} en \gls{vhdl} qui marchait et le bcrypt cracker fonctionnel lorsque réglage était codé en dur. 
 Il fallait donc que je mette en place tout ce qui allait avoir entre l’interface \gls{uart} et le système d’attaque bcrypt, c’est-à-dire toute la partie gestion de paquet. 
+J’ai aussi dû adapter le module bcrypt cracker et quadcore afin qu’il puisse marcher correctement avec l’architecture souhaitée.
 
 Pour le module qui allait s’occuper des paquets, j’ai pensé à diviser cette partie en deux. 
 Une première partie qui allait s’occuper de la réception des paquets, donc le décodage, la vérification et ressortir les données pour les quadcores. 
@@ -127,9 +128,6 @@ Les deux modules seront reliés de ce fait, lorsque il y aura un souci ou non av
 	\label{fig:uart_top_schematics}
 \end{figure}
 
-J’ai aussi dû adapter le module bcrypt cracker et quadcore afin qu’il puisse marcher correctement avec l’architecture souhaitée.
-
-\subsection{Modifications Bcrypt Cracker}
 
 \subsection{Implémentation - MOSI}
 \subsubsection{Module - Packet Receiver}
@@ -139,6 +137,8 @@ J’ai aussi dû adapter le module bcrypt cracker et quadcore afin qu’il puiss
 \subsection{Implémentation - MISO}
 \subsubsection{Module - Packet Transmitter}
 \subsubsection{Module - TX Packet Pipeline}
+
+\subsection{Modifications Bcrypt Cracker}
 
 \subsection{Tests}
 \subsubsection{Simulations}
