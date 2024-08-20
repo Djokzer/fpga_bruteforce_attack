@@ -4,7 +4,7 @@
 
 % Fonction de rappel
 
-L'objectif de ce projet de semestre est d'explorer la possibilité de mise en place d'une attaque de mot de passe bcrypt par bruteforce sur un \gls{fpga}.
+L'objectif de ce travail de bachelor est d'explorer la possibilité de mise en place d'une attaque de mot de passe bcrypt par bruteforce sur un \gls{fpga}.
 Le but étant de chercher une solution plus efficient que les solutions actuelles sur \gls{gpu}. 
 
 Pour ce faire, j'ai entamé le projet durant le travail de semestre par une recherche sur le fonctionnement de la fonction de hachage bcrypt et les différentes implémentations existantes.
@@ -12,7 +12,7 @@ J'ai choisi l'implémentation que j'ai trouvée la plus intéressante et je me s
 En effet, j'ai commencé par analyser le fonctionnement des différents modules présents et tester à l'aide de la simulation le bon fonctionnement du système.
 J'ai aussi eu l'occasion de corriger certaines parties du code source afin de le faire fonctionner comme souhaité. 
 
-Dans le cadre du projet de bachelor, j'ai développé une interface UART permettant l'initialisation des différents cœurs de calcul bcrypt sur la FPGA. 
+Par la suite, dans le cadre du projet de bachelor, j'ai développé une interface UART permettant l'initialisation des différents cœurs de calcul bcrypt sur la FPGA. 
 Cette interface inclut un système de paquets utilisant un encodage \gls{cobs} et un \gls{crc} pour gérer les communications entre la FPGA et l'ordinateur, ce qui a permis de recevoir des confirmations et des erreurs et de renvoyer le mot de passe une fois trouvé.
 
 J'avais également prévu de mettre en place une solution PCIe pour améliorer les performances de communication entre la carte FPGA et l'ordinateur. 
