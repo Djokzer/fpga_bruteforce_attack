@@ -29,9 +29,13 @@ Poursuivant ce travail dans le cadre de mon projet de bachelor, j'ai développé
 Cette solution a nécessité la mise en place d'un système de paquets utilisant un système d'encodage COBS. 
 Ce système permet non seulement de recevoir des confirmations ou des erreurs en cas de problème avec les paquets reçus, mais également de renvoyer le mot de passe une fois celui-ci trouvé.
 
+Parallèlement, j'avais prévu de mettre en place une solution PCIe pour améliorer les performances de communication entre la carte FPGA et l'ordinateur, ce qui aurait permis d'exploiter pleinement la puissance de calcul de la FPGA. 
+Cependant, en raison des contraintes de temps, je n'ai pas pu finaliser cette partie du projet. 
+Malgré les efforts déployés, la solution PCIe n'a pas pu être complétée dans les délais impartis, ce qui a conduit à se concentrer sur la solution UART pour atteindre les objectifs principaux du développement.
+
 % Annonce du plan
 
 Dans ce rapport, je vais commencer par brièvement expliquer les différents notions clés de ce projet, afin de poser une base technique. 
-Je vais par la suite vous présenter une analyse du projet, afin d'y décrire le projet de manière détaillé, expliquer le fonctionnement du Bcrypt et les recherches qui ont été faites afin de trouver une implémentation existante. 
-Puis, je vais détailler la méthodologie de travail, en exposant les différentes étapes de mise en œuvre du projet, les simulations qui ont été faites et les différentes difficultés rencontrées. 
+Je vais par la suite vous présenter une analyse du projet, afin d'y décrire le projet de manière détaillé, expliquer le fonctionnement du Bcrypt et les différentes solutions mise en place durant ce projet. 
+Puis, je vais détailler la méthodologie de travail, en exposant les différentes étapes de mise en œuvre du projet, les simulations et les tests qui ont été faites et les différentes difficultés rencontrées. 
 Enfin, je vais décrire les résultats obtenus lors des différents tests et mesures qui ont été faits.

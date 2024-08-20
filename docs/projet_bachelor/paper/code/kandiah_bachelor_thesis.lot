@@ -3,5 +3,10 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Tableau de code d'erreur - Paquet UART}}{25}{table.caption.32}%
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Mesures de hashrate sur KCU116}}{42}{table.caption.46}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Comparaison des hashrates pour différentes architectures.}}{43}{table.caption.48}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Comparaison des consommations électriques pour différentes architectures.}}{43}{table.caption.49}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Comparaison de l'efficacité énergétique (Hashes par joule).}}{44}{table.caption.50}%
 \contentsfinish 

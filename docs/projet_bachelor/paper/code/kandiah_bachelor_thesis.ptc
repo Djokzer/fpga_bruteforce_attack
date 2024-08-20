@@ -2,14 +2,14 @@
 \ttl@starttoc {default@1}
 \ttl@starttoc {annexes@1}
 \ttl@stoptoc {annexes@1}
-\contentsline {chapter}{Remerciements}{vi}{chapter*.2}%
-\contentsline {chapter}{Résumé}{viii}{chapter*.3}%
-\contentsline {chapter}{Liste de acronymes}{ix}{section*.4}%
+\contentsline {chapter}{Remerciements}{v}{chapter*.2}%
+\contentsline {chapter}{Résumé}{vii}{chapter*.3}%
+\contentsline {chapter}{Liste de acronymes}{viii}{section*.4}%
 \contentsline {chapter}{Liste des illustrations}{x}{chapter*.6}%
-\contentsline {paragraph}{Références des URL}{xi}{chapter*.6}%
-\contentsline {chapter}{Liste des tableaux}{xii}{chapter*.7}%
-\contentsline {paragraph}{Références des URL}{xii}{chapter*.7}%
-\contentsline {chapter}{Liste des annexes}{xiii}{chapter*.8}%
+\contentsline {paragraph}{Références des URL}{x}{chapter*.6}%
+\contentsline {chapter}{Liste des tableaux}{xi}{chapter*.7}%
+\contentsline {paragraph}{Références des URL}{xi}{chapter*.7}%
+\contentsline {chapter}{Liste des annexes}{xii}{chapter*.8}%
 \contentsline {chapter}{Introduction}{1}{chapter*.9}%
 \contentsline {chapter}{\numberline {1}Chapitre 0 : Base Technique}{3}{chapter.1}%
 \contentsline {section}{\numberline {1.1}FPGA}{3}{section.1.1}%
@@ -33,8 +33,8 @@
 \contentsline {subsection}{\numberline {d}Bcrypt Cracker}{20}{subsection.3.1.4}%
 \contentsline {chapter}{\numberline {4}Chapitre 3 : Implémentation Des Solutions}{22}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Description Solution UART}{22}{section.4.1}%
-\contentsline {subsection}{\numberline {a}Encodage Cobs}{22}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {b}CRC}{23}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {a}Encodage Cobs}{23}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {b}CRC}{24}{subsection.4.1.2}%
 \contentsline {subsection}{\numberline {c}Format et Type de Paquet}{24}{subsection.4.1.3}%
 \contentsline {subsubsection}{\numberline {c.1}Paquet pour le FPGA}{24}{subsubsection.4.1.3.1}%
 \contentsline {subsubsection}{\numberline {c.2}Paquet pour l'ordinateur}{25}{subsubsection.4.1.3.2}%
@@ -48,23 +48,36 @@
 \contentsline {subsubsection}{\numberline {c.1}Module - TX Packet Pipeline}{30}{subsubsection.4.2.3.1}%
 \contentsline {subsubsection}{\numberline {c.2}Module - Packet Transmitter}{30}{subsubsection.4.2.3.2}%
 \contentsline {subsection}{\numberline {d}Modifications Bcrypt Cracker}{30}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {e}Tests}{30}{subsection.4.2.5}%
-\contentsline {subsubsection}{\numberline {e.1}Simulations}{30}{subsubsection.4.2.5.1}%
-\contentsline {subsubsection}{\numberline {e.2}Vérification Hardware}{30}{subsubsection.4.2.5.2}%
-\contentsline {section}{\numberline {4.3}Interfacage Solution UART}{30}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Description Solution PCIe}{31}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Implémentation Solution PCIe}{31}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Interfacage Solution PCIe}{31}{section.4.6}%
-\contentsline {chapter}{\numberline {5}Chapitre 4 : Mesures et Performances}{32}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Mesures FPGA}{32}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Mesures CPU}{32}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Mesures GPU}{32}{section.5.3}%
-\contentsline {chapter}{Conclusion}{33}{chapter*.37}%
-\contentsline {chapter}{Annexes}{33}{chapter*.37}%
+\contentsline {subsection}{\numberline {e}Vérification Hardware}{31}{subsection.4.2.5}%
+\contentsline {subsubsection}{\numberline {e.1}Interfacage avec PC}{31}{subsubsection.4.2.5.1}%
+\contentsline {subsubsection}{\numberline {e.2}Test réception sur FPGA}{31}{subsubsection.4.2.5.2}%
+\contentsline {subsubsection}{\numberline {e.3}Test système au complet}{32}{subsubsection.4.2.5.3}%
+\contentsline {subsection}{\numberline {f}Améliorations}{32}{subsection.4.2.6}%
+\contentsline {section}{\numberline {4.3}Description Solution PCIe}{34}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Implémentation Solution PCIe}{34}{section.4.4}%
+\contentsline {subsection}{\numberline {a}Architecture Logique}{34}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {b}Implémentation sur FPGA}{35}{subsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {b.1}Implémentation Cracker Regs}{36}{subsubsection.4.4.2.1}%
+\contentsline {subsubsection}{\numberline {b.2}Modifications Bcrypt Cracker}{36}{subsubsection.4.4.2.2}%
+\contentsline {subsection}{\numberline {c}Vérification Hardware}{37}{subsection.4.4.3}%
+\contentsline {chapter}{\numberline {5}Chapitre 4 : Mesures et Performances}{39}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Mesures CPU}{39}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Mesures GPU}{39}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Mesures FPGA}{40}{section.5.3}%
+\contentsline {subsection}{\numberline {a}Solution UART}{40}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {b}Solution PCIe}{42}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {c}Comparaisons}{42}{subsection.5.3.3}%
+\contentsline {subsubsection}{\numberline {c.1}Comparaison du Hashrate}{43}{subsubsection.5.3.3.1}%
+\contentsline {subsubsection}{\numberline {c.2}Comparaison de la Consommation Électrique}{43}{subsubsection.5.3.3.2}%
+\contentsline {subsubsection}{\numberline {c.3}Efficacité Énergétique}{44}{subsubsection.5.3.3.3}%
+\contentsline {subsubsection}{\numberline {c.4}Consommation Énergétique sur 24 Heures}{45}{subsubsection.5.3.3.4}%
+\contentsline {subsubsection}{\numberline {c.5}Conclusion des Comparaisons}{45}{subsubsection.5.3.3.5}%
+\contentsline {chapter}{Conclusion}{46}{chapter*.52}%
+\contentsline {chapter}{Annexes}{47}{chapter*.52}%
 \ttl@stoptoc {default@1}
 \ttl@starttoc {annexes@1}
-\contentsline {chapter}{Annexe 1}{35}{chapter*.39}%
+\contentsline {chapter}{Annexe 1}{49}{chapter*.54}%
 \ttl@stoptoc {annexes@1}
 \ttl@starttoc {default@1}
-\contentsline {chapter}{Références documentaires}{36}{chapter*.40}%
+\contentsline {chapter}{Références documentaires}{50}{chapter*.55}%
 \contentsfinish 

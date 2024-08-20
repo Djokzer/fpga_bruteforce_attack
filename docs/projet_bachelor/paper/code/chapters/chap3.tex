@@ -10,6 +10,15 @@ On va notamment pouvoir communiquer le hash et le salt que l’on souhaite casse
 
 Cette communication nécessite un encodage permettant de délimiter les paquets, ainsi qu'un moyen de vérification d'erreurs afin de savoir si le paquet n'a pas subi des pertes en chemin.
 
+Afin de tester cette solution, j'ai utilisé une Nexys Vidéo qui est la carte \gls{fpga} que l'on a utilisé durant nos cours.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{nexys_video}
+	\caption[Carte de développement Nexys Video]{Carte de développement Nexys Video. Source : digilent.com ref. URL02}
+	\label{fig:nexys_video}
+\end{figure}
+
 \subsection{Encodage Cobs}
 
 Une manière assez simple d’encoder un paquet et de le délimiter à l’aide de caractères spéciaux. 
@@ -27,7 +36,7 @@ Au final, cette méthode est plutôt simple à mettre en place et rajoute seulem
 \begin{figure}[tbph!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{cobs_encoding}
-	\caption[Schéma Encodage COBS]{Schéma Encodage COBS. Source : blog.mbedded.ninja ref. URL02}
+	\caption[Schéma Encodage COBS]{Schéma Encodage COBS. Source : blog.mbedded.ninja ref. URL03}
 	\label{fig:cobs_encoding}
 \end{figure}
 
@@ -36,8 +45,6 @@ Au final, cette méthode est plutôt simple à mettre en place et rajoute seulem
 Pour ce qui est de la vérification d'erreurs, l'algorithme utilisé de manière général est le \gls{crc}.
 Après quelques recherches, je suis tombé sur un site internet\footcite{noauthor_generator_nodate} qui permet de générer du code dont du \gls{vhdl} en fonction du type de \gls{crc} souhaité.
 Je suis parti sur le \gls{crc} le plus simple qui est le 8 bit, mais le code \gls{vhdl} nous est fourni sous forme de module, il est donc assez facile de remplacer le \gls{crc} par un autre plus rigide.
-
-\newpage
 
 \subsection{Format et Type de Paquet}
 
@@ -90,6 +97,8 @@ Lorsque le paquet est une réponse, le champ type vaudra zéro est les trois bit
 	011                  & Quadcore ID not valid             \\ \hline
 	100                  & CRC Error                         \\ \hline
 	\end{tabular}
+	\caption{Tableau de code d'erreur - Paquet UART}
+	\label{tab:error_code_uart}
 \end{table}
 
 Quand le paquet n'est pas une réponse alors les trois bits vaudront zéros et pourront être ignoré. 
@@ -198,16 +207,164 @@ Le paquet de réussite a donc la plus grande priorité, suivi du paquet de retou
 
 \subsubsection{Module - Packet Transmitter}
 
+Lorsque le paquet est prêt à être envoyé, ce module va récupérer octet par octet le paquet et le stocker.
+Durant le stockage du paquet, le \gls{crc} sera calculé en même temps.
+
+Suite au stockage de l'intégralité du paquet, le \gls{crc} calculé y sera ajouté et l'encodage \gls{cobs} sera effectué.
+
+Puis lorsque le paquet sera entièrement traité, il sera envoyé à l'interface \gls{uart}.
+
 \subsection{Modifications Bcrypt Cracker}
 
-\subsection{Tests}
-\subsubsection{Simulations}
-\subsubsection{Vérification Hardware}
+Afin que le bcrypt cracker puisse s'interfacer correctement avec le système de paquets, j'ai dû le modifier lui et le bcrypt quadcore.
 
-\section{Interfacage Solution UART}
+À la base, l'état initial du générateur de mots de passe et le nombre d'attaques limite étaient tout deux écrit à la dure dans le code pour chaque quadcore.
+De ce fait, au démarrage tous les quadcores démarraient immédiatement l'attaque en même temps.
+
+J'ai donc ajouté des ports supplémentaire au bcrypt quadcore afin que l'on puisse configurer tous les éléments importants lors d'une attaque.
+J'ai aussi ajouté un état de départ qui va attendre que le quadcore soit bien configurer avant de démarrer l'attaque.
+
+Initialement, j'avais prévu que chaque quadcore soit indépendant et que lorsque l'on envoie un paquet pour régler un quadcore, celui-ci lance l'attaque.
+Au final, je n'ai pas pu faire cela, car tous les cœurs bcrypt ont une phase d'initialisation de mémoire dans laquelle il faut leur remplir leur mémoire avec des valeurs spécifiques.
+La Logique qui s'occupe de ça est dans le bcrypt cracker et il a été pensé pour que toutes les mémoires soient initialisées en même temps.
+Par soucis de temps, j'ai préféré garder le fonctionnement de celui-ci tel quel, mais une amélioration possible serait de modifier cela. 
+
+\subsection{Vérification Hardware}
+
+Afin de valider le système d'attaque avec \gls{uart}, j'ai mis en place un script python me permettant d'envoyer différents types de paquets au \gls{fpga}.
+J'ai pu grâce à cela tester le système de réception du \gls{fpga} puis plus tard le système au complet.
+
+\subsubsection{Interfacage avec PC}
+
+La génération et l'envoi des paquets depuis le \gls{pc} ont été fait à l'aide d'un script python.
+J'ai tout d'abord implémenté une fonction me permettant de générer assez aisément les paquets respectant l'encodage \gls{cobs} et en y mettant un \gls{crc}.
+Puis, j'ai mis en place différents paquets de tests, 
+un paquet pour un mot de passe simple à trouver,  un paquet pour un mot de passe un peu plus long à trouver et des paquets contenant des erreurs afin de tester la bonne détection d'erreur du \gls{fpga}.
+
+\subsubsection{Test réception sur FPGA}
+
+Lorsque j'ai implémenté ce système, j'ai commencé par faire la partie réception du système de paquet.
+Après validation de celui-ci à l'aide de simulations, j'ai pu tester le bon fonctionnement sur le \gls{fpga}.
+Pour ce faire, j'ai tout d'abord tester le contenu des paquets reçus en utilisant celui-ci pour adresser les LEDs sur la carte \gls{fpga}.
+J'ai ensuite testé la robustesse de la communication en y adressant les LEDs avec les codes d'erreurs provenant des modules de réception, en envoyant des paquets à répétition.
+Tous ces tests m'ont permis de valider le fonctionnement du système de réception de paquets.
+
+\subsubsection{Test système au complet}
+
+J'ai commencé le test, en observant le retour des paquets. 
+En effet, j'ai d'abord voulu vérifier que lorsque un paquet est défaillant, je sois bien informé.
+J'ai donc envoyé les paquets contenant différents types d'erreur afin de vérifier que les retours soient ceux que j'attends.
+
+Le problème étant que je ne recevais pas les paquets de retours.
+Je recevais bien les paquets de statuts, mais pas les paquets de retours.
+Il se trouve qu'initialement, je n'avais pas mis de délai d'une seconde entre chaque paquet de statuts.
+Je soupçonnait donc que mon script python n'avait jamais le temps de lire le retour des paquets, car le paquet se faisait écraser par les paquets de statuts.
+Après l'ajout du délai d'une seconde, le problème a été résolu et je recevais bien les bons paquets de retour.
+
+Par la suite, j'ai découvert d'autres problèmes tels que le système bcrypt qui lorsque il a trouvé le mot de passe, m'envoyait le mauvais.
+Ce problème a toujours été présent, mais je n'y avais jamais fait attention, car celui-ci apparaît lorsque un quadcore autre que le premier trouve le mot de passe.
+Lors de mes tests durant le projet de semestre, tous les quadcores faisait exactement les même attaques, donc lorsque le mot de passe était trouvé, il était trouvé par tous les quadcores, dont le premier.
+Le problème venait du module \gls{vhdl} tree reduction qui s'occupait de récupérer le mot de passe provenant du quadcore ayant trouvé le mot de passe.
+
+\subsection{Améliorations}
+
+Une amélioration possible concerne le déclenchement des quadcores, actuellement synchronisé pour que tous démarrent en même temps pour l'initialisation de la mémoire. 
+Cette synchronisation peut être optimisée en permettant un déclenchement asynchrone, où chaque quadcore commence l'attaque dès que sa configuration est complète. 
+Cela impliquerait de rendre l'initialisation de la mémoire indépendante pour chaque quadcore, ce qui permettrait d'améliorer l'efficacité et de réduire les délais d'attente inutiles. 
+
+L'ajout d'une interface utilisateur au script de test pourrait rendre les tests plus intuitifs et accessibles, tout en permettant un suivi en temps réel des résultats.
+
+Lors de l'instanciation d'un grand nombre de quadcores, il a été observé que les contraintes de timing n'étaient pas atteintes de très peu, malgré le fonctionnement de celui-ci. 
+Bien que le système continue de fonctionner correctement, cela pourrait devenir problématique si des fonctionnalités supplémentaires étaient ajoutées ou si les performances du FPGA étaient poussées à leurs limites. 
+Une optimisation des chemins critiques et une meilleure gestion des ressources pourraient être envisagées pour garantir que les timings restent robustes.
 
 \newpage
 
 \section{Description Solution PCIe}
+
+Cette deuxième solution a pour objectif de retirer la génération de mots de passe sur \gls{fpga} et la mettre sur le \gls{pc}.
+Ainsi, à chaque cycle d'attaque, il faudrait que l'ordinateur fournisse les mots de passe afin que les différents quadcores puissent calculer le hash.
+Pour ce faire, j'ai besoin d'un moyen de communication très rapide et fiable, c'est pour cela que le \gls{pcie} est le moyen le plus intéressant pour cette solution.
+
+Afin de mettre en place une communication de ce type, il m'a donc été donné la KCU116 qui est une carte de développement avec un \gls{fpga} Kyntex Ultrascale+ et une interface \gls{pcie}.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{kcu116}
+	\caption[Carte de développement KCU116]{Carte de développement KCU116. Source : xilinx.com ref. URL04}
+	\label{fig:kcu116}
+\end{figure}
+
 \section{Implémentation Solution PCIe}
-\section{Interfacage Solution PCIe}
+
+\subsection{Architecture Logique}
+
+Afin d'interfacer avec le \gls{pcie} dans le \gls{fpga}, Vivado nous met à disposition un \gls{ip} block dénommé le XDMA qui me permet d'interfacer avec celui-ci à l'aide d'un bus AXI4.
+
+Comme pour la première solution, il me fallait mettre en place un module intermédiaire faisant le pont entre le bcrypt cracker et le XDMA.
+Ce module AXI4 Attack Ctrl va contenir une \gls{bram} qui va s'occuper de stocker tous les mots de passe reçu de la part du \gls{pc}, ainsi que des registres qui vont permettre d'interagir avec le bcrypt cracker.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.8\linewidth]{pcie_top}
+	\caption[Schéma Système PCIe - FPGA]{Schéma Système PCIe - FPGA. Source : réalisé par Kandiah Abivarman}
+	\label{fig:pcie_top}
+\end{figure}
+
+\subsection{Implémentation sur FPGA}
+
+J'ai très vite rencontré un problème avec l'implémentation, en effet une \gls{bram} ne peut avoir que deux ports d'accès mémoire.
+Le soucis est que j'ai besoin des deux ports afin de transférer le plus rapidement possible tout le mot de passe à la \gls{bram} et j'en ai aussi besoin pour transférer les mots de passe au bcrypt cracker. 
+J'ai donc mis en place un module dénommé Cracker Regs qui doit s'occuper de multiplexer l'accès mémoire entre le bcrypt cracker et le XDMA et qui s'occupe du système de registre pour le contrôle du bcrypt cracker.
+J'ai aussi utilisé un \gls{ip} block me permettant d'interfacer la \gls{bram} avec de l'AXI4 ce qui va servir pour l'accès provenant de l'XDMA.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.8\linewidth]{pcie_axi4_attack_ctrl}
+	\caption[Schéma logique AXI4 Attack Ctrl - FPGA]{Schéma logique AXI4 Attack Ctrl - FPGA. Source : réalisé par Kandiah Abivarman}
+	\label{fig:pcie_axi4_attack_ctrl}
+\end{figure}
+
+\subsubsection{Implémentation Cracker Regs}
+
+Le module Cracker Regs doit s'occuper de donner l'accès mémoire soit au \gls{pc}, soit au bcrypt cracker en fonction de l'état actuel du système.
+
+Initialement le \gls{pc} aura la main sur la \gls{bram}, alors l'utilisateur pourra envoyer le hash et le salt que l'on souhaite casser et tous les mots de passe nécessaire au bcrypt quadcore présents.
+Puis lorsque l'on aura écrit sur le registre start, le bcrypt cracker prendra la main sur la \gls{bram} le temps de distribuer tous les mots de passe au différents quadcore.
+l'ordinateur n'aura pas le droit d'écrire dans la mémoire et lors d'une lecture, il recevra la valeur actuelle dans le registre start. 
+Lorsque le bcrypt cracker aura fini de récupérer tous les mots de passe, le registre start repassera à zéro et le module Cracker Regs redonnera la main à l'ordinateur pour qu'il puisse envoyer les prochains mots de passe.
+
+Les mots de passe, le hash, le salt et le registre d'attaque sont tous stockés à des adresses spécifiques, les adresses vont dépendre du nombre de quadcores.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=0.4\linewidth]{pcie_bram_addresses}
+	\caption[BRAM Adresses - FPGA]{BRAM Adresses - FPGA. Source : réalisé par Kandiah Abivarman}
+	\label{fig:pcie_bram_addresses}
+\end{figure}
+
+\subsubsection{Modifications Bcrypt Cracker}
+
+J'ai tout d'abord modifié le bcrypt quadcore en enlevant le générateur de mots de passe.
+Puis comme pour la première solution, j'ai ajouté deux états supplémentaires d'attente, une première qui va attendre de recevoir les mots de passe a tester et une deuxième qui va attendre que les autres quadcores soient prêt pour l'initialisation de la mémoire.
+
+Puis j'ai modifié le bcrypt cracker pour qu'il puisse récupérer les mots de passe et les distribuer au quadcores.
+J'ai aussi fait en sorte d'avertir le Cracker Regs lorsque tous les mots de passe ont été récupérés.
+
+\subsection{Vérification Hardware}
+
+Afin de gagner du temps pour la vérification, j'ai décidé de remplacer le \gls{pcie} par un microblaze qui est un \gls{ip} bloc fourni par Vivado qui fait office de microcontrôleur.
+Ainsi, le microblaze pourra prendre la place de l'XDMA et je pourrai mettre en place un code C afin de tester aisément le fonctionnement de mon système.
+Si le système est fonctionnel de cette manière, alors normalement mon système devrait marcher aussi avec le \gls{pcie}.
+Afin de vérifier si le mots de passe a bien été trouvé, j'ai mis les interfaces du bcrypt cracker sur des \gls{ip} \gls{gpio}s qui sont adressable par AXI4 afin d'éviter de trop compléxifier le module Cracker Regs.
+
+\begin{figure}[tbph!]
+	\centering
+	\includegraphics[width=1.4\linewidth, angle=-90]{pcie_test_db}
+	\caption[Block Design Test PCIe - FPGA]{Block Design Test PCIe - FPGA. Source : réalisé par Kandiah Abivarman}
+	\label{fig:pcie_test_db}
+\end{figure}
+
+Malgré de nombreuses heures passées à faire du debug, je n'ai malheureusement pas réussi à faire marcher le système.
+Par manque de temps, j'ai décidé de tester directement sans passer par la simulation, en utilisant les outils de debug qui sont mis à disposition par Vivado.
+J'ai pu identifier et réglé quelques problèmes, mais le système n'est toujours pas fonctionnel.

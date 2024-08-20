@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.20)  19 AUG 2024 20:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3) (preloaded format=pdflatex 2024.3.20)  20 AUG 2024 22:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1171,24 +1171,24 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 (kandiah_bachelor_thesis.aux)
 \openout1 = `kandiah_bachelor_thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 50.
-LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
 Package biblatex Info: Trying to load language 'french'...
 Package biblatex Info: ... file 'french.lbx' found.
  (C:\Users\abiva\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/lbx\french.lbx
@@ -1202,8 +1202,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'kandiah_bachelor_thesis.bbl' found.
  (kandiah_bachelor_thesis.bbl)
-Package biblatex Info: Reference section=0 on input line 50.
-Package biblatex Info: Reference segment=0 on input line 50.
+Package biblatex Info: Reference section=0 on input line 52.
+Package biblatex Info: Reference segment=0 on input line 52.
  (C:\Users\abiva\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count509
@@ -1231,8 +1231,8 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
-LaTeX Info: Redefining \degres on input line 50.
-LaTeX Info: Redefining \up on input line 50.
+LaTeX Info: Redefining \degres on input line 52.
+LaTeX Info: Redefining \up on input line 52.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1281,156 +1281,156 @@ Package caption Info: End \AtBeginDocument code.
 \c@mv@tabular=\count515
 \c@mv@boldtabular=\count516
 \c@lstlisting=\count517
-LaTeX Font Info:    Trying to load font information for T1+fvm on input line 50.
+LaTeX Font Info:    Trying to load font information for T1+fvm on input line 52.
  (C:\Users\abiva\AppData\Local\Programs\MiKTeX\tex/latex/bera\t1fvm.fd
 File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 LaTeX Font Info:    Font shape `T1/fvm/m/it' in size <12> not available
-(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 50.
+(Font)              Font shape `T1/fvm/m/sl' tried instead on input line 52.
 LaTeX Font Info:    Font shape `T1/fvm/m/sl' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/m/scsl' undefined
-(Font)              using `T1/fvm/m/sc' instead on input line 50.
+(Font)              using `T1/fvm/m/sc' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/m/sc' undefined
-(Font)              using `T1/fvm/m/n' instead on input line 50.
+(Font)              using `T1/fvm/m/n' instead on input line 52.
 
 LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 LaTeX Font Info:    Font shape `T1/fvm/b/it' in size <12> not available
-(Font)              Font shape `T1/fvm/b/sl' tried instead on input line 50.
+(Font)              Font shape `T1/fvm/b/sl' tried instead on input line 52.
 LaTeX Font Info:    Font shape `T1/fvm/b/sl' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 
 LaTeX Font Warning: Font shape `T1/fvm/b/scsl' undefined
-(Font)              using `T1/fvm/b/sc' instead on input line 50.
+(Font)              using `T1/fvm/b/sc' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/b/sc' undefined
-(Font)              using `T1/fvm/b/n' instead on input line 50.
+(Font)              using `T1/fvm/b/n' instead on input line 52.
 
 LaTeX Font Info:    Font shape `T1/fvm/bx/n' in size <12> not available
-(Font)              Font shape `T1/fvm/b/n' tried instead on input line 50.
+(Font)              Font shape `T1/fvm/b/n' tried instead on input line 52.
 LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 LaTeX Font Info:    Font shape `T1/fvm/bx/it' in size <12> not available
-(Font)              Font shape `T1/fvm/b/sl' tried instead on input line 50.
+(Font)              Font shape `T1/fvm/b/sl' tried instead on input line 52.
 LaTeX Font Info:    Font shape `T1/fvm/b/sl' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 LaTeX Font Info:    Font shape `T1/fvm/bx/sl' in size <12> not available
-(Font)              Font shape `T1/fvm/b/sl' tried instead on input line 50.
+(Font)              Font shape `T1/fvm/b/sl' tried instead on input line 52.
 LaTeX Font Info:    Font shape `T1/fvm/b/sl' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 
 LaTeX Font Warning: Font shape `T1/fvm/bx/scsl' undefined
-(Font)              using `T1/fvm/bx/sc' instead on input line 50.
+(Font)              using `T1/fvm/bx/sc' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/bx/sc' undefined
-(Font)              using `T1/fvm/bx/n' instead on input line 50.
+(Font)              using `T1/fvm/bx/n' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/sbx/sc' undefined
-(Font)              using `T1/fvm/sb/sc' instead on input line 50.
+(Font)              using `T1/fvm/sb/sc' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/sb/n' undefined
-(Font)              using `T1/fvm/m/n' instead on input line 50.
+(Font)              using `T1/fvm/m/n' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/sb/it' undefined
-(Font)              using `T1/fvm/sb/n' instead on input line 50.
+(Font)              using `T1/fvm/sb/n' instead on input line 52.
 
 LaTeX Font Info:    Font shape `T1/fvm/sb/n' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 
 LaTeX Font Warning: Font shape `T1/fvm/sb/sl' undefined
-(Font)              using `T1/fvm/sb/it' instead on input line 50.
+(Font)              using `T1/fvm/sb/it' instead on input line 52.
 
 LaTeX Font Info:    Font shape `T1/fvm/sb/it' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 
 LaTeX Font Warning: Font shape `T1/fvm/sb/scit' undefined
-(Font)              using `T1/fvm/sb/sc' instead on input line 50.
+(Font)              using `T1/fvm/sb/sc' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/sb/sc' undefined
-(Font)              using `T1/fvm/sb/n' instead on input line 50.
+(Font)              using `T1/fvm/sb/n' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/sbc/sc' undefined
-(Font)              using `T1/fvm/c/sc' instead on input line 50.
+(Font)              using `T1/fvm/c/sc' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/c/n' undefined
-(Font)              using `T1/fvm/m/n' instead on input line 50.
+(Font)              using `T1/fvm/m/n' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/c/it' undefined
-(Font)              using `T1/fvm/c/n' instead on input line 50.
+(Font)              using `T1/fvm/c/n' instead on input line 52.
 
 LaTeX Font Info:    Font shape `T1/fvm/c/n' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 
 LaTeX Font Warning: Font shape `T1/fvm/c/sl' undefined
-(Font)              using `T1/fvm/c/it' instead on input line 50.
+(Font)              using `T1/fvm/c/it' instead on input line 52.
 
 LaTeX Font Info:    Font shape `T1/fvm/c/it' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 
 LaTeX Font Warning: Font shape `T1/fvm/c/scit' undefined
-(Font)              using `T1/fvm/c/sc' instead on input line 50.
+(Font)              using `T1/fvm/c/sc' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/c/sc' undefined
-(Font)              using `T1/fvm/c/n' instead on input line 50.
+(Font)              using `T1/fvm/c/n' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/lc/sc' undefined
-(Font)              using `T1/fvm/l/sc' instead on input line 50.
+(Font)              using `T1/fvm/l/sc' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/l/n' undefined
-(Font)              using `T1/fvm/m/n' instead on input line 50.
+(Font)              using `T1/fvm/m/n' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/l/it' undefined
-(Font)              using `T1/fvm/l/n' instead on input line 50.
+(Font)              using `T1/fvm/l/n' instead on input line 52.
 
 LaTeX Font Info:    Font shape `T1/fvm/l/n' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 
 LaTeX Font Warning: Font shape `T1/fvm/l/sl' undefined
-(Font)              using `T1/fvm/l/it' instead on input line 50.
+(Font)              using `T1/fvm/l/it' instead on input line 52.
 
 LaTeX Font Info:    Font shape `T1/fvm/l/it' will be
-(Font)              scaled to size 10.20007pt on input line 50.
+(Font)              scaled to size 10.20007pt on input line 52.
 
 LaTeX Font Warning: Font shape `T1/fvm/l/scit' undefined
-(Font)              using `T1/fvm/l/sc' instead on input line 50.
+(Font)              using `T1/fvm/l/sc' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/l/sc' undefined
-(Font)              using `T1/fvm/l/n' instead on input line 50.
+(Font)              using `T1/fvm/l/n' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/m/ui' undefined
-(Font)              using `T1/fvm/m/n' instead on input line 50.
+(Font)              using `T1/fvm/m/n' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/bx/ui' undefined
-(Font)              using `T1/fvm/bx/n' instead on input line 50.
+(Font)              using `T1/fvm/bx/n' instead on input line 52.
 
 
 LaTeX Font Warning: Font shape `T1/fvm/m/In' undefined
-(Font)              using `T1/fvm/m/n' instead on input line 50.
+(Font)              using `T1/fvm/m/n' instead on input line 52.
 
-Package hyperref Info: Link coloring OFF on input line 50.
+Package hyperref Info: Link coloring OFF on input line 52.
 (kandiah_bachelor_thesis.out) (kandiah_bachelor_thesis.out)
 \@outlinefile=\write5
 \openout5 = `kandiah_bachelor_thesis.out'.
@@ -1468,12 +1468,12 @@ Package hyperref Info: Link coloring OFF on input line 50.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-<template/images/title/hepia_logo.jpg, id=241, 456.70625pt x 119.44624pt>
+<template/images/title/hepia_logo.jpg, id=293, 456.70625pt x 119.44624pt>
 File: template/images/title/hepia_logo.jpg Graphic file (type jpg)
 <use template/images/title/hepia_logo.jpg>
 Package pdftex.def Info: template/images/title/hepia_logo.jpg  used on input line 15.
 (pdftex.def)             Requested size: 140.33702pt x 36.70386pt.
-<template/images/title/hes-so_geneve_logo.png, id=242, 492.33937pt x 141.52875pt>
+<template/images/title/hes-so_geneve_logo.png, id=294, 492.33937pt x 141.52875pt>
 File: template/images/title/hes-so_geneve_logo.png Graphic file (type png)
 <use template/images/title/hes-so_geneve_logo.png>
 Package pdftex.def Info: template/images/title/hes-so_geneve_logo.png  used on input line 18.
@@ -1482,7 +1482,7 @@ LaTeX Font Info:    Trying to load font information for T1+phv on input line 22.
  (C:\Users\abiva\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 )
-<figures/fpga_cluster.jpg, id=244, 873.2625pt x 655.44875pt>
+<figures/fpga_cluster.jpg, id=296, 873.2625pt x 655.44875pt>
 File: figures/fpga_cluster.jpg Graphic file (type jpg)
 <use figures/fpga_cluster.jpg>
 Package pdftex.def Info: figures/fpga_cluster.jpg  used on input line 32.
@@ -1559,95 +1559,91 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
 
 ])
 \c@ttl@toc@annexes=\count519
-) [4] (chapters/dedication.tex) [5
-
-] (chapters/acknowledgements.tex) [6
+) [4] (chapters/acknowledgements.tex) [5
 
 
 ]
 
-pdfTeX warning: pdflatex (file ./figures/enonce.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figures/enonce.pdf, id=394, 597.55246pt x 845.07718pt>
+pdfTeX warning: pdflatex (file ./figures/enonce.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
+<figures/enonce.pdf, id=468, 597.53635pt x 845.04686pt>
 File: figures/enonce.pdf Graphic file (type pdf)
 <use figures/enonce.pdf>
-Package pdftex.def Info: figures/enonce.pdf  used on input line 81.
-(pdftex.def)             Requested size: 597.551pt x 845.07512pt.
+Package pdftex.def Info: figures/enonce.pdf  used on input line 83.
+(pdftex.def)             Requested size: 597.53488pt x 845.0448pt.
 
 
-pdfTeX warning: pdflatex (file ./figures/enonce.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+pdfTeX warning: pdflatex (file ./figures/enonce.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
 File: figures/enonce.pdf Graphic file (type pdf)
 <use figures/enonce.pdf>
-Package pdftex.def Info: figures/enonce.pdf  used on input line 81.
-(pdftex.def)             Requested size: 597.551pt x 845.07512pt.
+Package pdftex.def Info: figures/enonce.pdf  used on input line 83.
+(pdftex.def)             Requested size: 597.53488pt x 845.0448pt.
 
 
-pdfTeX warning: pdflatex (file ./figures/enonce.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+pdfTeX warning: pdflatex (file ./figures/enonce.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
 
 
-pdfTeX warning: pdflatex (file ./figures/enonce.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figures/enonce.pdf, id=397, page=1, 597.55246pt x 845.07718pt>
+pdfTeX warning: pdflatex (file ./figures/enonce.pdf): PDF inclusion: found PDF version <1.6>, but at most version <1.5> allowed
+<figures/enonce.pdf, id=471, page=1, 597.53635pt x 845.04686pt>
 File: figures/enonce.pdf Graphic file (type pdf)
 <use figures/enonce.pdf, page 1>
-Package pdftex.def Info: figures/enonce.pdf , page1 used on input line 81.
-(pdftex.def)             Requested size: 597.551pt x 845.07512pt.
+Package pdftex.def Info: figures/enonce.pdf , page1 used on input line 83.
+(pdftex.def)             Requested size: 597.53488pt x 845.0448pt.
 File: figures/enonce.pdf Graphic file (type pdf)
 <use figures/enonce.pdf, page 1>
-Package pdftex.def Info: figures/enonce.pdf , page1 used on input line 81.
-(pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
+Package pdftex.def Info: figures/enonce.pdf , page1 used on input line 83.
+(pdftex.def)             Requested size: 597.56223pt x 845.08348pt.
 File: figures/enonce.pdf Graphic file (type pdf)
 <use figures/enonce.pdf, page 1>
-Package pdftex.def Info: figures/enonce.pdf , page1 used on input line 81.
-(pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
+Package pdftex.def Info: figures/enonce.pdf , page1 used on input line 83.
+(pdftex.def)             Requested size: 597.56223pt x 845.08348pt.
 File: figures/enonce.pdf Graphic file (type pdf)
 <use figures/enonce.pdf, page 1>
-Package pdftex.def Info: figures/enonce.pdf , page1 used on input line 81.
-(pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
+Package pdftex.def Info: figures/enonce.pdf , page1 used on input line 83.
+(pdftex.def)             Requested size: 597.56223pt x 845.08348pt.
 File: figures/enonce.pdf Graphic file (type pdf)
 <use figures/enonce.pdf, page 1>
-Package pdftex.def Info: figures/enonce.pdf , page1 used on input line 81.
-(pdftex.def)             Requested size: 597.57834pt x 845.1138pt.
-[7
+Package pdftex.def Info: figures/enonce.pdf , page1 used on input line 83.
+(pdftex.def)             Requested size: 597.56223pt x 845.08348pt.
+[6
 
 
- <./figures/enonce.pdf>] (chapters/abstract.tex) [8
+ <./figures/enonce.pdf>] (chapters/abstract.tex
+File: template/images/title/hepia_logo.jpg Graphic file (type jpg)
+<use template/images/title/hepia_logo.jpg>
+Package pdftex.def Info: template/images/title/hepia_logo.jpg  used on input line 7.
+(pdftex.def)             Requested size: 140.33702pt x 36.70386pt.
+File: template/images/title/hes-so_geneve_logo.png Graphic file (type png)
+<use template/images/title/hes-so_geneve_logo.png>
+Package pdftex.def Info: template/images/title/hes-so_geneve_logo.png  used on input line 10.
+(pdftex.def)             Requested size: 127.68217pt x 36.70386pt.
+File: figures/fpga_cluster.jpg Graphic file (type jpg)
+<use figures/fpga_cluster.jpg>
+Package pdftex.def Info: figures/fpga_cluster.jpg  used on input line 34.
+(pdftex.def)             Requested size: 182.09486pt x 136.66817pt.
+) [7
 
 
 ] (chapters/acronyms.tex
 Using TeX to sort glossary entries---this may take a while
-) [9
+) [8
 
 
 
-] (chapters/figureslist.tex (kandiah_bachelor_thesis.lof)
+] (chapters/figureslist.tex (kandiah_bachelor_thesis.lof [9
+
+
+])
 \tf@lof=\write6
 \openout6 = `kandiah_bachelor_thesis.lof'.
 
- [10
-
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 9--10
-[]\T1/ptm/m/n/12 URL01 []https://towardsdatascience.com/introduction-to-fpga-and-its-architecture-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 10--11
-[]\T1/ptm/m/n/12 URL02 []https://blog.mbedded.ninja/programming/serialization-formats/consistent-
- []
-
-) [11] (chapters/tableslist.tex (kandiah_bachelor_thesis.lot)
+) [10] (chapters/tableslist.tex (kandiah_bachelor_thesis.lot)
 \tf@lot=\write7
 \openout7 = `kandiah_bachelor_thesis.lot'.
 
-
-Overfull \hbox (17.13472pt too wide) in paragraph at lines 16--17
-[]\T1/ptm/m/n/12 URL05 []ce-site.ch/publications/documents/rapports/rapportsdestage/monrapportdestage.pdf[] 
- []
-
-) [12
+) [11
 
 
-] (chapters/annexestoc.tex (kandiah_bachelor_thesis.ptc)) [13
+] (chapters/annexestoc.tex (kandiah_bachelor_thesis.ptc)) [12
 
 
 ] (chapters/intro.tex
@@ -1664,7 +1660,7 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 
 ]) [2] (chapters/chap0.tex
 Chapitre 1.
-<figures/inside_fpga.png, id=626, 1286.8075pt x 941.5175pt>
+<figures/inside_fpga.png, id=734, 1286.8075pt x 941.5175pt>
 File: figures/inside_fpga.png Graphic file (type png)
 <use figures/inside_fpga.png>
 Package pdftex.def Info: figures/inside_fpga.png  used on input line 13.
@@ -1673,19 +1669,19 @@ Package pdftex.def Info: figures/inside_fpga.png  used on input line 13.
 
 
  <./figures/inside_fpga.png (PNG copy)>] [4]
-<figures/hash_function.png, id=644, 550.6974pt x 268.8444pt>
+<figures/hash_function.png, id=752, 550.6974pt x 268.8444pt>
 File: figures/hash_function.png Graphic file (type png)
 <use figures/hash_function.png>
 Package pdftex.def Info: figures/hash_function.png  used on input line 45.
 (pdftex.def)             Requested size: 318.66948pt x 155.57297pt.
-<figures/hash_salt.png, id=645, 680.7834pt x 326.6604pt>
+<figures/hash_salt.png, id=753, 680.7834pt x 326.6604pt>
 File: figures/hash_salt.png Graphic file (type png)
 <use figures/hash_salt.png>
 Package pdftex.def Info: figures/hash_salt.png  used on input line 57.
 (pdftex.def)             Requested size: 318.66948pt x 152.90236pt.
  [5 <./figures/hash_function.png>]) (chapters/chap1.tex [6 <./figures/hash_salt.png>]
 Chapitre 2.
-<figures/objectif.png, id=661, 405.4347pt x 203.0787pt>
+<figures/objectif.png, id=768, 405.4347pt x 203.0787pt>
 File: figures/objectif.png Graphic file (type png)
 <use figures/objectif.png>
 Package pdftex.def Info: figures/objectif.png  used on input line 11.
@@ -1693,37 +1689,37 @@ Package pdftex.def Info: figures/objectif.png  used on input line 11.
 [7
 
  <./figures/objectif.png>]
-<figures/general_uart.png, id=691, 318.7107pt x 203.0787pt>
+<figures/general_uart.png, id=799, 318.7107pt x 203.0787pt>
 File: figures/general_uart.png Graphic file (type png)
 <use figures/general_uart.png>
 Package pdftex.def Info: figures/general_uart.png  used on input line 42.
 (pdftex.def)             Requested size: 364.19667pt x 232.07608pt.
  [8 <./figures/general_uart.png>]
-<figures/general_pcie.png, id=709, 318.7107pt x 203.0787pt>
+<figures/general_pcie.png, id=817, 318.7107pt x 203.0787pt>
 File: figures/general_pcie.png Graphic file (type png)
 <use figures/general_pcie.png>
 Package pdftex.def Info: figures/general_pcie.png  used on input line 63.
 (pdftex.def)             Requested size: 364.19667pt x 232.07608pt.
  [9 <./figures/general_pcie.png>]
-<figures/bcrypt_algo.png, id=718, 492.1587pt x 289.8027pt>
+<figures/bcrypt_algo.png, id=826, 492.1587pt x 289.8027pt>
 File: figures/bcrypt_algo.png Graphic file (type png)
 <use figures/bcrypt_algo.png>
 Package pdftex.def Info: figures/bcrypt_algo.png  used on input line 92.
 (pdftex.def)             Requested size: 318.66948pt x 187.6443pt.
  [10]
-<figures/bcrypt_hash_format.png, id=726, 362.0727pt x 181.3977pt>
+<figures/bcrypt_hash_format.png, id=834, 362.0727pt x 181.3977pt>
 File: figures/bcrypt_hash_format.png Graphic file (type png)
 <use figures/bcrypt_hash_format.png>
 Package pdftex.def Info: figures/bcrypt_hash_format.png  used on input line 105.
 (pdftex.def)             Requested size: 318.66948pt x 159.65536pt.
-<figures/base_64.png, id=730, 348.3414pt x 188.6247pt>
+<figures/base_64.png, id=838, 348.3414pt x 188.6247pt>
 File: figures/base_64.png Graphic file (type png)
 <use figures/base_64.png>
 Package pdftex.def Info: figures/base_64.png  used on input line 115.
 (pdftex.def)             Requested size: 318.66948pt x 172.56975pt.
  [11 <./figures/bcrypt_algo.png> <./figures/bcrypt_hash_format.png>]) (chapters/chap2.tex [12 <./figures/base_64.png>]
 Chapitre 3.
-<figures/bcrypt_architecture.png, id=764, 606.3453pt x 304.2567pt>
+<figures/bcrypt_architecture.png, id=871, 606.3453pt x 304.2567pt>
 File: figures/bcrypt_architecture.png Graphic file (type png)
 <use figures/bcrypt_architecture.png>
 Package pdftex.def Info: figures/bcrypt_architecture.png  used on input line 13.
@@ -1731,115 +1727,183 @@ Package pdftex.def Info: figures/bcrypt_architecture.png  used on input line 13.
 [13
 
  <./figures/bcrypt_architecture.png>]
-<figures/bcrypt_core_interface.png, id=773, 463.2507pt x 246.4407pt>
+<figures/bcrypt_core_interface.png, id=881, 463.2507pt x 246.4407pt>
 File: figures/bcrypt_core_interface.png Graphic file (type png)
 <use figures/bcrypt_core_interface.png>
 Package pdftex.def Info: figures/bcrypt_core_interface.png  used on input line 37.
 (pdftex.def)             Requested size: 409.71692pt x 217.97403pt.
  [14 <./figures/bcrypt_core_interface.png>]
-<figures/bcrypt_core_simplified.png, id=781, 787.743pt x 348.3414pt>
+<figures/bcrypt_core_simplified.png, id=889, 787.743pt x 348.3414pt>
 File: figures/bcrypt_core_simplified.png Graphic file (type png)
 <use figures/bcrypt_core_simplified.png>
 Package pdftex.def Info: figures/bcrypt_core_simplified.png  used on input line 50.
 (pdftex.def)             Requested size: 409.71692pt x 181.18109pt.
  [15 <./figures/bcrypt_core_simplified.png>]
-<figures/bcrypt_core_simplified_fsm.png, id=788, 336.0555pt x 405.4347pt>
+<figures/bcrypt_core_simplified_fsm.png, id=896, 336.0555pt x 405.4347pt>
 File: figures/bcrypt_core_simplified_fsm.png Graphic file (type png)
 <use figures/bcrypt_core_simplified_fsm.png>
 Package pdftex.def Info: figures/bcrypt_core_simplified_fsm.png  used on input line 67.
 (pdftex.def)             Requested size: 318.66948pt x 384.48027pt.
  [16 <./figures/bcrypt_core_simplified_fsm.png>]
-<figures/bcrypt_tb_timing.png, id=794, 766.62099pt x 339.35478pt>
+<figures/bcrypt_tb_timing.png, id=902, 766.62099pt x 339.35478pt>
 File: figures/bcrypt_tb_timing.png Graphic file (type png)
 <use figures/bcrypt_tb_timing.png>
 Package pdftex.def Info: figures/bcrypt_tb_timing.png  used on input line 79.
 (pdftex.def)             Requested size: 409.71692pt x 181.36919pt.
  [17 <./figures/bcrypt_tb_timing.png>]
-<figures/conversion_table.png, id=801, 145.2627pt x 261.6174pt>
+<figures/conversion_table.png, id=909, 145.2627pt x 261.6174pt>
 File: figures/conversion_table.png Graphic file (type png)
 <use figures/conversion_table.png>
 Package pdftex.def Info: figures/conversion_table.png  used on input line 108.
 (pdftex.def)             Requested size: 113.81102pt x 204.97888pt.
  [18 <./figures/conversion_table.png>] [19]
-<figures/bcrypt_quad_simplified_fsm.png, id=813, 541.3023pt x 348.3414pt>
+<figures/bcrypt_quad_simplified_fsm.png, id=921, 541.3023pt x 348.3414pt>
 File: figures/bcrypt_quad_simplified_fsm.png Graphic file (type png)
 <use figures/bcrypt_quad_simplified_fsm.png>
 Package pdftex.def Info: figures/bcrypt_quad_simplified_fsm.png  used on input line 138.
 (pdftex.def)             Requested size: 318.66948pt x 205.07848pt.
  [20 <./figures/bcrypt_quad_simplified_fsm.png>]
-<figures/bcrypt_cracker_tb_timing.png, id=821, 1164.35pt x 542.025pt>
+<figures/bcrypt_cracker_tb_timing.png, id=929, 1164.35pt x 542.025pt>
 File: figures/bcrypt_cracker_tb_timing.png Graphic file (type png)
 <use figures/bcrypt_cracker_tb_timing.png>
 Package pdftex.def Info: figures/bcrypt_cracker_tb_timing.png  used on input line 163.
 (pdftex.def)             Requested size: 409.71692pt x 190.72887pt.
 ) (chapters/chap3.tex [21 <./figures/bcrypt_cracker_tb_timing.png>]
 Chapitre 4.
-<figures/cobs_encoding.png, id=831, 808.01875pt x 646.415pt>
-File: figures/cobs_encoding.png Graphic file (type png)
-<use figures/cobs_encoding.png>
-Package pdftex.def Info: figures/cobs_encoding.png  used on input line 29.
-(pdftex.def)             Requested size: 318.66948pt x 254.93166pt.
+<figures/nexys_video.png, id=938, 144.54pt x 118.041pt>
+File: figures/nexys_video.png Graphic file (type png)
+<use figures/nexys_video.png>
+Package pdftex.def Info: figures/nexys_video.png  used on input line 17.
+(pdftex.def)             Requested size: 318.66948pt x 260.26013pt.
 [22
 
-] [23 <./figures/cobs_encoding.png>]
-<figures/uart_packet_format.png, id=853, 347.6187pt x 123.5817pt>
+ <./figures/nexys_video.png>]
+<figures/cobs_encoding.png, id=946, 808.01875pt x 646.415pt>
+File: figures/cobs_encoding.png Graphic file (type png)
+<use figures/cobs_encoding.png>
+Package pdftex.def Info: figures/cobs_encoding.png  used on input line 38.
+(pdftex.def)             Requested size: 318.66948pt x 254.93166pt.
+ [23 <./figures/cobs_encoding.png>]
+<figures/uart_packet_format.png, id=961, 347.6187pt x 123.5817pt>
 File: figures/uart_packet_format.png Graphic file (type png)
 <use figures/uart_packet_format.png>
-Package pdftex.def Info: figures/uart_packet_format.png  used on input line 49.
+Package pdftex.def Info: figures/uart_packet_format.png  used on input line 56.
 (pdftex.def)             Requested size: 273.14923pt x 97.11365pt.
-<figures/uart_mosi_payload_format.png, id=855, 462.528pt x 173.448pt>
+<figures/uart_mosi_payload_format.png, id=963, 462.528pt x 173.448pt>
 File: figures/uart_mosi_payload_format.png Graphic file (type png)
 <use figures/uart_mosi_payload_format.png>
-Package pdftex.def Info: figures/uart_mosi_payload_format.png  used on input line 62.
+Package pdftex.def Info: figures/uart_mosi_payload_format.png  used on input line 69.
 (pdftex.def)             Requested size: 318.66948pt x 119.50722pt.
- [24 <./figures/uart_packet_format.png> <./figures/uart_mosi_payload_format.png>]
-<figures/uart_return_payload_format.png, id=864, 376.5267pt x 158.994pt>
+ [24 <./figures/uart_packet_format.png>]
+<figures/uart_return_payload_format.png, id=973, 376.5267pt x 158.994pt>
 File: figures/uart_return_payload_format.png Graphic file (type png)
 <use figures/uart_return_payload_format.png>
-Package pdftex.def Info: figures/uart_return_payload_format.png  used on input line 75.
+Package pdftex.def Info: figures/uart_return_payload_format.png  used on input line 82.
 (pdftex.def)             Requested size: 318.66948pt x 134.57056pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 80--81
+Underfull \hbox (badness 10000) in paragraph at lines 87--88
 
  []
 
-[25 <./figures/uart_return_payload_format.png>]
-<figures/uart_miso_payload_format.png, id=872, 462.528pt x 325.9377pt>
+[25 <./figures/uart_mosi_payload_format.png> <./figures/uart_return_payload_format.png>]
+<figures/uart_miso_payload_format.png, id=982, 462.528pt x 325.9377pt>
 File: figures/uart_miso_payload_format.png Graphic file (type png)
 <use figures/uart_miso_payload_format.png>
-Package pdftex.def Info: figures/uart_miso_payload_format.png  used on input line 104.
+Package pdftex.def Info: figures/uart_miso_payload_format.png  used on input line 113.
 (pdftex.def)             Requested size: 318.66948pt x 224.57397pt.
  [26 <./figures/uart_miso_payload_format.png>]
-<figures/uart_communication_protocol_top_rev2.png, id=881, 578.8827pt x 362.0727pt>
+<figures/uart_communication_protocol_top_rev2.png, id=991, 578.8827pt x 362.0727pt>
 File: figures/uart_communication_protocol_top_rev2.png Graphic file (type png)
 <use figures/uart_communication_protocol_top_rev2.png>
-Package pdftex.def Info: figures/uart_communication_protocol_top_rev2.png  used on input line 126.
+Package pdftex.def Info: figures/uart_communication_protocol_top_rev2.png  used on input line 135.
 (pdftex.def)             Requested size: 318.66948pt x 199.31738pt.
  [27 <./figures/uart_communication_protocol_top_rev2.png>]
-<figures/uart_packet_receiver.png, id=893, 426.393pt x 282.5757pt>
+<figures/uart_packet_receiver.png, id=1003, 426.393pt x 282.5757pt>
 File: figures/uart_packet_receiver.png Graphic file (type png)
 <use figures/uart_packet_receiver.png>
-Package pdftex.def Info: figures/uart_packet_receiver.png  used on input line 146.
+Package pdftex.def Info: figures/uart_packet_receiver.png  used on input line 155.
 (pdftex.def)             Requested size: 318.66948pt x 211.19392pt.
-<figures/uart_rx_packet_process.png, id=894, 599.841pt x 420.6114pt>
+<figures/uart_rx_packet_process.png, id=1004, 599.841pt x 420.6114pt>
 File: figures/uart_rx_packet_process.png Graphic file (type png)
 <use figures/uart_rx_packet_process.png>
-Package pdftex.def Info: figures/uart_rx_packet_process.png  used on input line 163.
+Package pdftex.def Info: figures/uart_rx_packet_process.png  used on input line 172.
 (pdftex.def)             Requested size: 318.66948pt x 223.4621pt.
- [28 <./figures/uart_packet_receiver.png>] [29 <./figures/uart_rx_packet_process.png>] [30]) (chapters/chap4.tex [31]
+ [28 <./figures/uart_packet_receiver.png>] [29 <./figures/uart_rx_packet_process.png>] [30] [31] [32] [33]
+<figures/kcu116.png, id=1057, 1284.8pt x 680.5425pt>
+File: figures/kcu116.png Graphic file (type png)
+<use figures/kcu116.png>
+Package pdftex.def Info: figures/kcu116.png  used on input line 293.
+(pdftex.def)             Requested size: 318.66948pt x 168.79564pt.
+<figures/pcie_top.png, id=1063, 615.0177pt x 203.0787pt>
+File: figures/pcie_top.png Graphic file (type png)
+<use figures/pcie_top.png>
+Package pdftex.def Info: figures/pcie_top.png  used on input line 309.
+(pdftex.def)             Requested size: 364.19667pt x 120.2585pt.
+ [34 <./figures/kcu116.png>]
+<figures/pcie_axi4_attack_ctrl.png, id=1073, 636.6987pt x 362.0727pt>
+File: figures/pcie_axi4_attack_ctrl.png Graphic file (type png)
+<use figures/pcie_axi4_attack_ctrl.png>
+Package pdftex.def Info: figures/pcie_axi4_attack_ctrl.png  used on input line 323.
+(pdftex.def)             Requested size: 364.19667pt x 207.10732pt.
+ [35 <./figures/pcie_top.png> <./figures/pcie_axi4_attack_ctrl.png>]
+<figures/pcie_bram_addresses.png, id=1084, 174.1707pt x 231.9867pt>
+File: figures/pcie_bram_addresses.png Graphic file (type png)
+<use figures/pcie_bram_addresses.png>
+Package pdftex.def Info: figures/pcie_bram_addresses.png  used on input line 341.
+(pdftex.def)             Requested size: 182.09486pt x 242.55957pt.
+ [36 <./figures/pcie_bram_addresses.png>]
+<figures/pcie_test_db.png, id=1095, 1400.23125pt x 516.42938pt>
+File: figures/pcie_test_db.png Graphic file (type png)
+<use figures/pcie_test_db.png>
+Package pdftex.def Info: figures/pcie_test_db.png  used on input line 363.
+(pdftex.def)             Requested size: 637.33897pt x 235.06241pt.
+) (chapters/chap4.tex [37] [38 <./figures/pcie_test_db.png>]
 Chapitre 5.
-<figures/stats_cpu.png, id=920, 462.528pt x 346.896pt>
+<figures/stats_cpu.png, id=1108, 462.528pt x 346.896pt>
 File: figures/stats_cpu.png Graphic file (type png)
 <use figures/stats_cpu.png>
-Package pdftex.def Info: figures/stats_cpu.png  used on input line 11.
+Package pdftex.def Info: figures/stats_cpu.png  used on input line 13.
 (pdftex.def)             Requested size: 318.66948pt x 239.01443pt.
-) (chapters/conclusion.tex [32
+[39
 
- <./figures/stats_cpu.png>]) (chapters/annexes.tex [33
+ <./figures/stats_cpu.png>]
+<figures/gpu_benchmark.png, id=1120, 557.08125pt x 487.8225pt>
+File: figures/gpu_benchmark.png Graphic file (type png)
+<use figures/gpu_benchmark.png>
+Package pdftex.def Info: figures/gpu_benchmark.png  used on input line 32.
+(pdftex.def)             Requested size: 318.66948pt x 279.05914pt.
+<figures/nexys_ressources_22q.png, id=1125, 383.18156pt x 262.73157pt>
+File: figures/nexys_ressources_22q.png Graphic file (type png)
+<use figures/nexys_ressources_22q.png>
+Package pdftex.def Info: figures/nexys_ressources_22q.png  used on input line 55.
+(pdftex.def)             Requested size: 318.66948pt x 218.51213pt.
+ [40 <./figures/gpu_benchmark.png>]
+<figures/nexys_22q_power.png, id=1131, 816.04875pt x 415.5525pt>
+File: figures/nexys_22q_power.png Graphic file (type png)
+<use figures/nexys_22q_power.png>
+Package pdftex.def Info: figures/nexys_22q_power.png  used on input line 64.
+(pdftex.def)             Requested size: 318.66948pt x 162.27406pt.
+ [41 <./figures/nexys_ressources_22q.png> <./figures/nexys_22q_power.png>]
+Overfull \hbox (6.0091pt too wide) in paragraph at lines 80--90
+ [][] 
+ []
 
-] [34
+<figures/kcu116_36q_power.png, id=1140, 740.7675pt x 403.5075pt>
+File: figures/kcu116_36q_power.png Graphic file (type png)
+<use figures/kcu116_36q_power.png>
+Package pdftex.def Info: figures/kcu116_36q_power.png  used on input line 100.
+(pdftex.def)             Requested size: 318.66948pt x 173.58488pt.
+[42 <./figures/kcu116_36q_power.png>] [43] [44]
+<figures/power_graph_comparison.png, id=1171, 867.24pt x 578.16pt>
+File: figures/power_graph_comparison.png Graphic file (type png)
+<use figures/power_graph_comparison.png>
+Package pdftex.def Info: figures/power_graph_comparison.png  used on input line 187.
+(pdftex.def)             Requested size: 318.66948pt x 212.44257pt.
+) (chapters/conclusion.tex [45 <./figures/power_graph_comparison.png>] [46
 
-]) (chapters/references.tex [35
+]) (chapters/annexes.tex [47] [48
+
+]) (chapters/references.tex [49
 
 ]
 
@@ -1849,13 +1913,13 @@ Package biblatex Warning: Option 'omitnumbers' requires 'defernumbers=true'.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 6.
 (C:\Users\abiva\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-) [36
+) [50
 
 ])
 \tf@ptc=\write8
 \openout8 = `kandiah_bachelor_thesis.ptc'.
 
- [37] (kandiah_bachelor_thesis.aux)
+ [51] (kandiah_bachelor_thesis.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-03-14>
@@ -1865,23 +1929,23 @@ L3 programming layer <2024-03-14>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `kandiah_bachelor_thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 22F83D0C2B549EC4096B4E45C8CDBD8C;9052.
+(rerunfilecheck)             Checksum: 4FAD06AB2124FD23F6A66712C39B8DCC;11669.
 Package logreq Info: Writing requests to 'kandiah_bachelor_thesis.run.xml'.
 \openout1 = `kandiah_bachelor_thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 42869 strings out of 474424
- 823060 string characters out of 5741739
- 1942496 words of memory out of 5000000
- 64240 multiletter control sequences out of 15000+600000
- 646875 words of font info for 124 fonts, out of 8000000 for 9000
+ 43106 strings out of 474424
+ 828451 string characters out of 5741739
+ 1943496 words of memory out of 5000000
+ 64435 multiletter control sequences out of 15000+600000
+ 654921 words of font info for 128 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,17n,96p,2478b,2372s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,17n,96p,2478b,2384s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/bera/fvmr8a.pfb><C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/abiva/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on kandiah_bachelor_thesis.pdf (50 pages, 3324000 bytes).
+Output written on kandiah_bachelor_thesis.pdf (63 pages, 5609460 bytes).
 PDF statistics:
- 1061 PDF objects out of 1200 (max. 8388607)
- 194 named destinations out of 1000 (max. 500000)
- 650 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1347 PDF objects out of 1440 (max. 8388607)
+ 237 named destinations out of 1000 (max. 500000)
+ 809 words of extra memory for PDF output out of 10000 (max. 10000000)
 

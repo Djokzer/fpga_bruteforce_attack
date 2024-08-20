@@ -2,5 +2,45 @@
 \chapter*{Conclusion}
 \addcontentsline{toc}{chapter}{Conclusion} % Adding toc entry
 
+% Fonction de rappel
 
-Votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte, votre texte.
+L'objectif de ce projet de semestre est d'explorer la possibilité de mise en place d'une attaque de mot de passe bcrypt par bruteforce sur un \gls{fpga}.
+Le but étant de chercher une solution plus efficient que les solutions actuelles sur \gls{gpu}. 
+
+Pour ce faire, j'ai entamé le projet durant le travail de semestre par une recherche sur le fonctionnement de la fonction de hachage bcrypt et les différentes implémentations existantes.
+J'ai choisi l'implémentation que j'ai trouvée la plus intéressante et je me suis lancé sur une première phase de simulation.
+En effet, j'ai commencé par analyser le fonctionnement des différents modules présents et tester à l'aide de la simulation le bon fonctionnement du système.
+J'ai aussi eu l'occasion de corriger certaines parties du code source afin de le faire fonctionner comme souhaité. 
+
+Dans le cadre du projet de bachelor, j'ai développé une interface UART permettant l'initialisation des différents cœurs de calcul bcrypt sur la FPGA. 
+Cette interface inclut un système de paquets utilisant un encodage \gls{cobs} et un \gls{crc} pour gérer les communications entre la FPGA et l'ordinateur, ce qui a permis de recevoir des confirmations et des erreurs et de renvoyer le mot de passe une fois trouvé.
+
+J'avais également prévu de mettre en place une solution PCIe pour améliorer les performances de communication entre la carte FPGA et l'ordinateur. 
+Cependant, en raison des contraintes de temps, cette partie du projet n'a pas pu être finalisée. 
+Malgré les efforts déployés, la solution PCIe n'a pas pu être terminée dans les délais impartis, et le projet a donc été concentré sur la solution UART pour atteindre les objectifs principaux.
+
+% Retour réflexif sur l’exercice 
+
+Ce projet m'a permis de mettre en pratique les connaissances acquises durant mes cours de \gls{fpga} et de \gls{vhdl}, notamment sur la partie simulation et l'importance de cette étape cruciale. 
+En travaillant sur une implémentation de l'attaque bcrypt sur FPGA, j'ai eu l'occasion de confronter mes compétences théoriques à des défis pratiques réels.
+
+Une des principales difficultés rencontrées a été de reprendre un code source qui n'était pas bien documenté et qui n'était pas de ma propre conception. 
+Cela m'a contraint à développer des compétences en lecture et en compréhension de code \gls{vhdl} existant. 
+J'ai dû apprendre à déchiffrer, modifier et faire fonctionner ce code selon les objectifs fixés, ce qui a grandement enrichi ma compréhension du fonctionnement des FPGA et de leur programmation.
+
+Le processus de débogage sur la carte \gls{fpga} a été particulièrement instructif. 
+Il m'a permis de constater les écarts entre la simulation et le fonctionnement réel du matériel. 
+Cette expérience a renforcé ma compréhension des défis associés à l'implémentation matérielle et m'a appris à résoudre des problèmes concrets liés au hardware.
+
+La mise en place de l'interface \gls{uart} a été un aspect intéressant du projet, car elle a nécessité la création d'un système de communication efficace pour l'attaque bcrypt.
+De plus, bien que je n'aie pas pu finaliser la solution PCIe, le travail préparatoire m'a donné un aperçu précieux sur cette technologie, qui m'a toujours intéressé. 
+
+% Fonction d’ouverture
+
+Ce projet a constitué une étape initiale significative dans le développement d’une solution FPGA pour les attaques de mots de passe bcrypt. 
+Toutefois, plusieurs axes d'amélioration peuvent être explorés pour enrichir et étendre cette solution.
+Une première voie serait simplement de finir de mettre en place la solution \gls{pcie}, afin d'avoir une solution permettant l'attaque par dictionnaire.
+Une autre possibilité serait d'améliorer la solution \gls{uart} par exemple, réglant les petits problèmes de contrainte de timing et en améliorant le script de test en python.
+Il serait intéressant de tenter d'optimiser l'implémentation du bcrypt. En effet, durant mon travail, j'ai pu identifier quelques sections qui pourraient faire le sujet d'optimisation notamment la partie blowfish.
+Une autre possibilité serait de chercher à rendre la solution la plus extensible possible, afin de mettre en place par exemple un système de cluster de cartes \gls{fpga} pour augmenter la puissance de calcul.
+Enfin, étudier la possibilité d'ajouter d'autres fonctions de hachage au système actuel afin de créer une solution beaucoup plus polyvalente.
