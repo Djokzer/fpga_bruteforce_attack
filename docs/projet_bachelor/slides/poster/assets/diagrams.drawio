@@ -1,0 +1,118 @@
+<mxfile host="app.diagrams.net" modified="2024-08-26T20:11:01.657Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" etag="6tDRoVuPRL4_qT3Au2CE" version="24.4.1" type="device">
+  <diagram name="uart_pcie" id="3fCGIvySXhtWSDOCoJ5S">
+    <mxGraphModel dx="1430" dy="761" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-47" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="710" width="540" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-21" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="360" width="540" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-1" value="Solution UART" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=20;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="80" y="300" width="750" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-2" value="PC" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="360" width="130" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-4" value="UART&lt;div&gt;TX/RX&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="370" width="50" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-15" value="Bcrypt Quadcore 2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="490" width="190" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-22" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=block;fillColor=#4D4D4D;strokeColor=none;" edge="1" parent="1" source="DrjE5Jhkg9UTwB1D8b_l-2" target="DrjE5Jhkg9UTwB1D8b_l-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="320" y="580" as="sourcePoint" />
+            <mxPoint x="370" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-24" value="Solution PCIe" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=20;fillColor=none;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="80" y="650" width="750" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-25" value="PC" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="710" width="130" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-26" value="PCIe&lt;div&gt;DMA&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="720" width="50" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-34" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=block;fillColor=#4D4D4D;strokeColor=none;" edge="1" parent="1" source="DrjE5Jhkg9UTwB1D8b_l-25">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="320" y="930" as="sourcePoint" />
+            <mxPoint x="290" y="835" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-44" value="Bcrypt Quadcore N" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="710" y="840" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-45" value="Password&lt;div&gt;Buffer&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="790" width="100" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-48" value="Bcrypt Quadcore 1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="370" width="190" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-49" value="Bcrypt Quadcore N" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="490" width="190" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-51" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="430" y="370" width="190" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-5" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="DrjE5Jhkg9UTwB1D8b_l-51">
+          <mxGeometry width="190" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-8" value="Bcrypt&lt;div&gt;Core 1&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="DrjE5Jhkg9UTwB1D8b_l-51">
+          <mxGeometry x="55" y="10" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-10" value="Bcrypt&lt;div&gt;Core 0&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="DrjE5Jhkg9UTwB1D8b_l-51">
+          <mxGeometry x="5" y="10" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-11" value="Bcrypt&lt;div&gt;Core 2&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="DrjE5Jhkg9UTwB1D8b_l-51">
+          <mxGeometry x="5" y="60" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-13" value="Bcrypt&lt;div&gt;Core 3&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="DrjE5Jhkg9UTwB1D8b_l-51">
+          <mxGeometry x="55" y="60" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-14" value="Password&lt;div&gt;Generator&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="DrjE5Jhkg9UTwB1D8b_l-51">
+          <mxGeometry x="105" y="10" width="80" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-52" value="Packet&lt;div&gt;System&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="370" width="60" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-53" value="Registers" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="720" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-54" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="470" y="720" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-39" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="DrjE5Jhkg9UTwB1D8b_l-54">
+          <mxGeometry width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-35" value="Bcrypt&lt;div&gt;Core 1&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="DrjE5Jhkg9UTwB1D8b_l-54">
+          <mxGeometry x="60" y="10" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-36" value="Bcrypt&lt;div&gt;Core 0&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="DrjE5Jhkg9UTwB1D8b_l-54">
+          <mxGeometry x="10" y="10" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-37" value="Bcrypt&lt;div&gt;Core 2&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="DrjE5Jhkg9UTwB1D8b_l-54">
+          <mxGeometry x="10" y="60" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-38" value="Bcrypt&lt;div&gt;Core 3&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="DrjE5Jhkg9UTwB1D8b_l-54">
+          <mxGeometry x="60" y="60" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-57" value="Bcrypt Quadcore 2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="710" y="720" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-58" value="Bcrypt Quadcore 4" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="840" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-59" value="Bcrypt Quadcore 3" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="840" width="110" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DrjE5Jhkg9UTwB1D8b_l-60" value="Bcrypt Quadcore 1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="720" width="110" height="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
