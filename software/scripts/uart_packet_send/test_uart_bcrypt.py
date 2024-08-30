@@ -10,7 +10,7 @@ def print_ports():
         print(p)
 
 if __name__ == "__main__":
-    #print_ports()
+    print_ports()
 
     # OPEN SERIAL PORT
     ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=0.01)
@@ -22,8 +22,8 @@ if __name__ == "__main__":
     # packet = hard_attack()
     # print(f"PACKET TO SEND : {packet}")
     # ser.write(packet)
-    for i in range(4):
-        packet = easy_attack(i)
+    for i in range(22):
+        packet = hard_attack(i)
         ser.write(packet)
 
     return_packet = []
@@ -34,13 +34,13 @@ if __name__ == "__main__":
             if return_val[0] == 0:
                 print("RECEIVED PACKET")
                 print(return_packet)
-                # if return_packet[2] == 0x10:
-                #     break
+                if return_packet[2] == 0x10:
+                    break
                 return_packet.clear()
 
 
-    # # CLOSE SERIAL PORT
-    # ser.close()
+    # CLOSE SERIAL PORT
+    ser.close()
 
 
     # while(True):

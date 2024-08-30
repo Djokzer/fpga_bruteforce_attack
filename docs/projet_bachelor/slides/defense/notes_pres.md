@@ -1,0 +1,10 @@
+- Table des matière useless
+- Bien introduire projet exemple avec gpu
+- Mettre une phrase pour slide 7
+- Reduire partie impléementation existante
+- Changer nom solution et introduire avec comparaison.
+- Deplacer schéma solution après slide des cartes
+- Ajouter détails slides des cartes.
+- Expliquer que paquet permet de régler UN quadcore et synchro des quadcores
+- Modifier schéma test, port a et b pas clairs.
+- Préciser puissance pas prècis.
