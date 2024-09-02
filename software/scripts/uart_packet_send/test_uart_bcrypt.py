@@ -22,9 +22,24 @@ if __name__ == "__main__":
     # packet = hard_attack()
     # print(f"PACKET TO SEND : {packet}")
     # ser.write(packet)
-    for i in range(22):
-        packet = hard_attack(i)
-        ser.write(packet)
+    # for i in range(6):
+    #     packet = hard_attack(i)
+    #     ser.write(packet)
+
+    packet = hard_attack(0)
+    ser.write(packet)
+    packet = hard_attack(1)
+    ser.write(packet)
+    packet = hard_attack(2)
+    ser.write(packet)
+    packet = hard_attack(3)
+    ser.write(packet)
+    packet = hard_attack(4)
+    ser.write(packet)
+    packet = hard_attack(5)
+    ser.write(packet)
+    packet = hard_attack(6)
+    ser.write(packet)
 
     return_packet = []
     while(True):

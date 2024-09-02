@@ -1,21 +1,15 @@
-import dearpygui.dearpygui as dpg
+from bcrypt_cracker import BcryptCracker
+import serial
 
-dpg.create_context()
+def print_ports():
+    import serial.tools.list_ports
+    ports = list(serial.tools.list_ports.comports())
+    for p in ports:
+        print(p)
 
-with dpg.window(label="Example Window"):
-    dpg.add_text("Hello, world")
-    dpg.add_button(label="Save")
-    dpg.add_input_text(label="string", default_value="Quick brown fox")
-    dpg.add_slider_float(label="float", default_value=0.273, max_value=1)
+if __name__ == "__main__":
+    #print_ports()
+    cracker = BcryptCracker("abc.conf")
+    cracker.gen_packets()
+    cracker.start_attack()
 
-
-dpg.create_viewport(title='Custom Title', width=1280, height=720)
-dpg.setup_dearpygui()
-dpg.show_viewport()
-
-while dpg.is_dearpygui_running():
-    #print("this will run every frame")
-    dpg.render_dearpygui_frame()
-
-
-dpg.destroy_context()
